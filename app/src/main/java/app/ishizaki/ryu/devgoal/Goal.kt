@@ -9,5 +9,5 @@ import java.util.*
 data class Goal(
     @PrimaryKey val uid: Int,
     val goalWord: String,
-    @ColumnInfo(name = "goal_date") val goalDate: Date,
+    val goalDate: Date,
     )

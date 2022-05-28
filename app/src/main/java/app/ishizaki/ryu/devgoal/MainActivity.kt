@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         roomTestButton.setOnClickListener {
-            helloWorld.text = goalDao.getAll()
+            helloWorld.text = goals[0].goalWord
         }
 
     }
