@@ -7,14 +7,14 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+
     val db = Room.databaseBuilder(
         applicationContext,
-        AppDatabase::class.java, "Goal"
+        GoalDatabase::class.java, "goal.db"
     ).build()
 
     val goalDao = db.goalDao()
-    val goals: List<Goal> = goalDao.getAll()
-
+    val goals = goalDao.getAll()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
