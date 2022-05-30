@@ -1,28 +1,25 @@
 package app.ishizaki.ryu.devgoal
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 
 @Dao
 interface GoalDao {
     @Query("SELECT * FROM goal")
     fun getAll(): List<Goal>
 
-    @Query("SELECT * FROM goal WHERE uid IN (id)")
-    fun loadAllByIds(goalsIds: IntArray): List<Goal>
-
-    @Query("SELECT * FROM goal WHERE first_name LIKE :first AND " +
-            "last_name LIKE :last LIMIT 1")
-    fun findByName(first: String, last: String): Goal
+    @Query("select * from goal where id = :id")
+    fun getGoal(id: Int): Goal
 
     @Insert
     fun insertAll(vararg goals: Goal)
+
+    @Insert
     fun insert(goal: Goal)
 
     @Delete
     fun delete(goal: Goal)
 
+    @Update
+    fun update(goal: Goal)
 }

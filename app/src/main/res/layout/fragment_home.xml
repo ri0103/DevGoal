@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.HomeFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+   <ImageButton
+       android:id="@+id/settingButton"
+       android:layout_width="40sp"
+       android:layout_height="40sp"
+       app:layout_constraintTop_toTopOf="parent"
+       app:layout_constraintRight_toRightOf="parent"
+       android:src="@drawable/ic_baseline_settings_24"
+       android:background="#FFFFFF"
+       />
+
+
+    <TextView
+        android:id="@+id/goalText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="はじめに、目標を設定しましょう"
+        android:textSize="18sp"
+        android:layout_marginTop="12sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <LinearLayout
+        android:id="@+id/goalSetBox"
+        android:layout_width="380sp"
+        android:layout_height="50sp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/goalText"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <EditText
+            android:id="@+id/goalEditText"
+            android:layout_width="300sp"
+            android:layout_height="50sp"
+            android:hint="(例) オリジナルアプリを完成させる"
+            />
+        <Button
+            android:id="@+id/goalSetButton"
+            android:layout_width="60sp"
+            android:layout_height="40sp"
+            android:text="設定"
+            app:cornerRadius="30sp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:textSize="10sp" />
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/goalSetBox"
+        app:layout_constraintBottom_toTopOf="@id/kaihatuButton"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
+    <Button
+        android:id="@+id/kaihatuButton"
+        android:layout_width="200sp"
+        android:layout_height="120sp"
+        android:text="開発する"
+        app:cornerRadius="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:textSize="32sp"
+        android:layout_marginBottom="24sp"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
