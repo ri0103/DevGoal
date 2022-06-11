@@ -10,9 +10,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DevGoal">
         <activity
+            android:name=".EndStopwatchActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AddTaskActivity"
+            android:exported="false" />
+        <activity
             android:name=".StopwatchActivity"
             android:exported="false" />
-
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -22,7 +27,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service android:name=".TimerService"/>
+
+        <service android:name=".TimerService" />
     </application>
 
 </manifest>

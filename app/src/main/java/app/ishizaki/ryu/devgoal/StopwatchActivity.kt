@@ -7,8 +7,14 @@ import android.content.IntentFilter
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.lifecycle.lifecycleScope
+import androidx.room.Room
 import app.ishizaki.ryu.devgoal.databinding.ActivityStopwatchBinding
 import kotlinx.android.synthetic.main.activity_stopwatch.*
+import kotlinx.coroutines.*
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.util.*
 import kotlin.math.roundToInt
 
 class StopwatchActivity : AppCompatActivity() {
@@ -18,10 +24,18 @@ class StopwatchActivity : AppCompatActivity() {
     private var time = 0.0
 
 
+    private val scope = CoroutineScope ( Job() + Dispatchers.Main )
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityStopwatchBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val db = Room.databaseBuilder(
+            applicationContext,
+            AppDatabase::class.java, "database-stopwatch"
+        ).build()
 
         binding.startStopButton.setOnClickListener { startStopTimer() }
 //        binding.resetButton.setOnClickListener { resetTimer() }
@@ -30,6 +44,37 @@ class StopwatchActivity : AppCompatActivity() {
             stCountText.setTextColor(Color.LTGRAY)
             stopTimer()
             binding.startStopButton.text = "再開"
+        }
+        binding.endButton.setOnClickListener {
+
+
+            lifecycleScope.launch {
+                withContext(Dispatchers.Default){
+
+                    val stopwatch = Stopwatch(0, Date(), time, 1)
+
+                    val stopwatchDao = db.stopwatchDao()
+                    stopwatchDao.insert(stopwatch)
+
+                }
+
+            }
+//            scope.launch {
+//                withContext(Dispatchers.IO){
+//                    //ここがIOスレッド
+//                    val stopwatch = Stopwatch(0, Date(), time, 1)
+//
+//                    val stopwatchDao = db.stopwatchDao()
+//                    stopwatchDao.insert(stopwatch)
+//
+//                }
+//                //こっちだと普通にメインスレッド
+//            }
+
+            val intent = Intent(applicationContext, EndStopwatchActivity::class.java)
+            startActivity(intent)
+
+
         }
 
         serviceIntent = Intent(applicationContext, TimerService::class.java)
