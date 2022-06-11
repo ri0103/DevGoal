@@ -3,6 +3,7 @@ package app.ishizaki.ryu.devgoal
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.room.Room
 import app.ishizaki.ryu.devgoal.fragments.BookmarkFragment
@@ -24,6 +25,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         replaceFragment(homeFragment)
+
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
 
         bottom_navigation.setOnNavigationItemSelectedListener {

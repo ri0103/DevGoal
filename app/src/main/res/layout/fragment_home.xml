@@ -24,6 +24,7 @@
         android:layout_height="wrap_content"
         android:text="はじめに、目標を設定しましょう"
         android:textSize="18sp"
+        android:fontFamily="@font/ricty_diminished_bold"
         android:layout_marginTop="12sp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"

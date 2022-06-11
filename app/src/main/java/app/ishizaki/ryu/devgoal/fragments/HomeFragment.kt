@@ -1,6 +1,7 @@
 package app.ishizaki.ryu.devgoal.fragments
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.preference.PreferenceManager
 import androidx.fragment.app.Fragment
@@ -9,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import app.ishizaki.ryu.devgoal.R
+import app.ishizaki.ryu.devgoal.StopwatchActivity
 import kotlinx.android.synthetic.main.fragment_home.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -52,6 +54,11 @@ class HomeFragment : Fragment() {
             sharedPref.edit().putString("goalText", goalEditText.text.toString()).apply()
             Toast.makeText(requireContext(), "test", Toast.LENGTH_LONG).show()
             goalText.text = sharedPref.getString("goalText", "はじめに、目標を設定しよ！")
+        }
+
+        kaihatuButton.setOnClickListener {
+            val intent = Intent (getActivity(), StopwatchActivity::class.java)
+            getActivity()?.startActivity(intent)
         }
 
     }
