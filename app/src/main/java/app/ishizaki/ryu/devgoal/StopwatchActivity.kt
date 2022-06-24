@@ -12,8 +12,6 @@ import androidx.room.Room
 import app.ishizaki.ryu.devgoal.databinding.ActivityStopwatchBinding
 import kotlinx.android.synthetic.main.activity_stopwatch.*
 import kotlinx.coroutines.*
-import java.time.LocalDate
-import java.time.LocalDateTime
 import java.util.*
 import kotlin.math.roundToInt
 
@@ -22,6 +20,10 @@ class StopwatchActivity : AppCompatActivity() {
     private var timerStarted = false
     private lateinit var serviceIntent: Intent
     private var time = 0.0
+
+    companion object {
+        const val EXTRA_MESSAGE = "app.ishizaki.ryu.devgoal.MESSAGE"
+    }
 
 
     private val scope = CoroutineScope ( Job() + Dispatchers.Main )
@@ -32,10 +34,6 @@ class StopwatchActivity : AppCompatActivity() {
         binding = ActivityStopwatchBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val db = Room.databaseBuilder(
-            applicationContext,
-            AppDatabase::class.java, "database-stopwatch"
-        ).build()
 
         binding.startStopButton.setOnClickListener { startStopTimer() }
 //        binding.resetButton.setOnClickListener { resetTimer() }
@@ -46,35 +44,10 @@ class StopwatchActivity : AppCompatActivity() {
             binding.startStopButton.text = "再開"
         }
         binding.endButton.setOnClickListener {
-
-
-            lifecycleScope.launch {
-                withContext(Dispatchers.Default){
-
-                    val stopwatch = Stopwatch(0, Date(), time, 1)
-
-                    val stopwatchDao = db.stopwatchDao()
-                    stopwatchDao.insert(stopwatch)
-
-                }
-
-            }
-//            scope.launch {
-//                withContext(Dispatchers.IO){
-//                    //ここがIOスレッド
-//                    val stopwatch = Stopwatch(0, Date(), time, 1)
-//
-//                    val stopwatchDao = db.stopwatchDao()
-//                    stopwatchDao.insert(stopwatch)
-//
-//                }
-//                //こっちだと普通にメインスレッド
-//            }
-
             val intent = Intent(applicationContext, EndStopwatchActivity::class.java)
+            intent.putExtra(EXTRA_MESSAGE, time)
+            finish()
             startActivity(intent)
-
-
         }
 
         serviceIntent = Intent(applicationContext, TimerService::class.java)

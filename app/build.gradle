@@ -41,6 +41,7 @@ android {
     }
 }
 
+
 dependencies {
 
     implementation 'androidx.core:core-ktx:1.7.0'
@@ -51,12 +52,19 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     implementation 'com.google.android.material:material:1.1.0'
-//    implementation "androidx.compose.material3:material3:material3_version"
 
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.0'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0'
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.0'
+//    implementation "androidx.compose.material3:material3:1.0.0-alpha13"
 
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.1'
+
+//    implementation 'androidx.lifecycle.ViewModelProviders:2.4.1'
+
+
+
+    implementation 'com.github.PhilJay:MpAndroidChart:v3.1.0'
+//    implementation project(':MPChartLib')
 
 
     def room_version = "2.4.2"
@@ -82,6 +90,7 @@ dependencies {
 
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9'
 
+    kapt 'android.arch.persistence.room:compiler:1.1.1'
 
 
 

@@ -1,18 +1,18 @@
 package app.ishizaki.ryu.devgoal.fragments
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.preference.PreferenceManager
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.liveData
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.room.Room
 import app.ishizaki.ryu.devgoal.*
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -20,6 +20,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.*
+import kotlin.collections.ArrayList
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -33,12 +34,14 @@ private const val ARG_PARAM2 = "param2"
  */
 class HomeFragment : Fragment() {
 
-
-//    val sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity())
+//    private lateinit var recyclerViewAdapter: TaskRecyclerviewAdapter
+//    private lateinit var viewModel: HomeFragmentViewModel
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+//        recyclerViewAdapter = TaskRecyclerviewAdapter()
+//        recyclerViewTask.adapter = recyclerViewAdapter
     }
 
     override fun onCreateView(
@@ -50,13 +53,32 @@ class HomeFragment : Fragment() {
 
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
 
         val db = Room.databaseBuilder(
             requireContext(),
             AppDatabase::class.java, "database-task"
         ).build()
+
+        val taskAdapter = TaskRecyclerviewAdapter(requireContext())
+
+        lifecycleScope.launch(Dispatchers.Default) {
+            val taskDao = db.taskDao()
+            val all = taskDao.getAll()
+            withContext(Dispatchers.Main) {
+                taskAdapter.update(all)
+            }
+        }
+
+        recyclerViewTask.apply {
+            layoutManager = LinearLayoutManager(activity)
+            adapter = taskAdapter
+//            val divider = DividerItemDecoration(requireContext(), VERTICAL)
+//            addItemDecoration(divider)
+        }
 
         val sharedPref = requireActivity().getSharedPreferences("goalData", Context.MODE_PRIVATE)
 
@@ -65,26 +87,29 @@ class HomeFragment : Fragment() {
 
         goalSetButton.setOnClickListener {
             sharedPref.edit().putString("goalText", goalEditText.text.toString()).apply()
-            Toast.makeText(requireContext(), "test", Toast.LENGTH_LONG).show()
+//            Toast.makeText(requireContext(), "test", Toast.LENGTH_LONG).show()
             goalText.text = sharedPref.getString("goalText", "はじめに、目標を設定しよ！")
         }
 
         addTaskButton.setOnClickListener {
 
-            lifecycleScope.launch {
-                withContext(Dispatchers.Default){
-                    val task = Task(0, addTaskEditText.text.toString())
-                    val taskDao = db.taskDao()
-                    taskDao.insert(task)
+           val task = Task(0, addTaskEditText.text.toString())
+//            viewModel.insertTask(task)
 
+            lifecycleScope.launch(Dispatchers.Default) {
+                val taskDao = db.taskDao()
 
-                    val tasks: MutableList<Task> = mutableListOf()
-                    tasks.addAll(taskDao.getAll())
-                    Log.d("HomeFragment", tasks.toString())
+                taskDao.insert(task)
 
+                val tasks: MutableList<Task> = mutableListOf()
+                tasks.addAll(taskDao.getAll())
+                Log.d("HomeFragment", tasks.toString())
 
+                val all = taskDao.getAll()
+
+                withContext(Dispatchers.Main) {
+                    taskAdapter.update(all)
                 }
-
             }
             addTaskEditText.text.clear()
         }
@@ -93,6 +118,18 @@ class HomeFragment : Fragment() {
             val intent = Intent (getActivity(), StopwatchActivity::class.java)
             getActivity()?.startActivity(intent)
         }
+
+
+
+
+
+//        viewModel = ViewModelProvider(this).get(HomeFragmentViewModel::class.java)
+//        viewModel.getAllTasksObservers().observe(requireActivity(), androidx.lifecycle.Observer {
+//            recyclerViewAdapter.setListData(ArrayList(it))
+//            recyclerViewAdapter.notifyDataSetChanged()
+//        })
+
+
 
     }
 

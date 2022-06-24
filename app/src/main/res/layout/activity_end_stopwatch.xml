@@ -6,36 +6,41 @@
     android:layout_height="match_parent"
     tools:context=".EndStopwatchActivity">
 
+
     <TextView
         android:id="@+id/otukareTextView"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:textSize="48sp"
+        app:layout_constraintBottom_toTopOf="@id/endingStopwatchParts"
+        android:textSize="40sp"
         android:fontFamily="@font/ricty_diminished_bold"
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48sp"
-        android:text="お疲れ様です！" />
+        android:text="お疲れ様でした！" />
 
+
+    <LinearLayout
+        android:id="@+id/endingStopwatchParts"
+        app:layout_constraintTop_toBottomOf="@id/otukareTextView"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
     <TextView
         android:id="@+id/didConcentrateTextView"
-        app:layout_constraintTop_toBottomOf="@id/otukareTextView"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
         android:textSize="28sp"
         android:fontFamily="@font/ricty_diminished_regular"
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80sp"
+
         android:text="開発に集中できましたか？" />
     <LinearLayout
         android:id="@+id/concentrationSelectionButtons"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/didConcentrateTextView"
         android:layout_marginTop="48sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -68,5 +73,6 @@
             android:background="@drawable/button_bg_1"
             />
 
+    </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

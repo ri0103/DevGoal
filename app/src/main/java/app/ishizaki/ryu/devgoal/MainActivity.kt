@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.room.Room
 import app.ishizaki.ryu.devgoal.fragments.BookmarkFragment
 import app.ishizaki.ryu.devgoal.fragments.ChartFragment
@@ -37,7 +38,6 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
-
 
 
     }
