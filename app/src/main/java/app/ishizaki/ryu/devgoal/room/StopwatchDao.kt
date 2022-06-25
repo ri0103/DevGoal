@@ -1,9 +1,10 @@
-package app.ishizaki.ryu.devgoal
+package app.ishizaki.ryu.devgoal.room
 
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import app.ishizaki.ryu.devgoal.dataclass.Stopwatch
 
 @Dao
 interface StopwatchDao {

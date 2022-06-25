@@ -1,11 +1,14 @@
-package app.ishizaki.ryu.devgoal
+package app.ishizaki.ryu.devgoal.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.lifecycle.lifecycleScope
 import androidx.room.Room
-import app.ishizaki.ryu.devgoal.databinding.ActivityEndStopwatchBinding
+import app.ishizaki.ryu.devgoal.room.AppDatabase
+import app.ishizaki.ryu.devgoal.R
+import app.ishizaki.ryu.devgoal.TimerService
+import app.ishizaki.ryu.devgoal.dataclass.Stopwatch
 import kotlinx.android.synthetic.main.activity_end_stopwatch.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -13,6 +16,8 @@ import kotlinx.coroutines.withContext
 import java.util.*
 
 class EndStopwatchActivity : AppCompatActivity() {
+
+    private lateinit var serviceIntent: Intent
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,6 +31,9 @@ class EndStopwatchActivity : AppCompatActivity() {
             AppDatabase::class.java, "database-stopwatch"
         ).build()
 
+        serviceIntent = Intent(applicationContext, TimerService::class.java)
+
+
         concentrationButton1.setOnClickListener{
             lifecycleScope.launch {
                 withContext(Dispatchers.Default){
@@ -38,9 +46,7 @@ class EndStopwatchActivity : AppCompatActivity() {
                 }
             }
             finish()
-
-
-
+            stopService(serviceIntent)
         }
 
         concentrationButton2.setOnClickListener {
@@ -52,6 +58,7 @@ class EndStopwatchActivity : AppCompatActivity() {
                 }
             }
             finish()
+            stopService(serviceIntent)
         }
 
         concentrationButton3.setOnClickListener {
@@ -63,6 +70,7 @@ class EndStopwatchActivity : AppCompatActivity() {
                 }
             }
             finish()
+            stopService(serviceIntent)
         }
 
     }

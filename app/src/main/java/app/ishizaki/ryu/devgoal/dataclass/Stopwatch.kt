@@ -1,4 +1,4 @@
-package app.ishizaki.ryu.devgoal
+package app.ishizaki.ryu.devgoal.dataclass
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

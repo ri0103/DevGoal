@@ -1,4 +1,4 @@
-package app.ishizaki.ryu.devgoal
+package app.ishizaki.ryu.devgoal.activities
 
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -7,12 +7,11 @@ import android.content.IntentFilter
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.lifecycle.lifecycleScope
-import androidx.room.Room
+import app.ishizaki.ryu.devgoal.R
+import app.ishizaki.ryu.devgoal.TimerService
 import app.ishizaki.ryu.devgoal.databinding.ActivityStopwatchBinding
 import kotlinx.android.synthetic.main.activity_stopwatch.*
 import kotlinx.coroutines.*
-import java.util.*
 import kotlin.math.roundToInt
 
 class StopwatchActivity : AppCompatActivity() {
@@ -24,9 +23,6 @@ class StopwatchActivity : AppCompatActivity() {
     companion object {
         const val EXTRA_MESSAGE = "app.ishizaki.ryu.devgoal.MESSAGE"
     }
-
-
-    private val scope = CoroutineScope ( Job() + Dispatchers.Main )
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

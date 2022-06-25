@@ -1,10 +1,11 @@
-package app.ishizaki.ryu.devgoal
+package app.ishizaki.ryu.devgoal.room
 
-import android.content.Context
 import androidx.room.Database
-import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import app.ishizaki.ryu.devgoal.Converters
+import app.ishizaki.ryu.devgoal.dataclass.Stopwatch
+import app.ishizaki.ryu.devgoal.dataclass.Task
 
 @Database(entities = [Stopwatch::class, Task::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)

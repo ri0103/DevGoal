@@ -9,18 +9,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.room.Room
 import app.ishizaki.ryu.devgoal.*
+import app.ishizaki.ryu.devgoal.activities.SettingActivity
+import app.ishizaki.ryu.devgoal.activities.StopwatchActivity
+import app.ishizaki.ryu.devgoal.dataclass.Task
+import app.ishizaki.ryu.devgoal.room.AppDatabase
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.*
-import kotlin.collections.ArrayList
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -82,14 +83,14 @@ class HomeFragment : Fragment() {
 
         val sharedPref = requireActivity().getSharedPreferences("goalData", Context.MODE_PRIVATE)
 
-        goalText.text = sharedPref.getString("goalText", "デフォルト文字列")
+        goalText.text = sharedPref.getString("goalText", "目標を設定するとここに表示されます")
 
 
-        goalSetButton.setOnClickListener {
-            sharedPref.edit().putString("goalText", goalEditText.text.toString()).apply()
-//            Toast.makeText(requireContext(), "test", Toast.LENGTH_LONG).show()
-            goalText.text = sharedPref.getString("goalText", "はじめに、目標を設定しよ！")
+        settingButton.setOnClickListener {
+            val intent = Intent (getActivity(), SettingActivity::class.java)
+            getActivity()?.startActivity(intent)
         }
+
 
         addTaskButton.setOnClickListener {
 

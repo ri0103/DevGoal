@@ -1,20 +1,14 @@
-package app.ishizaki.ryu.devgoal
+package app.ishizaki.ryu.devgoal.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import androidx.room.Room
+import app.ishizaki.ryu.devgoal.R
 import app.ishizaki.ryu.devgoal.fragments.BookmarkFragment
 import app.ishizaki.ryu.devgoal.fragments.ChartFragment
 import app.ishizaki.ryu.devgoal.fragments.HomeFragment
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity() {
 
