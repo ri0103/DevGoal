@@ -1,21 +1,39 @@
 package app.ishizaki.ryu.devgoal.activities
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
+import androidx.room.Room
 import app.ishizaki.ryu.devgoal.R
+import app.ishizaki.ryu.devgoal.dataclass.Goal
+import app.ishizaki.ryu.devgoal.room.AppDatabase
+import kotlinx.android.synthetic.main.activity_setting.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class SettingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_setting)
 
-//        val sharedPref = this.getSharedPreferences("goalData", Context.MODE_PRIVATE)
-//
-//        goalSetButton.setOnClickListener {
-//            sharedPref.edit().putString("goalText", goalEditText.text.toString()).apply()
-////            Toast.makeText(requireContext(), "test", Toast.LENGTH_LONG).show()
-//            goalText.text = sharedPref.getString("goalText", "はじめに、目標を設定しよ！")
-//        }
+        val db = Room.databaseBuilder(
+            applicationContext,
+            AppDatabase::class.java, "database-goal"
+        ).build()
+
+        goalSetButton.setOnClickListener {
+            lifecycleScope.launch {
+                withContext(Dispatchers.Default){
+                    val goal = Goal(0, goalEditText.text.toString())
+                    val goalDao = db.goalDao()
+                    goalDao.insert(goal)
+                }
+            }
+            Toast.makeText(applicationContext, "test", Toast.LENGTH_LONG).show()
+        }
 
     }
 }

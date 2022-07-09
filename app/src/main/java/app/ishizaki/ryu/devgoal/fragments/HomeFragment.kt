@@ -55,6 +55,19 @@ class HomeFragment : Fragment() {
     }
 
     @SuppressLint("NotifyDataSetChanged")
+
+//    override fun onResume() {
+//        super.onResume()
+//
+//        val db = Room.databaseBuilder(
+//            requireContext(),
+//            AppDatabase::class.java, "database-goal"
+//        ).build()
+//
+//
+//
+//    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -69,10 +82,20 @@ class HomeFragment : Fragment() {
         lifecycleScope.launch(Dispatchers.Default) {
             val taskDao = db.taskDao()
             val all = taskDao.getAll()
+
+
+                val goalDao = db.goalDao()
+                val all1 = goalDao.getAll()
+            if (all1.size == 1){
+                goalText.text = all1[0].goalText
+            }
+
+
             withContext(Dispatchers.Main) {
                 taskAdapter.update(all)
             }
         }
+
 
         recyclerViewTask.apply {
             layoutManager = LinearLayoutManager(activity)
@@ -81,9 +104,6 @@ class HomeFragment : Fragment() {
 //            addItemDecoration(divider)
         }
 
-        val sharedPref = requireActivity().getSharedPreferences("goalData", Context.MODE_PRIVATE)
-
-        goalText.text = sharedPref.getString("goalText", "目標を設定するとここに表示されます")
 
 
         settingButton.setOnClickListener {

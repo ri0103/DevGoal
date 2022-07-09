@@ -28,14 +28,26 @@
         />
 
     <TextView
-        android:id="@+id/goalText"
+        android:id="@+id/goalIsText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="はじめに、目標を設定しましょう"
+        android:text="目標:"
         android:textSize="24sp"
         android:fontFamily="@font/ricty_diminished_bold"
         android:layout_marginTop="12sp"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="24sp"
+        />
+    <TextView
+        android:id="@+id/goalText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="目標を設定してください"
+        android:textSize="24sp"
+        android:fontFamily="@font/ricty_diminished_bold"
+        android:layout_marginTop="12sp"
+        app:layout_constraintTop_toBottomOf="@id/goalIsText"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
 
