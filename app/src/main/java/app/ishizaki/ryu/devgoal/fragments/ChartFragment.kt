@@ -16,11 +16,14 @@ import app.ishizaki.ryu.devgoal.room.AppDatabase
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import kotlinx.android.synthetic.main.fragment_chart.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.text.SimpleDateFormat
 import java.time.LocalDate
+import java.time.Year
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -45,7 +48,7 @@ class ChartFragment : Fragment() {
 
         val db = Room.databaseBuilder(
             requireContext(),
-            AppDatabase::class.java, "database-stopwatch"
+            AppDatabase::class.java, "database"
         ).build()
 
         val chartData = ArrayList<BarEntry>()
@@ -58,22 +61,46 @@ class ChartFragment : Fragment() {
 //            stopwatchdatas.addAll(all)
 //            Log.d("ChartFragment", stopwatchdatas.toString())
 
+
+
+
+
             for (stopwatch in all) {
-                if (stopwatchDurations.keys.contains(stopwatch.endDateTime)) {
+
+                val calendar = Calendar.getInstance()
+                calendar.time = stopwatch.endDateTime
+
+                calendar.set(Calendar.HOUR_OF_DAY, 0)
+                calendar.set(Calendar.MINUTE, 0)
+                calendar.set(Calendar.SECOND, 0)
+                calendar.set(Calendar.MILLISECOND, 0)
+
+                    if (stopwatchDurations.keys.contains(calendar.time)) {
                     //mapの更新
-                    stopwatchDurations[stopwatch.endDateTime]?.add(stopwatch)
+                    stopwatchDurations[calendar.time]?.add(stopwatch)
                 } else {
                     //mapの追加
-                    stopwatchDurations.put(stopwatch.endDateTime, mutableListOf(stopwatch))
+                    stopwatchDurations.put(calendar.time, mutableListOf(stopwatch))
+
                 }
-                Log.d("ChartFragment", stopwatchDurations[stopwatch.endDateTime].toString())
+
+//                Log.d("ChartFragment", stopwatchDurations[calendar.time].toString())
             }
+
+//            for (stopwatch in all) {
+//                if (stopwatchDurations.keys.contains(stopwatch.endDateTime)) {
+//                    //mapの更新
+//                    stopwatchDurations[stopwatch.endDateTime]?.add(stopwatch)
+//                } else {
+//                    //mapの追加
+//                    stopwatchDurations.put(stopwatch.endDateTime, mutableListOf(stopwatch))
+//                }
+//                Log.d("ChartFragment", stopwatchDurations[stopwatch.endDateTime].toString())
+//            }
 
 
 
             withContext(Dispatchers.Main){
-
-
 
                 stopwatchDurations.keys.forEachIndexed { index, key ->
 
@@ -88,9 +115,26 @@ class ChartFragment : Fragment() {
 
 
                 val chartDataSet = BarDataSet(chartData, "作業時間（分）")
-                timeBarChart.animateY(1000)
+                timeBarChart.animateY(480)
                 val data = BarData(chartDataSet)
+
                 timeBarChart.data = data
+                val labels = arrayOf("いち", "に", "さん", "よん")
+                timeBarChart.xAxis.setValueFormatter(IndexAxisValueFormatter(labels))
+//                timeBarChart.xAxis.valueFormatter.apply {
+//                    getAxisLabel(0F, )
+//                }
+                timeBarChart.xAxis.apply {
+                    isEnabled = false
+                }
+                timeBarChart.axisLeft.apply {
+                    isEnabled = false
+                }
+                timeBarChart.axisRight.apply {
+                    isEnabled = false
+                }
+                timeBarChart.description.isEnabled = false
+
             }
 
 

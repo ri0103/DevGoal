@@ -7,7 +7,7 @@ import java.util.*
 
 @Entity
 data class Goal(
-    @PrimaryKey val id: Int,
-    @ColumnInfo val goalText: String
-//    val : Date,
+    @PrimaryKey  val id: Int,
+    val goalText: String,
+    val goalDueDate: Date,
 )

@@ -12,21 +12,23 @@
         android:id="@+id/chart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="グラフテスト"
+        android:text="開発履歴"
         android:textSize="36sp"
+        android:fontFamily="@font/ricty_diminished_bold"
+        android:layout_marginTop="60sp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/timeBarChart"/>
+/>
 
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/timeBarChart"
-        app:layout_constraintTop_toBottomOf="@+id/chart"
         android:layout_width="match_parent"
-        android:layout_height="400sp"
+        android:layout_height="540sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"/>
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginBottom="32sp"/>
 
 
 

@@ -1,9 +1,6 @@
 package app.ishizaki.ryu.devgoal.room
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import app.ishizaki.ryu.devgoal.dataclass.Goal
 
 @Dao
@@ -16,6 +13,9 @@ interface GoalDao {
 
     @Insert
     fun insert(goal: Goal)
+
+    @Update
+    fun update(goal: Goal)
 
     @Delete
     fun delete(goal: Goal)

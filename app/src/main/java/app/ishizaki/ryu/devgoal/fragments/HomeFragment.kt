@@ -21,6 +21,7 @@ import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.text.SimpleDateFormat
 import java.util.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -38,6 +39,8 @@ class HomeFragment : Fragment() {
 //    private lateinit var recyclerViewAdapter: TaskRecyclerviewAdapter
 //    private lateinit var viewModel: HomeFragmentViewModel
 
+
+    val dateFormat = SimpleDateFormat("期限: yyyy/MM/dd")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,7 +77,7 @@ class HomeFragment : Fragment() {
 
         val db = Room.databaseBuilder(
             requireContext(),
-            AppDatabase::class.java, "database-task"
+            AppDatabase::class.java, "database"
         ).build()
 
         val taskAdapter = TaskRecyclerviewAdapter(requireContext())
@@ -83,16 +86,15 @@ class HomeFragment : Fragment() {
             val taskDao = db.taskDao()
             val all = taskDao.getAll()
 
-
                 val goalDao = db.goalDao()
                 val all1 = goalDao.getAll()
-            if (all1.size == 1){
-                goalText.text = all1[0].goalText
-            }
-
 
             withContext(Dispatchers.Main) {
                 taskAdapter.update(all)
+                if (all1.size != 0){
+                    goalText.text = "目標: " + all1[0].goalText
+                    dueDateText.text = dateFormat.format(all1[0].goalDueDate).toString()
+                }
             }
         }
 

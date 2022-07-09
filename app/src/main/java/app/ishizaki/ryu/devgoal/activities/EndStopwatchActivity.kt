@@ -28,7 +28,7 @@ class EndStopwatchActivity : AppCompatActivity() {
 
         val db = Room.databaseBuilder(
             applicationContext,
-            AppDatabase::class.java, "database-stopwatch"
+            AppDatabase::class.java, "database"
         ).build()
 
         serviceIntent = Intent(applicationContext, TimerService::class.java)
