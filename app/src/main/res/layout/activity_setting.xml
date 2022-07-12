@@ -6,6 +6,27 @@
     android:layout_height="match_parent"
     tools:context=".activities.SettingActivity">
 
+
+    <Button
+        android:id="@+id/goalSetButton"
+        android:layout_width="80sp"
+        android:layout_height="60sp"
+        android:text="保存"
+        app:cornerRadius="30sp"
+        android:layout_margin="18sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:textSize="18sp" />
+
+    <ImageButton
+        android:id="@+id/closeSettingButton"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_width="40sp"
+        android:layout_height="40sp"
+        android:background="@drawable/ic_baseline_close_24"
+        android:layout_margin="24sp"/>
+
     <LinearLayout
         android:id="@+id/goalSetBox"
         android:layout_width="380sp"
@@ -18,31 +39,23 @@
         android:orientation="vertical">
         <EditText
             android:id="@+id/goalEditText"
-            android:layout_width="300sp"
-            android:layout_height="50sp"
+            android:layout_width="320sp"
+            android:layout_height="60sp"
             android:hint="(例) オリジナルアプリを完成させる"
             />
 
         <Button
             android:id="@+id/selectDueDateButton"
-            android:layout_width="100sp"
-            android:layout_height="40sp"
+            android:layout_width="240sp"
+            android:layout_height="60sp"
             android:text="日付を選択"
-            app:cornerRadius="30sp"
+            app:cornerRadius="18sp"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_margin="30sp"
-            android:textSize="10sp" />
+            android:layout_margin="18sp"
+            android:textSize="14sp" />
 
-        <Button
-            android:id="@+id/goalSetButton"
-            android:layout_width="60sp"
-            android:layout_height="40sp"
-            android:text="設定"
-            app:cornerRadius="30sp"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:textSize="10sp" />
+
     </LinearLayout>
 
 

@@ -14,4 +14,19 @@
         <item name="android:statusBarColor" tools:targetApi="l">#787878</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="DatePickerStyle" parent="Theme.AppCompat.Light.Dialog">
+<!--        <item name="android:windowBackground">@drawable/picker_dialog_bg</item>-->
+    <!--        <item name="colorControlHighlight">#ffffe3</item>-->
+    <!--        <item name="colorControlActivated">#7ccc70</item>-->
+    <!--        <item name="colorOnPrimary">#3f98fc</item>-->
+    <!--        <item name="android:textColorPrimary">#262626</item>-->
+    <!--        <item name="android:textColorSecondary">#262626</item>-->
+    <!--        <item name="android:textColorPrimaryInverse">#d9f0ff</item>-->
+    <!--        <item name="android:textColorSecondaryInverse">#fffdf0</item>-->
+    <!--        <item name="fontFamily">@font/mplusregular</item>-->
+    <!--        <item name="android:timePickerStyle">@style/CustomTimePickerStyle</item>-->
+</style>
+
+
 </resources>

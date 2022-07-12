@@ -3,6 +3,7 @@ package app.ishizaki.ryu.devgoal.activities
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.Dialog
+import android.content.res.Resources
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
@@ -35,7 +36,7 @@ class SettingActivity : AppCompatActivity() {
         selectDueDateButton.setOnClickListener {
             DatePickerDialog(
                 this,
-                AlertDialog.THEME_DEVICE_DEFAULT_DARK,
+                AlertDialog.THEME_DEVICE_DEFAULT_LIGHT,
 
                 { _, year, monthOfYear, dayOfMonth ->
                     Calendar.getInstance().apply { set(year, monthOfYear, dayOfMonth) }
@@ -75,7 +76,11 @@ class SettingActivity : AppCompatActivity() {
                 }
             }
 
+            finish()
+        }
 
+        closeSettingButton.setOnClickListener {
+            finish()
         }
 
     }

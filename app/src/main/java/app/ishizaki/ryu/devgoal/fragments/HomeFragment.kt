@@ -71,6 +71,25 @@ class HomeFragment : Fragment() {
 //
 //    }
 
+    override fun onResume() {
+        super.onResume()
+        val db = Room.databaseBuilder(
+            requireContext(),
+            AppDatabase::class.java, "database"
+        ).build()
+        lifecycleScope.launch(Dispatchers.Default) {
+            val goalDao = db.goalDao()
+            val all1 = goalDao.getAll()
+
+            withContext(Dispatchers.Main) {
+                if (all1.size != 0){
+                    goalText.text = "目標: " + all1[0].goalText
+                    dueDateText.text = dateFormat.format(all1[0].goalDueDate).toString()
+                }
+            }
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
