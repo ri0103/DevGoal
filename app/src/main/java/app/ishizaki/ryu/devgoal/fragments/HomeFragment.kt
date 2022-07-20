@@ -1,16 +1,25 @@
 package app.ishizaki.ryu.devgoal.fragments
 
 import android.annotation.SuppressLint
+import android.app.AlarmManager
+import android.app.Notification
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.graphics.Canvas
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import app.ishizaki.ryu.devgoal.*
 import app.ishizaki.ryu.devgoal.activities.SettingActivity
@@ -108,12 +117,16 @@ class HomeFragment : Fragment() {
                 val goalDao = db.goalDao()
                 val all1 = goalDao.getAll()
 
+
             withContext(Dispatchers.Main) {
                 taskAdapter.update(all)
                 if (all1.size != 0){
                     goalText.text = "目標: " + all1[0].goalText
                     dueDateText.text = dateFormat.format(all1[0].goalDueDate).toString()
                 }
+
+
+
             }
         }
 
@@ -131,6 +144,25 @@ class HomeFragment : Fragment() {
             val intent = Intent (getActivity(), SettingActivity::class.java)
             getActivity()?.startActivity(intent)
         }
+
+       taskAdapter.setOnTaskCellClickListener(
+           object : TaskRecyclerviewAdapter.OnTaskCellClickListener{
+               override fun onItemClick(task: Task) {
+
+                   lifecycleScope.launch(Dispatchers.Default) {
+                       val taskDao = db.taskDao()
+                       val all = taskDao.getAll()
+                       withContext(Dispatchers.Main) {
+                           taskAdapter.update(all)
+                       }
+                   }
+                   recyclerViewTask.apply {
+                       layoutManager = LinearLayoutManager(activity)
+                       adapter = taskAdapter
+                   }
+               }
+           }
+       )
 
 
         addTaskButton.setOnClickListener {
@@ -165,33 +197,114 @@ class HomeFragment : Fragment() {
 
 
 
-//        viewModel = ViewModelProvider(this).get(HomeFragmentViewModel::class.java)
-//        viewModel.getAllTasksObservers().observe(requireActivity(), androidx.lifecycle.Observer {
-//            recyclerViewAdapter.setListData(ArrayList(it))
-//            recyclerViewAdapter.notifyDataSetChanged()
-//        })
+
+
+
+
+
+//        lifecycleScope.launch(Dispatchers.Default) {
+//
+//
+//
+//            val taskDao = db.taskDao()
+//            val all = taskDao.getAll()
+//
+//            withContext(Dispatchers.Main) {
+//                fun getSwipeToDismissTouchHelper(adapter: TaskRecyclerviewAdapter)=
+//                    ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
+//                        ItemTouchHelper.ACTION_STATE_IDLE,
+//                        ItemTouchHelper.RIGHT
+//                    ){
+//
+//                        override fun onMove(
+//                            recyclerView: RecyclerView,
+//                            viewHolder: RecyclerView.ViewHolder,
+//                            target: RecyclerView.ViewHolder
+//                        ): Boolean {
+//                            return false
+//                        }
+//
+//                        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+//
+//                            val id = all[viewHolder.adapterPosition]?.id
+////                            val task = realm.where(Coverage::class.java).equalTo("id", id).findFirst()
+//                            val task = all[id]
+//                            if (task != null) {
+//                                taskDao.delete(task)
+//                            }
+//
+////                        coverageList = realm.where(Coverage::class.java).findAll().sort("createdTime", Sort.ASCENDING)
+//                            adapter.notifyItemRemoved(viewHolder.adapterPosition)
+//                        }
+//
+//                        @SuppressLint("ResourceType")
+//                        override fun onChildDraw(
+//                            c: Canvas,
+//                            recyclerView: RecyclerView,
+//                            viewHolder: RecyclerView.ViewHolder,
+//                            dX: Float,
+//                            dY: Float,
+//                            actionState: Int,
+//                            isCurrentlyActive: Boolean
+//                        ) {
+//                            super.onChildDraw(
+//                                c,
+//                                recyclerView,
+//                                viewHolder,
+//                                dX,
+//                                dY,
+//                                actionState,
+//                                isCurrentlyActive
+//                            )
+//
+//                            val itemView = viewHolder.itemView
+////                val background = ColorDrawable(getResources().getColor(R.color.delete_red))
+//                            val background = getResources().getDrawable(Color.RED)
+//
+//
+//                            val deleteIcon = activity?.let {
+//                                AppCompatResources.getDrawable(
+//                                    it,
+//                                    Color.RED
+//                                )
+//                            }
+//
+//                            val iconMarginVertical = (viewHolder.itemView.height - deleteIcon!!.intrinsicHeight) /2
+//                            deleteIcon.setBounds(
+//                                itemView.left + iconMarginVertical,
+//                                itemView.top + iconMarginVertical,
+//                                itemView.left + iconMarginVertical + deleteIcon.intrinsicWidth,
+//                                itemView.bottom - iconMarginVertical
+//                            )
+//
+//                            background.setBounds(
+//                                itemView.left,
+//                                itemView.top,
+//                                itemView.right + dX.toInt(),
+//                                itemView.bottom
+//                            )
+//                            background.draw(c)
+//                            deleteIcon.draw(c)
+//                        }
+//
+//                    })
+//
+//                val swipeToDismissTouchHelper = getSwipeToDismissTouchHelper(adapter = TaskRecyclerviewAdapter(
+//                    requireContext()
+//                ))
+//                swipeToDismissTouchHelper.attachToRecyclerView(recyclerViewTask)
+//
+//            }
+//
+//
+//
+//
+//
+//        }
 
 
 
     }
 
-//    companion object {
-//        /**
-//         * Use this factory method to create a new instance of
-//         * this fragment using the provided parameters.
-//         *
-//         * @param param1 Parameter 1.
-//         * @param param2 Parameter 2.
-//         * @return A new instance of fragment HomeFragment.
-//         */
-//        // TODO: Rename and change types and number of parameters
-//        @JvmStatic
-//        fun newInstance(param1: String, param2: String) =
-//            HomeFragment().apply {
-//                arguments = Bundle().apply {
-//                    putString(ARG_PARAM1, param1)
-//                    putString(ARG_PARAM2, param2)
-//                }
-//            }
-//    }
+
 }

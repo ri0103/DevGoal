@@ -3,22 +3,35 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="4sp">
+    android:layout_margin="6sp"
+    >
+
+
 
     <TextView
         android:id="@+id/taskTextView"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginRight="32sp"
-        android:layout_marginLeft="32sp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="360sp"
+        android:layout_height="48sp"
+        android:paddingTop="8sp"
+        android:paddingBottom="8sp"
+        android:paddingLeft="18sp"
         android:text="ここにタスクが入る"
-        android:textSize="18sp"
+        android:textSize="24sp"
         android:fontFamily="@font/ricty_diminished_bold"
         />
+
+    <ImageButton
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:id="@+id/deleteTaskButton"
+        android:background="@drawable/ic_baseline_delete_24"
+        android:layout_width="32sp"
+        android:layout_height="32sp"
+        android:layout_margin="8sp"
+        android:foregroundGravity="center_vertical"/>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

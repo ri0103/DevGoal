@@ -24,7 +24,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_margin="12sp"
-        android:src="@drawable/ic_baseline_settings_24"
+        android:background="@drawable/ic_baseline_settings_24"
         />
 
 
