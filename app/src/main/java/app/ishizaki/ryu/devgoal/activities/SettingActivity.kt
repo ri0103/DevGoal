@@ -1,30 +1,51 @@
 package app.ishizaki.ryu.devgoal.activities
 
-import android.app.AlertDialog
-import android.app.DatePickerDialog
-import android.app.Dialog
+import android.app.*
+import android.content.Context
+import android.content.Intent
 import android.content.res.Resources
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.lifecycleScope
 import androidx.room.Room
-import app.ishizaki.ryu.devgoal.R
+import app.ishizaki.ryu.devgoal.*
+import app.ishizaki.ryu.devgoal.Notification
+import app.ishizaki.ryu.devgoal.databinding.ActivityMainBinding
+import app.ishizaki.ryu.devgoal.databinding.ActivitySettingBinding
 import app.ishizaki.ryu.devgoal.dataclass.Goal
 import app.ishizaki.ryu.devgoal.room.AppDatabase
 import kotlinx.android.synthetic.main.activity_setting.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.time.LocalDate
 import java.util.*
 
 class SettingActivity : AppCompatActivity() {
+
+    private lateinit var binding : ActivitySettingBinding
+    var hourSelected: Int = 0
+    var minuteSelected: Int = 0
+
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_setting)
+        binding = ActivitySettingBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        createNotificationChannel()
+        binding.setNotificationButton.setOnClickListener {
+//            Toast.makeText(applicationContext, "保存ボタンおした", Toast.LENGTH_SHORT).show()
+            scheduleNotification() }
+
 
         var yearSelected: Int = 0
         var monthSelected: Int = 0
         var dateSelected: Int = 0
+
         val c:Calendar = Calendar.getInstance()
         var dueDate = Date()
 
@@ -57,6 +78,27 @@ class SettingActivity : AppCompatActivity() {
             }.show()
         }
 
+        selectNotificationTimeButton.setOnClickListener{
+            TimePickerDialog(
+                this,
+//                AlertDialog.THEME_DEVICE_DEFAULT_LIGHT,
+                AlertDialog.THEME_HOLO_LIGHT,
+
+                { _, hour, minute ->
+
+                    hourSelected = hour
+                    minuteSelected = minute
+
+                    selectNotificationTimeButton.text = "${hourSelected}時${minuteSelected}分"
+
+                },
+                Calendar.HOUR_OF_DAY,
+                Calendar.MINUTE,
+                true
+            ).apply {
+            }.show()
+        }
+
         goalSetButton.setOnClickListener {
             c.set(yearSelected, monthSelected, dateSelected)
             dueDate = c.time
@@ -83,5 +125,65 @@ class SettingActivity : AppCompatActivity() {
             finish()
         }
 
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun createNotificationChannel() {
+        val name = "開発催促通知"
+        val desc = "A description of the channel"
+        val importance = NotificationManager.IMPORTANCE_DEFAULT
+        val channel = NotificationChannel(channelID, name, importance)
+        channel.description = desc
+        val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.createNotificationChannel(channel)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun scheduleNotification() {
+        val intent = Intent(applicationContext, Notification::class.java)
+        val title = "開発通知"
+        val message= "今日も開発頑張ろうね！"
+        intent.putExtra(titleExtra, title)
+        intent.putExtra(messageExtra, message)
+
+        val pendingIntent = PendingIntent.getBroadcast(
+            applicationContext,
+            notificationID,
+            intent,
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+        )
+
+        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val time = getTime()
+        alarmManager.setExactAndAllowWhileIdle(
+            AlarmManager.RTC_WAKEUP,
+            time,
+            pendingIntent
+        )
+        Toast.makeText(applicationContext, "通知保存しました", Toast.LENGTH_SHORT).show()
+
+//        showAlert()
+
+    }
+
+//    private fun showAlert(){
+//
+//        AlertDialog.Builder(this)
+//            .setTitle("通知設定確認")
+//            .setPositiveButton("はい"){_,_ ->}
+//            .show()
+//    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun getTime(): Long {
+        val minute = minuteSelected
+        val hour = hourSelected
+        val day = LocalDate.now().dayOfMonth
+        val month = LocalDate.now().monthValue
+        val year = LocalDate.now().year
+
+        val calendar = Calendar.getInstance()
+        calendar.set(2022, 7, 23, 1, 19)
+        return calendar.timeInMillis
     }
 }

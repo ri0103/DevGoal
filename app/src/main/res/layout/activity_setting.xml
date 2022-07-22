@@ -58,6 +58,32 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/notificationSetBox"
+        app:layout_constraintTop_toBottomOf="@id/goalSetBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <Button
+            android:id="@+id/selectNotificationTimeButton"
+            android:layout_width="240sp"
+            android:layout_height="60sp"
+            android:text="時間を選択"
+            app:cornerRadius="18sp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_margin="18sp"
+            android:textSize="14sp"
+            />
+        <Button
+            android:id="@+id/setNotificationButton"
+            android:layout_width="56sp"
+            android:layout_height="56sp"
+            android:text="確定"/>
+
+    </LinearLayout>
+
 
 
 
