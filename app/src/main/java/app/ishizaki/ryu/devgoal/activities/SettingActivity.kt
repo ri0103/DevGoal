@@ -159,7 +159,7 @@ class SettingActivity : AppCompatActivity() {
             time,
             pendingIntent
         )
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, Calendar.getInstance().timeInMillis, 1000 * 60 * 5, pendingIntent)
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, Calendar.getInstance().timeInMillis, 1000 * 60 * 60 * 24, pendingIntent)
     }
 
 

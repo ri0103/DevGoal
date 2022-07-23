@@ -39,22 +39,15 @@ class Notification : BroadcastReceiver()
 
     override fun onReceive(context: Context, intent: Intent) {
 
-//        // Create an Intent for the activity you want to start
-//        val stwIntent = Intent(context, StopwatchActivity::class.java)
-//        // Create the TaskStackBuilder
-//        val stwPendingIntent: PendingIntent? = TaskStackBuilder.create(context).run {
-//            // Add the intent, which inflates the back stack
-//            addNextIntentWithParentStack(stwIntent)
-//            // Get the PendingIntent containing the entire back stack
-//            getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT)
-//        }
+        val stwIntent = Intent(context, StopwatchActivity::class.java)
 
         val notification = NotificationCompat.Builder(context, channelID)
             .setSmallIcon(R.drawable.ic_launcher_foreground)
 //            .setContentTitle(intent.getStringExtra(titleExtra))
             .setContentTitle("開発通知")
             .setContentText("今日も開発しましょう！")
-//            .setContentIntent(stwPendingIntent)
+            .setContentIntent(PendingIntent.getActivity(context, 1, stwIntent, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT))
+            .setAutoCancel(true)
             .build()
 
         val manager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
