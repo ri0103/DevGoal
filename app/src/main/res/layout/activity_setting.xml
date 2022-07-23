@@ -8,7 +8,7 @@
 
 
     <Button
-        android:id="@+id/goalSetButton"
+        android:id="@+id/saveSettingButton"
         android:layout_width="80sp"
         android:layout_height="60sp"
         android:text="保存"
@@ -33,10 +33,17 @@
         android:layout_height="wrap_content"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/saveSettingButton"
+        android:layout_marginTop="56sp"
         android:gravity="center"
         android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="目標"
+            android:textSize="36sp"
+            android:fontFamily="@font/ricty_diminished_bold"
+            android:padding="12sp"/>
         <EditText
             android:id="@+id/goalEditText"
             android:layout_width="320sp"
@@ -48,40 +55,58 @@
             android:id="@+id/selectDueDateButton"
             android:layout_width="240sp"
             android:layout_height="60sp"
+            android:backgroundTint="@color/design_default_color_secondary_variant"
             android:text="日付を選択"
             app:cornerRadius="18sp"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_margin="18sp"
-            android:textSize="14sp" />
+            android:textSize="20sp" />
 
 
     </LinearLayout>
 
+
     <LinearLayout
-        android:id="@+id/notificationSetBox"
-        app:layout_constraintTop_toBottomOf="@id/goalSetBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="120sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:orientation="vertical"
+        android:gravity="center">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="通知"
+            android:textSize="36sp"
+            android:fontFamily="@font/ricty_diminished_bold"
+            android:padding="12sp"/>
+    <LinearLayout
+        android:id="@+id/notificationSetBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
         >
-
         <Button
             android:id="@+id/selectNotificationTimeButton"
-            android:layout_width="240sp"
+            android:layout_width="200sp"
             android:layout_height="60sp"
+            android:backgroundTint="@color/design_default_color_secondary_variant"
             android:text="時間を選択"
             app:cornerRadius="18sp"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_margin="18sp"
-            android:textSize="14sp"
+            android:textSize="20sp"
             />
-        <Button
-            android:id="@+id/setNotificationButton"
-            android:layout_width="56sp"
-            android:layout_height="56sp"
-            android:text="確定"/>
+<!--        <Button-->
+<!--            android:id="@+id/setNotificationButton"-->
+<!--            android:layout_width="80sp"-->
+<!--            android:layout_height="60sp"-->
+<!--            android:textSize=""-->
+<!--            android:text="確定"/>-->
 
+    </LinearLayout>
     </LinearLayout>
 
 

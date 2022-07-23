@@ -8,6 +8,7 @@ import androidx.room.Room
 import app.ishizaki.ryu.devgoal.room.AppDatabase
 import app.ishizaki.ryu.devgoal.R
 import app.ishizaki.ryu.devgoal.TimerService
+import app.ishizaki.ryu.devgoal.Utils
 import app.ishizaki.ryu.devgoal.dataclass.Stopwatch
 import kotlinx.android.synthetic.main.activity_end_stopwatch.*
 import kotlinx.coroutines.Dispatchers
@@ -26,10 +27,8 @@ class EndStopwatchActivity : AppCompatActivity() {
 
         val time = intent.getDoubleExtra(StopwatchActivity.EXTRA_MESSAGE, 0.0)
 
-        val db = Room.databaseBuilder(
-            applicationContext,
-            AppDatabase::class.java, "database"
-        ).build()
+        val db = Utils.getDatabase(applicationContext)
+
 
         serviceIntent = Intent(applicationContext, TimerService::class.java)
 

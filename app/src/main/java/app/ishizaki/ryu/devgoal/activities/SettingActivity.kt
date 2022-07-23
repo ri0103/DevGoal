@@ -7,17 +7,16 @@ import android.content.res.Resources
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.lifecycleScope
-import androidx.room.Room
 import app.ishizaki.ryu.devgoal.*
 import app.ishizaki.ryu.devgoal.Notification
-import app.ishizaki.ryu.devgoal.databinding.ActivityMainBinding
 import app.ishizaki.ryu.devgoal.databinding.ActivitySettingBinding
 import app.ishizaki.ryu.devgoal.dataclass.Goal
-import app.ishizaki.ryu.devgoal.room.AppDatabase
 import kotlinx.android.synthetic.main.activity_setting.*
+import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -27,8 +26,13 @@ import java.util.*
 class SettingActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivitySettingBinding
-    var hourSelected: Int = 0
-    var minuteSelected: Int = 0
+    //目標の締め切り
+    var yearSelected = 0
+    var monthSelected = 0
+    var dateSelected = 0
+    //通知時刻
+    var hourSelected = 0
+    var minuteSelected = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,22 +40,25 @@ class SettingActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         createNotificationChannel()
-        binding.setNotificationButton.setOnClickListener {
-//            Toast.makeText(applicationContext, "保存ボタンおした", Toast.LENGTH_SHORT).show()
-            scheduleNotification() }
 
-
-        var yearSelected: Int = 0
-        var monthSelected: Int = 0
-        var dateSelected: Int = 0
 
         val c:Calendar = Calendar.getInstance()
         var dueDate = Date()
 
-        val db = Room.databaseBuilder(
-            applicationContext,
-            AppDatabase::class.java, "database"
-        ).build()
+        val db = Utils.getDatabase(applicationContext)
+
+        lifecycleScope.launch {
+            withContext(Dispatchers.Default){
+                val goalDao = db.goalDao()
+                val all = goalDao.getAll()
+                if (all.isNotEmpty()){
+                    goalEditText.setText(all[0].goalText)
+                    val savedDate = all[0].goalDueDate
+                    setDueDate(savedDate.year + 1900, savedDate.month, savedDate.date)
+
+                }
+            }
+        }
 
         selectDueDateButton.setOnClickListener {
             DatePickerDialog(
@@ -59,28 +66,20 @@ class SettingActivity : AppCompatActivity() {
                 AlertDialog.THEME_DEVICE_DEFAULT_LIGHT,
 
                 { _, year, monthOfYear, dayOfMonth ->
-                    Calendar.getInstance().apply { set(year, monthOfYear, dayOfMonth) }
-
-                    yearSelected = year
-                    monthSelected = monthOfYear
-                    dateSelected = dayOfMonth
-
-                    selectDueDateButton.text = "${yearSelected}/${monthSelected+1}/${dateSelected}"
-
+                    setDueDate(year, monthOfYear, dayOfMonth)
                 },
                 Calendar.YEAR,
                 Calendar.MONTH,
                 Calendar.DAY_OF_MONTH
             ).apply {
-                val now = Date()
-                updateDate(now.year+1900, now.month, now.date)
+                val now = LocalDate.now()
+                updateDate(now.year, now.monthValue - 1, now.dayOfMonth)
             }.show()
         }
 
         selectNotificationTimeButton.setOnClickListener{
             TimePickerDialog(
                 this,
-//                AlertDialog.THEME_DEVICE_DEFAULT_LIGHT,
                 AlertDialog.THEME_HOLO_LIGHT,
 
                 { _, hour, minute ->
@@ -95,10 +94,12 @@ class SettingActivity : AppCompatActivity() {
                 Calendar.MINUTE,
                 true
             ).apply {
+                val now = Date()
+                updateTime(now.hours, now.minutes)
             }.show()
         }
 
-        goalSetButton.setOnClickListener {
+        binding.saveSettingButton.setOnClickListener {
             c.set(yearSelected, monthSelected, dateSelected)
             dueDate = c.time
 
@@ -116,6 +117,8 @@ class SettingActivity : AppCompatActivity() {
                     }
                 }
             }
+
+            scheduleNotification()
 
             finish()
         }
@@ -138,10 +141,9 @@ class SettingActivity : AppCompatActivity() {
 
     private fun scheduleNotification() {
         val intent = Intent(applicationContext, Notification::class.java)
-//        val title = "開発通知"
-//        val message= "今日も開発頑張ろうね！"
-//        intent.putExtra(titleExtra, title)
-//        intent.putExtra(messageExtra, message)
+//        val notifyIntent = Intent(this, StopwatchActivity::class.java).apply {
+//            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+//        }
 
         val pendingIntent = PendingIntent.getBroadcast(
             applicationContext,
@@ -157,19 +159,9 @@ class SettingActivity : AppCompatActivity() {
             time,
             pendingIntent
         )
-        Toast.makeText(applicationContext, "通知保存しました", Toast.LENGTH_SHORT).show()
-
-//        showAlert()
-
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, Calendar.getInstance().timeInMillis, 1000 * 60 * 5, pendingIntent)
     }
 
-//    private fun showAlert(){
-//
-//        AlertDialog.Builder(this)
-//            .setTitle("通知設定確認")
-//            .setPositiveButton("はい"){_,_ ->}
-//            .show()
-//    }
 
     private fun getTime(): Long {
         val minute = minuteSelected
@@ -181,5 +173,15 @@ class SettingActivity : AppCompatActivity() {
         val calendar = Calendar.getInstance()
         calendar.set(year, month, day, hour, minute)
         return calendar.timeInMillis
+    }
+
+    private fun setDueDate(year: Int, month: Int, date: Int) {
+//        Calendar.getInstance().apply { set(year, month, date) }
+
+        yearSelected = year
+        monthSelected = month
+        dateSelected = date
+
+        selectDueDateButton.text = "${yearSelected}/${monthSelected+1}/${dateSelected}"
     }
 }

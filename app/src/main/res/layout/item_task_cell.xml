@@ -27,9 +27,9 @@
         app:layout_constraintRight_toRightOf="parent"
         android:id="@+id/deleteTaskButton"
         android:background="@drawable/ic_baseline_delete_24"
-        android:layout_width="32sp"
-        android:layout_height="32sp"
-        android:layout_margin="8sp"
+        android:layout_width="18sp"
+        android:layout_height="18sp"
+        android:layout_margin="15sp"
         android:foregroundGravity="center_vertical"/>
 
 
