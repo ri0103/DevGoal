@@ -106,7 +106,6 @@ class HomeFragment : Fragment() {
         addTaskButton.setOnClickListener {
 
            val task = Task(0, addTaskEditText.text.toString())
-//            viewModel.insertTask(task)
 
             lifecycleScope.launch(Dispatchers.Default) {
                 val taskDao = db.taskDao()

@@ -17,6 +17,7 @@ import app.ishizaki.ryu.devgoal.databinding.ActivitySettingBinding
 import app.ishizaki.ryu.devgoal.dataclass.Goal
 import kotlinx.android.synthetic.main.activity_setting.*
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.item_task_cell.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -99,6 +100,8 @@ class SettingActivity : AppCompatActivity() {
             }.show()
         }
 
+
+
         binding.saveSettingButton.setOnClickListener {
             c.set(yearSelected, monthSelected, dateSelected)
             dueDate = c.time
@@ -106,7 +109,7 @@ class SettingActivity : AppCompatActivity() {
 
             lifecycleScope.launch {
                 withContext(Dispatchers.Default){
-                    val goal = Goal(0, goalEditText.text.toString(), dueDate)
+                    val goal = Goal(0, goalEditText.text.toString(), dueDate, true)
                     val goalDao = db.goalDao()
                     val all = goalDao.getAll()
 
@@ -131,7 +134,7 @@ class SettingActivity : AppCompatActivity() {
 
     private fun createNotificationChannel() {
         val name = "開発催促通知"
-        val desc = "A description of the channel"
+        val desc = "毎日開発をするように促す通知です！"
         val importance = NotificationManager.IMPORTANCE_DEFAULT
         val channel = NotificationChannel(channelID, name, importance)
         channel.description = desc

@@ -4,9 +4,8 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
+import android.widget.CheckBox
 import android.widget.ImageButton
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import app.ishizaki.ryu.devgoal.dataclass.Task
@@ -29,9 +28,8 @@ class TaskRecyclerviewAdapter(context: Context): RecyclerView.Adapter<TaskRecycl
     }
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
-//        holder.bind(items[position])
         val task = taskList[position]
-        holder.taskTitleTextView.text = "・" + task.taskTitle
+        holder.taskTitleTextView.text = task.taskTitle
 
         holder.deleteTaskButton.setOnClickListener(View.OnClickListener {
 
@@ -61,10 +59,6 @@ class TaskRecyclerviewAdapter(context: Context): RecyclerView.Adapter<TaskRecycl
         this.listener = listener
     }
 
-
-
-
-
     override fun getItemCount(): Int {
         return taskList.size
     }
@@ -77,12 +71,9 @@ class TaskRecyclerviewAdapter(context: Context): RecyclerView.Adapter<TaskRecycl
 
     class TaskViewHolder(view: View): RecyclerView.ViewHolder(view) {
 
-        val taskTitleTextView: TextView = view.findViewById(R.id.taskTextView)
+        val taskTitleTextView: CheckBox = view.findViewById(R.id.taskTextView)
         val deleteTaskButton: ImageButton = view.findViewById(R.id.deleteTaskButton)
 
-//        fun bind(data: Task){
-//            taskTitleTextView.text = data.taskTitle
-//        }
     }
 
 
