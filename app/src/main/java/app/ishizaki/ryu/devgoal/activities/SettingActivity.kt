@@ -30,7 +30,6 @@ class SettingActivity : AppCompatActivity() {
     var hourSelected: Int = 0
     var minuteSelected: Int = 0
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySettingBinding.inflate(layoutInflater)
@@ -127,7 +126,6 @@ class SettingActivity : AppCompatActivity() {
 
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     private fun createNotificationChannel() {
         val name = "開発催促通知"
         val desc = "A description of the channel"
@@ -138,13 +136,12 @@ class SettingActivity : AppCompatActivity() {
         notificationManager.createNotificationChannel(channel)
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     private fun scheduleNotification() {
         val intent = Intent(applicationContext, Notification::class.java)
-        val title = "開発通知"
-        val message= "今日も開発頑張ろうね！"
-        intent.putExtra(titleExtra, title)
-        intent.putExtra(messageExtra, message)
+//        val title = "開発通知"
+//        val message= "今日も開発頑張ろうね！"
+//        intent.putExtra(titleExtra, title)
+//        intent.putExtra(messageExtra, message)
 
         val pendingIntent = PendingIntent.getBroadcast(
             applicationContext,
@@ -174,16 +171,15 @@ class SettingActivity : AppCompatActivity() {
 //            .show()
 //    }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     private fun getTime(): Long {
         val minute = minuteSelected
         val hour = hourSelected
         val day = LocalDate.now().dayOfMonth
-        val month = LocalDate.now().monthValue
+        val month = LocalDate.now().monthValue - 1
         val year = LocalDate.now().year
 
         val calendar = Calendar.getInstance()
-        calendar.set(2022, 7, 23, 1, 19)
+        calendar.set(year, month, day, hour, minute)
         return calendar.timeInMillis
     }
 }
