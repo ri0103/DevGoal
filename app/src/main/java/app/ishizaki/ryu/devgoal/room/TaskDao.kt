@@ -1,9 +1,6 @@
 package app.ishizaki.ryu.devgoal.room
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import app.ishizaki.ryu.devgoal.dataclass.Task
 
 @Dao
@@ -16,6 +13,9 @@ interface TaskDao {
 
     @Insert
     fun insert(task: Task)
+
+    @Update
+    fun update(vararg task: Task)
 
     @Delete
     fun delete(task: Task)

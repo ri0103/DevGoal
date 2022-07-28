@@ -10,5 +10,4 @@ data class Goal(
     @PrimaryKey  val id: Int,
     val goalText: String,
     val goalDueDate: Date,
-    val taskDoneOrNot: Boolean
 )

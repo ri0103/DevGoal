@@ -20,12 +20,7 @@ import java.util.concurrent.atomic.AtomicInteger
 //        get() = atmi.incrementAndGet()
 //}
 //
-//object NotificationId {
-//    val today = LocalDate.now()
-//    val idFormatter = SimpleDateFormat("yyyyMMdd")
-//    val iD: Int
-//        get() = idFormatter.format(today).toInt()
-//}
+
 
 val notificationID = 1
 const val channelID = "channel1"

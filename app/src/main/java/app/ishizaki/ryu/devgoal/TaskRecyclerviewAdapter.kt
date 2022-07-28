@@ -30,9 +30,9 @@ class TaskRecyclerviewAdapter(context: Context): RecyclerView.Adapter<TaskRecycl
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
         val task = taskList[position]
         holder.taskTitleTextView.text = task.taskTitle
+        holder.taskTitleTextView.isChecked = task.taskDoneOrNot
 
         holder.deleteTaskButton.setOnClickListener(View.OnClickListener {
-
 
             val db = Room.databaseBuilder(
                 holder.itemView.context,
@@ -41,11 +41,21 @@ class TaskRecyclerviewAdapter(context: Context): RecyclerView.Adapter<TaskRecycl
             val taskDao = db.taskDao()
             val all = taskDao.getAll()
             taskDao.delete(all.get(position))
-
             listener.onItemClick(task)
 
-
         })
+
+        holder.taskTitleTextView.setOnCheckedChangeListener { compoundButton, b ->
+            val db = Room.databaseBuilder(
+                holder.itemView.context,
+                AppDatabase::class.java, "database"
+            ).allowMainThreadQueries().build()
+            val taskDao = db.taskDao()
+            val all = taskDao.getAll()
+            val checkTask = Task(all[position].id, all[position].taskTitle, !all[position].taskDoneOrNot)
+            taskDao.update(checkTask)
+            listener.onItemClick(task)
+        }
 
 
 

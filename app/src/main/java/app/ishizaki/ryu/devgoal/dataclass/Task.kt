@@ -8,5 +8,7 @@ import java.util.*
 @Entity
 data class Task(
     @PrimaryKey(autoGenerate = true) val id: Int,
-    @ColumnInfo(name="task_title") val taskTitle: String,
+    val taskTitle: String,
+    val taskDoneOrNot: Boolean,
+//    val completeTime: Date
 )

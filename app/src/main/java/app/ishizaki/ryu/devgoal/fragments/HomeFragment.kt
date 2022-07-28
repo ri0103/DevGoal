@@ -105,7 +105,7 @@ class HomeFragment : Fragment() {
 
         addTaskButton.setOnClickListener {
 
-           val task = Task(0, addTaskEditText.text.toString())
+           val task = Task(0, addTaskEditText.text.toString(), false)
 
             lifecycleScope.launch(Dispatchers.Default) {
                 val taskDao = db.taskDao()

@@ -109,7 +109,7 @@ class SettingActivity : AppCompatActivity() {
 
             lifecycleScope.launch {
                 withContext(Dispatchers.Default){
-                    val goal = Goal(0, goalEditText.text.toString(), dueDate, true)
+                    val goal = Goal(0, goalEditText.text.toString(), dueDate)
                     val goalDao = db.goalDao()
                     val all = goalDao.getAll()
 
@@ -157,12 +157,13 @@ class SettingActivity : AppCompatActivity() {
 
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val time = getTime()
-        alarmManager.setExactAndAllowWhileIdle(
-            AlarmManager.RTC_WAKEUP,
-            time,
-            pendingIntent
-        )
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, Calendar.getInstance().timeInMillis, 1000 * 60 * 60 * 24, pendingIntent)
+//        alarmManager.setExactAndAllowWhileIdle(
+//            AlarmManager.RTC_WAKEUP,
+//            time,
+//            pendingIntent
+//        )
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, time, 1000 * 60 * 60 * 24, pendingIntent)
+//        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, time, 1000 * 60 * 5, pendingIntent)
     }
 
 
