@@ -31,7 +31,7 @@ class StopwatchActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.endButton.isEnabled = false
-        binding.endButton.setBackgroundColor(Color.parseColor("#9c9c9c"))
+        binding.endButton.setBackgroundColor(R.color.md_theme_light_secondary)
 
         binding.startStopButton.setOnClickListener { startStopTimer() }
 //        binding.resetButton.setOnClickListener { resetTimer() }
@@ -66,7 +66,7 @@ class StopwatchActivity : AppCompatActivity() {
                 binding.startStopButton.text = "停止"
                 binding.startStopButton.icon = getDrawable(R.drawable.ic_baseline_pause_24)
                 binding.endButton.isEnabled = true
-                binding.endButton.setBackgroundColor(Color.parseColor("#679ae6"))
+                binding.endButton.setBackgroundColor(R.color.md_theme_light_primary)
             }
         }
 

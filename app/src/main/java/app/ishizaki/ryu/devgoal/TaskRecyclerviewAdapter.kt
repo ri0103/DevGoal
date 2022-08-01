@@ -28,33 +28,28 @@ class TaskRecyclerviewAdapter(context: Context): RecyclerView.Adapter<TaskRecycl
     }
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
+        val db = Room.databaseBuilder(
+            holder.itemView.context,
+            AppDatabase::class.java, "database"
+        ).allowMainThreadQueries().build()
+        val taskDao = db.taskDao()
+        val all = taskDao.getAll()
         val task = taskList[position]
+
         holder.taskTitleTextView.text = task.taskTitle
         holder.taskTitleTextView.isChecked = task.taskDoneOrNot
 
         holder.deleteTaskButton.setOnClickListener(View.OnClickListener {
-
-            val db = Room.databaseBuilder(
-                holder.itemView.context,
-                AppDatabase::class.java, "database"
-            ).allowMainThreadQueries().build()
-            val taskDao = db.taskDao()
-            val all = taskDao.getAll()
-            taskDao.delete(all.get(position))
+//            taskDao.delete(all.get(position))
+            taskDao.delete(task)
             listener.onItemClick(task)
-
         })
 
         holder.taskTitleTextView.setOnCheckedChangeListener { compoundButton, b ->
-            val db = Room.databaseBuilder(
-                holder.itemView.context,
-                AppDatabase::class.java, "database"
-            ).allowMainThreadQueries().build()
-            val taskDao = db.taskDao()
-            val all = taskDao.getAll()
-            val checkTask = Task(all[position].id, all[position].taskTitle, !all[position].taskDoneOrNot)
-            taskDao.update(checkTask)
-            listener.onItemClick(task)
+//            val updatedTask = Task(all[position].id, all[position].taskTitle, !all[position].taskDoneOrNot, all[position].createdTime, System.currentTimeMillis())
+            val updatedTask = Task(task.id, task.taskTitle, !task.taskDoneOrNot, task.createdTime, System.currentTimeMillis())
+            taskDao.update(updatedTask)
+//            listener.onItemClick(task)
         }
 
 

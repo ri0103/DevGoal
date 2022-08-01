@@ -19,6 +19,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
+import java.time.LocalDate
 
 
 class HomeFragment : Fragment() {
@@ -55,8 +56,6 @@ class HomeFragment : Fragment() {
 
 
         val db = Utils.getDatabase(requireContext())
-
-
         val taskAdapter = TaskRecyclerviewAdapter(requireContext())
 
         lifecycleScope.launch(Dispatchers.Default) {
@@ -105,16 +104,15 @@ class HomeFragment : Fragment() {
 
         addTaskButton.setOnClickListener {
 
-           val task = Task(0, addTaskEditText.text.toString(), false)
+           val task = Task(0, addTaskEditText.text.toString(), false, System.currentTimeMillis(), System.currentTimeMillis())
 
             lifecycleScope.launch(Dispatchers.Default) {
                 val taskDao = db.taskDao()
-
                 taskDao.insert(task)
 
-                val tasks: MutableList<Task> = mutableListOf()
-                tasks.addAll(taskDao.getAll())
-                Log.d("HomeFragment", tasks.toString())
+//                val tasks: MutableList<Task> = mutableListOf()
+//                tasks.addAll(taskDao.getAll())
+//                Log.d("HomeFragment", tasks.toString())
 
                 val all = taskDao.getAll()
 

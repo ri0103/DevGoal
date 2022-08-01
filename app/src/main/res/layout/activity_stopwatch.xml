@@ -58,22 +58,19 @@
 <!--            android:layout_margin="10sp"/>-->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/startStopButton"
-            android:layout_width="100sp"
+            android:layout_width="120sp"
             android:layout_height="80sp"
-            app:cornerRadius="36sp"
             android:text="開始"
-            android:backgroundTint="@color/main_light_blue"
             app:icon="@drawable/ic_baseline_play_arrow_24"
             android:layout_margin="24sp"
             android:fontFamily="@font/ricty_diminished_regular"/>
 
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/endButton"
-            android:layout_width="100sp"
+            android:layout_width="120sp"
             android:layout_height="80sp"
-            app:cornerRadius="36sp"
             android:text="終了"
-            android:backgroundTint="@color/main_light_blue"
             app:icon="@drawable/ic_baseline_done_24"
             android:layout_margin="24sp"
             android:fontFamily="@font/ricty_diminished_regular"
@@ -85,9 +82,7 @@
             android:id="@+id/restButton"
             android:layout_width="180sp"
             android:layout_height="80sp"
-            app:cornerRadius="36sp"
             android:text="一時休憩"
-            android:backgroundTint="#c9b379"
             app:icon="@drawable/ic_baseline_coffee_24"
             android:layout_margin="24sp"
             android:fontFamily="@font/ricty_diminished_regular"

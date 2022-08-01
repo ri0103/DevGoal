@@ -14,9 +14,7 @@
     app:layout_constraintRight_toRightOf="parent"
     app:layout_constraintLeft_toLeftOf="parent"
     app:menu="@menu/menu"
-    android:background="#fffced"
-    app:itemIconTint="@drawable/bottom_navigation_colors"
-    app:itemTextColor="@drawable/bottom_navigation_colors"
+
     />
 
     <FrameLayout

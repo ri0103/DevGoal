@@ -7,20 +7,12 @@
     tools:context=".fragments.HomeFragment">
 
     <!-- TODO: Update blank fragment layout -->
-<!--   <ImageButton-->
-<!--       android:id="@+id/settingButton"-->
-<!--       android:layout_width="40sp"-->
-<!--       android:layout_height="40sp"-->
-<!--       app:layout_constraintTop_toTopOf="parent"-->
-<!--       app:layout_constraintRight_toRightOf="parent"-->
-<!--       android:src="@drawable/ic_baseline_settings_24"-->
-<!--       android:background="#FFFFFF"-->
-<!--       />-->
+
 
     <ImageButton
         android:id="@+id/settingButton"
-        android:layout_width="32sp"
-        android:layout_height="32sp"
+        android:layout_width="20sp"
+        android:layout_height="20sp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_margin="12sp"
@@ -102,12 +94,11 @@
             android:padding="8sp"
             android:background="@drawable/border_1"/>
 
-        <ImageButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/addTaskButton"
             android:layout_width="36sp"
             android:layout_height="36sp"
-            android:src="@drawable/ic_baseline_add_24"
-            android:background="@drawable/button_bg_2"/>
+            android:background="@drawable/ic_baseline_add_24" />
 
     </LinearLayout>
 
