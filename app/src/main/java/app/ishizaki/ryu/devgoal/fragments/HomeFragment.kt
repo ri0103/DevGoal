@@ -35,24 +35,37 @@ class HomeFragment : Fragment() {
 
     }
 
+
+
     override fun onResume() {
         super.onResume()
-        val db = Utils.getDatabase(requireContext())
-        lifecycleScope.launch(Dispatchers.Default) {
-            val goalDao = db.goalDao()
-            val all1 = goalDao.getAll()
-
-            withContext(Dispatchers.Main) {
-                if (all1.size != 0){
-                    goalText.text = "目標：${all1[0].goalText}"
-                    dueDateText.text = dateFormat.format(all1[0].goalDueDate).toString()
-                }
-            }
-        }
+//        val db = Utils.getDatabase(requireContext())
+//        val taskAdapter = TaskRecyclerviewAdapter(requireContext())
+//
+//        lifecycleScope.launch(Dispatchers.Default) {
+//            val taskDao = db.taskDao()
+//            val all = taskDao.getAll()
+//            val goalDao = db.goalDao()
+//            val all1 = goalDao.getAll()
+//
+//
+//            withContext(Dispatchers.Main) {
+//                taskAdapter.update(all)
+//
+//                if (all1.size != 0){
+//                    goalText.text = "目標：${all1[0].goalText}"
+//                    dueDateText.text = dateFormat.format(all1[0].goalDueDate).toString()
+//                }
+//
+//            }
+//
+//        }
+        onViewCreated(requireView(), savedInstanceState = null)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
 
 
         val db = Utils.getDatabase(requireContext())

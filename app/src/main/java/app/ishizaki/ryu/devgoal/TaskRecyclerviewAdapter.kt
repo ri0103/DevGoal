@@ -1,17 +1,29 @@
 package app.ishizaki.ryu.devgoal
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.ImageButton
+import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
+import app.ishizaki.ryu.devgoal.activities.EditTaskActivity
+import app.ishizaki.ryu.devgoal.activities.SettingActivity
 import app.ishizaki.ryu.devgoal.dataclass.Task
 import app.ishizaki.ryu.devgoal.room.AppDatabase
 
 class TaskRecyclerviewAdapter(context: Context): RecyclerView.Adapter<TaskRecyclerviewAdapter.TaskViewHolder>() {
+
+    companion object {
+        const val EXTRA_MESSAGE_TASK = "app.ishizaki.ryu.devgoal.MESSAGE.TASK"
+        const val EXTRA_MESSAGE_ID = "app.ishizaki.ryu.devgoal.MESSAGE.ID"
+        const val EXTRA_MESSAGE_DONEORNOT = "app.ishizaki.ryu.devgoal.MESSAGE.DONEORNOT"
+        const val EXTRA_MESSAGE_CREATEDTIME = "app.ishizaki.ryu.devgoal.MESSAGE.CREATEDTIME"
+    }
 
 
     //    var items = ArrayList<Task>()
@@ -52,6 +64,16 @@ class TaskRecyclerviewAdapter(context: Context): RecyclerView.Adapter<TaskRecycl
 //            listener.onItemClick(task)
         }
 
+        holder.taskTitleTextView.setOnLongClickListener {
+
+            val editIntent = Intent(holder.itemView.context, EditTaskActivity::class.java)
+            editIntent.putExtra(EXTRA_MESSAGE_ID, task.id)
+            editIntent.putExtra(EXTRA_MESSAGE_TASK, task.taskTitle)
+            editIntent.putExtra(EXTRA_MESSAGE_DONEORNOT, task.taskDoneOrNot)
+            editIntent.putExtra(EXTRA_MESSAGE_CREATEDTIME, task.createdTime)
+            holder.itemView.context.startActivity(editIntent)
+
+        true}
 
 
     }
