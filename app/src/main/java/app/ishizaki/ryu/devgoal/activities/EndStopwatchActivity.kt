@@ -10,6 +10,7 @@ import app.ishizaki.ryu.devgoal.R
 import app.ishizaki.ryu.devgoal.TimerService
 import app.ishizaki.ryu.devgoal.Utils
 import app.ishizaki.ryu.devgoal.dataclass.Stopwatch
+import com.google.android.material.elevation.SurfaceColors
 import kotlinx.android.synthetic.main.activity_end_stopwatch.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -24,6 +25,8 @@ class EndStopwatchActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_end_stopwatch)
+
+
 
         val time = intent.getDoubleExtra(StopwatchActivity.EXTRA_MESSAGE, 0.0)
 

@@ -3,21 +3,16 @@ package app.ishizaki.ryu.devgoal.activities
 import android.app.*
 import android.content.Context
 import android.content.Intent
-import android.content.res.Resources
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.lifecycleScope
 import app.ishizaki.ryu.devgoal.*
 import app.ishizaki.ryu.devgoal.Notification
 import app.ishizaki.ryu.devgoal.databinding.ActivitySettingBinding
 import app.ishizaki.ryu.devgoal.dataclass.Goal
+import app.ishizaki.ryu.devgoal.dataclass.Notifdata
+import com.google.android.material.elevation.SurfaceColors
 import kotlinx.android.synthetic.main.activity_setting.*
-import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.android.synthetic.main.item_task_cell.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -35,12 +30,16 @@ class SettingActivity : AppCompatActivity() {
     var hourSelected = 0
     var minuteSelected = 0
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySettingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
+
         createNotificationChannel()
+
 
 
         val c:Calendar = Calendar.getInstance()
@@ -51,12 +50,16 @@ class SettingActivity : AppCompatActivity() {
         lifecycleScope.launch {
             withContext(Dispatchers.Default){
                 val goalDao = db.goalDao()
+                val notifdataDao = db.notifdataDao()
                 val all = goalDao.getAll()
+                val getNotifdata = notifdataDao.getAll()
                 if (all.isNotEmpty()){
                     goalEditText.setText(all[0].goalText)
                     val savedDate = all[0].goalDueDate
                     setDueDate(savedDate.year + 1900, savedDate.month, savedDate.date)
-
+                }
+                if (getNotifdata.isNotEmpty()){
+                    selectNotificationTimeButton.text = "${getNotifdata[0].notifHour}時${getNotifdata[0].notifMin}分"
                 }
             }
         }
@@ -121,9 +124,21 @@ class SettingActivity : AppCompatActivity() {
                 }
             }
 
-            scheduleNotification()
-
             finish()
+        }
+
+        binding.setNotificationButton.setOnClickListener {
+            scheduleNotification()
+            lifecycleScope.launch(Dispatchers.Default){
+                val notifdata = Notifdata(0, hourSelected, minuteSelected)
+                val notifdataDao = db.notifdataDao()
+                val all = notifdataDao.getAll()
+                if (all.isEmpty()){
+                    notifdataDao.insert(notifdata)
+                } else {
+                    notifdataDao.update(notifdata)
+                }
+            }
         }
 
         closeSettingButton.setOnClickListener {

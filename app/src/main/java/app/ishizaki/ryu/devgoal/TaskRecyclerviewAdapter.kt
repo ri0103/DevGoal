@@ -1,19 +1,18 @@
 package app.ishizaki.ryu.devgoal
 
 import android.content.Context
-import android.content.Intent
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.ImageButton
-import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
-import app.ishizaki.ryu.devgoal.activities.EditTaskActivity
-import app.ishizaki.ryu.devgoal.activities.SettingActivity
 import app.ishizaki.ryu.devgoal.dataclass.Task
+import app.ishizaki.ryu.devgoal.fragments.EditTaskFragment
 import app.ishizaki.ryu.devgoal.room.AppDatabase
 
 class TaskRecyclerviewAdapter(context: Context): RecyclerView.Adapter<TaskRecyclerviewAdapter.TaskViewHolder>() {
@@ -48,6 +47,15 @@ class TaskRecyclerviewAdapter(context: Context): RecyclerView.Adapter<TaskRecycl
         val all = taskDao.getAll()
         val task = taskList[position]
 
+        fun openFragment(fragment: Fragment){
+            if(fragment != null){
+                val transaction = (holder.itemView.context as FragmentActivity).supportFragmentManager.beginTransaction()
+                transaction.replace(R.id.edittask_fragment_container, fragment)
+                transaction.commit()
+            }
+        }
+
+
         holder.taskTitleTextView.text = task.taskTitle
         holder.taskTitleTextView.isChecked = task.taskDoneOrNot
 
@@ -66,17 +74,30 @@ class TaskRecyclerviewAdapter(context: Context): RecyclerView.Adapter<TaskRecycl
 
         holder.taskTitleTextView.setOnLongClickListener {
 
-            val editIntent = Intent(holder.itemView.context, EditTaskActivity::class.java)
-            editIntent.putExtra(EXTRA_MESSAGE_ID, task.id)
-            editIntent.putExtra(EXTRA_MESSAGE_TASK, task.taskTitle)
-            editIntent.putExtra(EXTRA_MESSAGE_DONEORNOT, task.taskDoneOrNot)
-            editIntent.putExtra(EXTRA_MESSAGE_CREATEDTIME, task.createdTime)
-            holder.itemView.context.startActivity(editIntent)
+//            val editIntent = Intent(holder.itemView.context, EditTaskActivity::class.java)
+//            editIntent.putExtra(EXTRA_MESSAGE_ID, task.id)
+//            editIntent.putExtra(EXTRA_MESSAGE_TASK, task.taskTitle)
+//            editIntent.putExtra(EXTRA_MESSAGE_DONEORNOT, task.taskDoneOrNot)
+//            editIntent.putExtra(EXTRA_MESSAGE_CREATEDTIME, task.createdTime)
+//            holder.itemView.context.startActivity(editIntent)
+            val editTaskFragment = EditTaskFragment()
+            val bundle = Bundle()
+            bundle.putInt("ID", task.id)
+            bundle.putString("TASK", task.taskTitle)
+            bundle.putBoolean("DONEORNOT", task.taskDoneOrNot)
+            bundle.putLong("CREATEDTIME", task.createdTime)
+            editTaskFragment.arguments = bundle
+
+            val transaction = (holder.itemView.context as FragmentActivity).supportFragmentManager.beginTransaction()
+            transaction.add(R.id.edittask_fragment_container, editTaskFragment).commit()
 
         true}
 
 
+
     }
+
+
 
     interface  OnTaskCellClickListener {
         fun onItemClick(task: Task)

@@ -10,6 +10,7 @@ import android.os.Bundle
 import app.ishizaki.ryu.devgoal.R
 import app.ishizaki.ryu.devgoal.TimerService
 import app.ishizaki.ryu.devgoal.databinding.ActivityStopwatchBinding
+import com.google.android.material.elevation.SurfaceColors
 import kotlinx.android.synthetic.main.activity_stopwatch.*
 import kotlinx.coroutines.*
 import kotlin.math.roundToInt
@@ -29,6 +30,8 @@ class StopwatchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityStopwatchBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
 
         binding.endButton.isEnabled = false
         binding.endButton.setBackgroundColor(R.color.md_theme_light_secondary)

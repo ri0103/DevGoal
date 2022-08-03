@@ -17,9 +17,7 @@
             android:name=".Notification"
             android:enabled="true" />
 
-        <activity
-            android:name=".activities.EditTaskActivity"
-            android:exported="false"/>
+
 
         <activity
             android:name=".activities.SettingActivity"
