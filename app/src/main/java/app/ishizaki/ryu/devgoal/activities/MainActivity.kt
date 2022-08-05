@@ -33,8 +33,6 @@ class MainActivity : AppCompatActivity() {
 
         window.navigationBarColor = SurfaceColors.SURFACE_2.getColor(this)
 
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-
 
         bottom_navigation.setOnNavigationItemSelectedListener {
             when(it.itemId){

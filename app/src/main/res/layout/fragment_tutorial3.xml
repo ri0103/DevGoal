@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".tutorial.Tutorial3Fragment">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:gravity="center">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:fontFamily="@font/ricty_diminished_bold"
+            android:text="About this App"
+            android:textSize="36sp"/>
+        <ImageView
+            android:layout_width="240sp"
+            android:layout_height="240sp"
+            android:layout_margin="60sp"
+            android:layout_marginBottom="24sp"
+            android:background="@drawable/ic_baseline_settings_24"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="目標を決め、\n計画→実行→振り返り\nをするためのアプリです"
+            android:textAlignment="center"
+            android:fontFamily="@font/ricty_diminished_regular"
+            android:textSize="24sp"/>
+
+    </LinearLayout>
+
+</FrameLayout>
