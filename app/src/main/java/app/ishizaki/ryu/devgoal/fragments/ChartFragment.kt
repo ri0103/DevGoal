@@ -70,7 +70,7 @@ class ChartFragment : Fragment() {
                 val calendar = Calendar.getInstance()
                 calendar.time = stopwatch.endDateTime
 
-                calendar.set(Calendar.HOUR_OF_DAY, 0)
+//                calendar.set(Calendar.HOUR_OF_DAY, 0)
                 calendar.set(Calendar.MINUTE, 0)
                 calendar.set(Calendar.SECOND, 0)
                 calendar.set(Calendar.MILLISECOND, 0)
@@ -87,30 +87,15 @@ class ChartFragment : Fragment() {
 //                Log.d("ChartFragment", stopwatchDurations[calendar.time].toString())
             }
 
-//            for (stopwatch in all) {
-//                if (stopwatchDurations.keys.contains(stopwatch.endDateTime)) {
-//                    //mapの更新
-//                    stopwatchDurations[stopwatch.endDateTime]?.add(stopwatch)
-//                } else {
-//                    //mapの追加
-//                    stopwatchDurations.put(stopwatch.endDateTime, mutableListOf(stopwatch))
-//                }
-//                Log.d("ChartFragment", stopwatchDurations[stopwatch.endDateTime].toString())
-//            }
-
-
-
             withContext(Dispatchers.Main){
 
                 stopwatchDurations.keys.forEachIndexed { index, key ->
-
                         var total = 0
                         val list = stopwatchDurations[key] ?: listOf()
                         for (stopwatch in list) {
                             total += stopwatch.stopwatchDuration.toInt()
                         }
-                        chartData.add(BarEntry(index.toFloat(), total.toFloat()))
-
+                        chartData.add(BarEntry(index.toFloat(), total.toFloat()/60))
                 }
 
 
@@ -119,14 +104,12 @@ class ChartFragment : Fragment() {
                 val data = BarData(chartDataSet)
 
                 timeBarChart.data = data
-                val labels = arrayOf("いち", "に", "さん", "よん")
-                timeBarChart.xAxis.setValueFormatter(IndexAxisValueFormatter(labels))
-//                timeBarChart.xAxis.valueFormatter.apply {
-//                    getAxisLabel(0F, )
+//                val labels = arrayOf("いち", "に")
+//                timeBarChart.xAxis.setValueFormatter(IndexAxisValueFormatter(labels))
+//
+//                timeBarChart.xAxis.apply {
+//                    isEnabled = false
 //                }
-                timeBarChart.xAxis.apply {
-                    isEnabled = false
-                }
                 timeBarChart.axisLeft.apply {
                     isEnabled = false
                 }
@@ -134,16 +117,8 @@ class ChartFragment : Fragment() {
                     isEnabled = false
                 }
                 timeBarChart.description.isEnabled = false
-
             }
-
-
         }
-
-
-
-//        chartData.add(BarEntry(stopwatchDurations.key, total.toFloat() ))
-
     }
 
 

@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import app.ishizaki.ryu.devgoal.*
 import app.ishizaki.ryu.devgoal.Notification
@@ -29,6 +30,7 @@ class SettingActivity : AppCompatActivity() {
     //通知時刻
     var hourSelected = 0
     var minuteSelected = 0
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -106,25 +108,30 @@ class SettingActivity : AppCompatActivity() {
 
 
         binding.saveSettingButton.setOnClickListener {
-            c.set(yearSelected, monthSelected, dateSelected)
-            dueDate = c.time
+
+            if (yearSelected == 0 && monthSelected == 0 && minuteSelected == 0){
+                Toast.makeText(applicationContext, "期日を選択してください", Toast.LENGTH_SHORT).show()
+            } else {
+                c.set(yearSelected, monthSelected, dateSelected)
+                dueDate = c.time
 
 
-            lifecycleScope.launch {
-                withContext(Dispatchers.Default){
-                    val goal = Goal(0, goalEditText.text.toString(), dueDate)
-                    val goalDao = db.goalDao()
-                    val all = goalDao.getAll()
+                lifecycleScope.launch {
+                    withContext(Dispatchers.Default) {
+                        val goal = Goal(0, goalEditText.text.toString(), dueDate)
+                        val goalDao = db.goalDao()
+                        val all = goalDao.getAll()
 
-                    if (all.isEmpty()){
-                        goalDao.insert(goal)
-                    } else {
-                        goalDao.update(goal)
+                        if (all.isEmpty()) {
+                            goalDao.insert(goal)
+                        } else {
+                            goalDao.update(goal)
+                        }
                     }
                 }
-            }
 
-            finish()
+                finish()
+            }
         }
 
         binding.setNotificationButton.setOnClickListener {

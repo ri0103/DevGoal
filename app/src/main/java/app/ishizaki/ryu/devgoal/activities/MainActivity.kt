@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.SurfaceControl
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.fragment.app.Fragment
 import app.ishizaki.ryu.devgoal.R
 import app.ishizaki.ryu.devgoal.fragments.BookmarkFragment

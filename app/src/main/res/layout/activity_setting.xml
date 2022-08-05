@@ -55,7 +55,7 @@
             android:id="@+id/selectDueDateButton"
             android:layout_width="240sp"
             android:layout_height="60sp"
-            android:text="日付を選択"
+            android:text="期日を選択"
             app:cornerRadius="18sp"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"

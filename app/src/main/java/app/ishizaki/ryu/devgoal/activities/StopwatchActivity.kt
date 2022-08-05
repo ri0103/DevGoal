@@ -4,9 +4,12 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.content.res.ColorStateList
 import android.graphics.Color
+import android.graphics.ColorMatrix
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import app.ishizaki.ryu.devgoal.ColorScheme
 import app.ishizaki.ryu.devgoal.R
 import app.ishizaki.ryu.devgoal.TimerService
 import app.ishizaki.ryu.devgoal.databinding.ActivityStopwatchBinding
@@ -25,16 +28,12 @@ class StopwatchActivity : AppCompatActivity() {
         const val EXTRA_MESSAGE = "app.ishizaki.ryu.devgoal.MESSAGE"
     }
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityStopwatchBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
-
         binding.endButton.isEnabled = false
-        binding.endButton.setBackgroundColor(R.color.md_theme_light_secondary)
 
         binding.startStopButton.setOnClickListener { startStopTimer() }
 //        binding.resetButton.setOnClickListener { resetTimer() }
@@ -64,12 +63,13 @@ class StopwatchActivity : AppCompatActivity() {
                 binding.startStopButton.text = "開始"
                 binding.startStopButton.icon = getDrawable(R.drawable.ic_baseline_play_arrow_24)
             }else{
+                val defaultButtonColor = startStopButton.backgroundTintList
                 stCountText.setTextColor(Color.DKGRAY)
                 timerStarted = true
                 binding.startStopButton.text = "停止"
                 binding.startStopButton.icon = getDrawable(R.drawable.ic_baseline_pause_24)
                 binding.endButton.isEnabled = true
-                binding.endButton.setBackgroundColor(R.color.md_theme_light_primary)
+
             }
         }
 

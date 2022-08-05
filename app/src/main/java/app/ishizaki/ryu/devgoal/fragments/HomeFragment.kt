@@ -26,7 +26,7 @@ import java.time.ZoneId
 
 class HomeFragment : Fragment() {
 
-    val dateFormat = SimpleDateFormat("期限: yyyy/MM/dd")
+    val dateFormat = SimpleDateFormat("期日: yyyy/MM/dd")
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
