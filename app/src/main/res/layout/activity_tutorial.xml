@@ -7,19 +7,21 @@
     tools:context=".activities.TutorialActivity">
 
 
+<!--    <androidx.viewpager2.widget.ViewPager2-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--        android:layout_height="540sp"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:id="@+id/pager"-->
+<!--        android:orientation="vertical" >-->
+<!--        -->
+<!--        <com.google.android.material.tabs.TabLayout-->
+<!--            android:id="@+id/tabLayout"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"/>-->
+<!--        -->
+<!--    </androidx.viewpager2.widget.ViewPager2>-->
 
-    <androidx.viewpager2.widget.ViewPager2
-        app:layout_constraintTop_toTopOf="parent"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_height="540sp"
-        android:layout_width="match_parent"
-        android:id="@+id/pager"
-        android:orientation="vertical" >
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </androidx.viewpager2.widget.ViewPager2>
 
     <LinearLayout
         app:layout_constraintTop_toTopOf="parent"
@@ -30,20 +32,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tutorial"
+            android:textSize="36sp"/>
 
-        <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/content"
-            android:layout_width="match_parent"
-            android:layout_height="440sp"
-            android:layout_margin="24sp">
+<!--        <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--            android:id="@+id/content"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="440sp"-->
+<!--            android:layout_margin="24sp">-->
 
-            <TextView style="?android:textAppearanceMedium"
-                android:padding="16dp"
-                android:lineSpacingMultiplier="1.2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="aaa" />
-        </ScrollView>
+<!--            <TextView style="?android:textAppearanceMedium"-->
+<!--                android:padding="16dp"-->
+<!--                android:lineSpacingMultiplier="1.2"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="aaa" />-->
+<!--        </ScrollView>-->
 
     <Button
         app:layout_constraintBottom_toBottomOf="parent"
