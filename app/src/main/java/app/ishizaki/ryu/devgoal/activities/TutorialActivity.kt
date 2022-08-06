@@ -18,8 +18,8 @@ class TutorialActivity : AppCompatActivity() {
 
         val fragmentList = arrayListOf<Fragment>(
             Tutorial1Fragment(),
-//            Tutorial2Fragment(),
-            Tutorial3Fragment(),
+            Tutorial2Fragment(),
+//            Tutorial3Fragment(),
 //            Tutorial4Fragment(),
             TutorialEndFragment()
         )
