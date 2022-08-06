@@ -26,28 +26,28 @@
         android:layout_gravity="center"
         android:orientation="vertical" />
 
-        <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+<!--        <com.tbuonomo.viewpagerdotsindicator.DotsIndicator-->
+<!--            app:layout_constraintTop_toBottomOf="@id/viewPager"-->
+<!--            android:id="@+id/dotsIndicator"-->
+<!--            android:layout_margin="24sp"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:tabIndicatorGravity="bottom"-->
+<!--            app:dotsColor="#6fa0bf"-->
+<!--            app:selectedDotColor="#426b85"/>-->
+<!--        <com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator-->
+<!--            app:layout_constraintTop_toBottomOf="@id/viewPager"-->
+<!--            android:id="@+id/dotsIndicator2"-->
+<!--            android:layout_margin="8sp"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:tabIndicatorGravity="bottom"-->
+<!--            app:dotsColor="#6fa0bf"-->
+<!--            app:selectedDotColor="#426b85"/>-->
+        <com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
             app:layout_constraintTop_toBottomOf="@id/viewPager"
             android:id="@+id/dotsIndicator"
             android:layout_margin="24sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:tabIndicatorGravity="bottom"
-            app:dotsColor="#6fa0bf"
-            app:selectedDotColor="#426b85"/>
-        <com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator
-            app:layout_constraintTop_toBottomOf="@id/viewPager"
-            android:id="@+id/dotsIndicator2"
-            android:layout_margin="8sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:tabIndicatorGravity="bottom"
-            app:dotsColor="#6fa0bf"
-            app:selectedDotColor="#426b85"/>
-        <com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
-            app:layout_constraintTop_toBottomOf="@id/viewPager"
-            android:id="@+id/dotsIndicator3"
-            android:layout_margin="8sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:tabIndicatorGravity="bottom"

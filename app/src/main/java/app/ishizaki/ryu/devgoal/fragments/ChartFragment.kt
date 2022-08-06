@@ -107,9 +107,9 @@ class ChartFragment : Fragment() {
 //                val labels = arrayOf("いち", "に")
 //                timeBarChart.xAxis.setValueFormatter(IndexAxisValueFormatter(labels))
 //
-//                timeBarChart.xAxis.apply {
-//                    isEnabled = false
-//                }
+                timeBarChart.xAxis.apply {
+                    isEnabled = false
+                }
                 timeBarChart.axisLeft.apply {
                     isEnabled = false
                 }

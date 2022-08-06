@@ -18,9 +18,9 @@ class TutorialActivity : AppCompatActivity() {
 
         val fragmentList = arrayListOf<Fragment>(
             Tutorial1Fragment(),
-            Tutorial2Fragment(),
+//            Tutorial2Fragment(),
             Tutorial3Fragment(),
-            Tutorial4Fragment(),
+//            Tutorial4Fragment(),
             TutorialEndFragment()
         )
 
@@ -29,8 +29,6 @@ class TutorialActivity : AppCompatActivity() {
         with(viewPager){
             adapter = pagerAdapter
             dotsIndicator.attachTo(this)
-            dotsIndicator2.attachTo(this)
-            dotsIndicator3.attachTo(this)
         }
 
 

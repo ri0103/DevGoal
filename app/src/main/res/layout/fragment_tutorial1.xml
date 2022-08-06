@@ -16,14 +16,15 @@
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:fontFamily="@font/ricty_diminished_bold"
-            android:text="About this App"
+            android:text="アプリについて"
             android:textSize="36sp"/>
         <ImageView
-            android:layout_width="240sp"
+            android:layout_width="280sp"
             android:layout_height="240sp"
             android:layout_margin="60sp"
             android:layout_marginBottom="24sp"
-            android:background="@drawable/ic_baseline_settings_24"/>
+            android:background="@color/ic_launcher_background"
+            android:src="@drawable/ic_launcher_foreground"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
