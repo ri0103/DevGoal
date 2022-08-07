@@ -71,14 +71,11 @@ class HomeFragment : Fragment() {
 //        EditTaskFragment().setOnFinishEditListener(
 //            object : EditTaskFragment.OnFinishEditListener {
 //                override fun onButtonClicked() {
-////                    TODO("Not yet implemented")
 //                    Toast.makeText(requireContext(), "testikeru", Toast.LENGTH_SHORT).show()
 //
 //                }
 //            }
 //        )
-
-
 
         val db = Utils.getDatabase(requireContext())
         val taskAdapter = TaskRecyclerviewAdapter(requireContext())
