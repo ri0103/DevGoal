@@ -13,13 +13,14 @@ import app.ishizaki.ryu.devgoal.TaskRecyclerviewAdapter
 import app.ishizaki.ryu.devgoal.Utils
 import app.ishizaki.ryu.devgoal.activities.MainActivity
 import app.ishizaki.ryu.devgoal.dataclass.Task
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.android.synthetic.main.fragment_edit_task.editTaskEditText
 import kotlinx.android.synthetic.main.fragment_edit_task.saveEditTaskButton
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.*
 
 
-class EditTaskFragment : Fragment() {
+class EditTaskFragment : BottomSheetDialogFragment() {
 
 
 //    private lateinit var listener: OnFinishEditListener
@@ -74,7 +75,7 @@ class EditTaskFragment : Fragment() {
             }
 //            listener.onButtonClicked()
 
-            removeFragment()
+//            removeFragment()
 
             activity?.finish()
             val intent = Intent(requireContext(), MainActivity::class.java)

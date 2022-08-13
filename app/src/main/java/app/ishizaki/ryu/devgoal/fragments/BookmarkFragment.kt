@@ -1,34 +1,33 @@
 package app.ishizaki.ryu.devgoal.fragments
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebView
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import app.ishizaki.ryu.devgoal.BookmarkRecyclerviewAdapter
 import app.ishizaki.ryu.devgoal.R
+import app.ishizaki.ryu.devgoal.TaskRecyclerviewAdapter
+import app.ishizaki.ryu.devgoal.Utils
+import app.ishizaki.ryu.devgoal.activities.AddBookmarkActivity
+import kotlinx.android.synthetic.main.fragment_bookmark.*
+import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import org.jsoup.Jsoup
+import org.jsoup.select.Elements
+import org.w3c.dom.Document
+import org.w3c.dom.Element
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [BookmarkFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class BookmarkFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,23 +37,52 @@ class BookmarkFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_bookmark, container, false)
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment BookmarkFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            BookmarkFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val db = Utils.getDatabase(requireContext())
+        val bookmarkAdapter = BookmarkRecyclerviewAdapter(requireContext())
+
+        bookmarkRecyclerview.apply {
+            layoutManager = GridLayoutManager(requireContext(), 2)
+            adapter = bookmarkAdapter
+        }
+
+        lifecycleScope.launch(Dispatchers.Default) {
+            val bookmarkDao = db.bookmarkDao()
+            val all = bookmarkDao.getAll()
+
+            withContext(Dispatchers.Main) {
+                bookmarkAdapter.update(all)
             }
+        }
+
+        openAddBookmarkActivityButton.setOnClickListener {
+            val intent = Intent(activity, AddBookmarkActivity::class.java)
+            activity?.startActivity(intent)
+        }
+
+
+//        val url = "https://news.yahoo.co.jp/pickup/6435537"
+
+
+
+
+
+//        lifecycleScope.launch(Dispatchers.Default){
+//            val title = Jsoup.connect(url).get().title()
+////            val image = Jsoup.connect(url).get().select("img").first()
+//
+//            withContext(Dispatchers.Main){
+//                    urlTitleTest.setText(title)
+//                    urlTitleTest.setOnClickListener {
+//                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+//                        startActivity(intent)
+//                    }
+//            }
+//        }
+
+
     }
+
 }

@@ -145,6 +145,8 @@ class HomeFragment : Fragment() {
             addTaskEditText.text.clear()
         }
 
+
+
         kaihatuButton.setOnClickListener {
             val intent = Intent (getActivity(), StopwatchActivity::class.java)
             getActivity()?.startActivity(intent)

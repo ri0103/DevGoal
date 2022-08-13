@@ -1,6 +1,7 @@
 package app.ishizaki.ryu.devgoal
 
 import android.content.Context
+import android.graphics.Paint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -53,6 +54,10 @@ class TaskRecyclerviewAdapter(context: Context): RecyclerView.Adapter<TaskRecycl
                 transaction.replace(R.id.edittask_fragment_container, fragment)
                 transaction.commit()
             }
+        }
+
+        if (task.taskDoneOrNot){
+            holder.taskTitleTextView.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
         }
 
 

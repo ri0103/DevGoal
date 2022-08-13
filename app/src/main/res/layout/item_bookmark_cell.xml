@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/bookmarkCell"
+        android:layout_width="180sp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/border_1"
+        android:padding="8sp"
+       android:layout_margin="8sp"
+       >
+
+        <TextView
+            android:id="@+id/urlTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textAlignment="center"
+            android:text="title"
+            android:padding="8sp"/>
+
+        <TextView
+            android:id="@+id/memoTextView"
+            android:layout_width="match_parent"
+            android:layout_height="40sp"
+            android:text="memo"
+            android:padding="8sp"
+            />
+
+    </LinearLayout>
+
+
+

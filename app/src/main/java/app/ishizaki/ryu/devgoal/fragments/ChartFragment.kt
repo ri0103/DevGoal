@@ -1,5 +1,6 @@
 package app.ishizaki.ryu.devgoal.fragments
 
+import android.graphics.Paint
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -45,6 +46,7 @@ class ChartFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
 
         val db = Room.databaseBuilder(
             requireContext(),
