@@ -5,27 +5,37 @@
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/bookmarkCell"
-        android:layout_width="180sp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:background="@drawable/border_1"
         android:padding="8sp"
-       android:layout_margin="8sp"
+       android:layout_margin="16sp"
        >
 
         <TextView
             android:id="@+id/urlTextView"
+            android:fontFamily="@font/kdam_thmor_pro_regular"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="12sp"
+            android:textSize="18sp"
             android:textAlignment="center"
             android:text="title"
+            android:textIsSelectable="true"
             android:padding="8sp"/>
+
+        <ImageView
+            android:id="@+id/urlImageView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
 
         <TextView
             android:id="@+id/memoTextView"
+            android:fontFamily="@font/kdam_thmor_pro_regular"
             android:layout_width="match_parent"
-            android:layout_height="40sp"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
             android:text="memo"
             android:padding="8sp"
             />

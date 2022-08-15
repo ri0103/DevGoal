@@ -2,10 +2,12 @@ package app.ishizaki.ryu.devgoal
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat.startActivity
@@ -15,6 +17,7 @@ import app.ishizaki.ryu.devgoal.dataclass.Bookmark
 import app.ishizaki.ryu.devgoal.room.AppDatabase
 import kotlinx.coroutines.*
 import org.jsoup.Jsoup
+import java.net.URL
 
 class BookmarkRecyclerviewAdapter(context: Context): RecyclerView.Adapter<BookmarkRecyclerviewAdapter.BookmarkViewHolder>() {
 
@@ -38,9 +41,16 @@ class BookmarkRecyclerviewAdapter(context: Context): RecyclerView.Adapter<Bookma
         val scope = CoroutineScope(Dispatchers.Default)
 
         scope.launch{
+
             val urlTitle = Jsoup.connect(bookmark.url).get().title()
+
+            val imageTag = Jsoup.connect(bookmark.url).get().select("img").first()
+            val imageUrl = imageTag?.absUrl("src")
+            val imageBMP = URL(imageUrl).openStream().use { BitmapFactory.decodeStream(it) }
+
             withContext(Dispatchers.Main){
                 holder.urlTextView.text = urlTitle
+                holder.urlImageView.setImageBitmap(imageBMP)
                 holder.memoTextView.text = bookmark.memo
             }
         }
@@ -82,6 +92,7 @@ class BookmarkRecyclerviewAdapter(context: Context): RecyclerView.Adapter<Bookma
         val urlTextView: TextView= view.findViewById(R.id.urlTextView)
         val memoTextView: TextView= view.findViewById(R.id.memoTextView)
         val bookmarkCell: LinearLayout = view.findViewById(R.id.bookmarkCell)
+        val urlImageView: ImageView = view.findViewById(R.id.urlImageView)
 
     }
 

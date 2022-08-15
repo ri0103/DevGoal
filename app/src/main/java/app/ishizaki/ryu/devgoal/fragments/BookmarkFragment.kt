@@ -11,6 +11,7 @@ import android.webkit.WebView
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import app.ishizaki.ryu.devgoal.BookmarkRecyclerviewAdapter
 import app.ishizaki.ryu.devgoal.R
 import app.ishizaki.ryu.devgoal.TaskRecyclerviewAdapter
@@ -37,6 +38,11 @@ class BookmarkFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_bookmark, container, false)
     }
 
+    override fun onResume() {
+        super.onResume()
+        onViewCreated(requireView(), null)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -44,7 +50,8 @@ class BookmarkFragment : Fragment() {
         val bookmarkAdapter = BookmarkRecyclerviewAdapter(requireContext())
 
         bookmarkRecyclerview.apply {
-            layoutManager = GridLayoutManager(requireContext(), 2)
+//            layoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
+            layoutManager = LinearLayoutManager(requireContext())
             adapter = bookmarkAdapter
         }
 
