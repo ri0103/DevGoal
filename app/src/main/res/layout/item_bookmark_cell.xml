@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-
+<com.facebook.shimmer.ShimmerFrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/shimmerFrameLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/bookmarkCell"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -13,16 +16,18 @@
        android:layout_margin="16sp"
        >
 
+
+
         <TextView
             android:id="@+id/urlTextView"
-            android:fontFamily="@font/kdam_thmor_pro_regular"
+            android:fontFamily="@font/ricty_diminished_bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:textAlignment="center"
-            android:text="title"
             android:textIsSelectable="true"
             android:padding="8sp"/>
+
 
         <ImageView
             android:id="@+id/urlImageView"
@@ -32,15 +37,15 @@
 
         <TextView
             android:id="@+id/memoTextView"
-            android:fontFamily="@font/kdam_thmor_pro_regular"
+            android:fontFamily="@font/ricty_diminished_regular"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="12sp"
-            android:text="memo"
             android:padding="8sp"
             />
 
-    </LinearLayout>
 
+    </LinearLayout>
+</com.facebook.shimmer.ShimmerFrameLayout>
 
 

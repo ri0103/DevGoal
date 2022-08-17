@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import app.ishizaki.ryu.devgoal.dataclass.Bookmark
 import app.ishizaki.ryu.devgoal.room.AppDatabase
+import com.facebook.shimmer.ShimmerFrameLayout
 import kotlinx.coroutines.*
 import org.jsoup.Jsoup
 import java.net.URL
@@ -31,12 +32,8 @@ class BookmarkRecyclerviewAdapter(context: Context): RecyclerView.Adapter<Bookma
     }
 
     override fun onBindViewHolder(holder: BookmarkViewHolder, position: Int) {
-//        val db = Room.databaseBuilder(
-//            holder.itemView.context,
-//            AppDatabase::class.java, "database"
-//        ).allowMainThreadQueries().build()
-//        val bookmarkDao = db.bookmarkDao()
-//        val all = bookmarkDao.getAll()
+        holder.shimmerFrameLayout.startShimmerAnimation()
+
         val bookmark = bookmarkList[position]
         val scope = CoroutineScope(Dispatchers.Default)
 
@@ -45,6 +42,8 @@ class BookmarkRecyclerviewAdapter(context: Context): RecyclerView.Adapter<Bookma
             val urlTitle = Jsoup.connect(bookmark.url).get().title()
 
             val imageTag = Jsoup.connect(bookmark.url).get().select("img").first()
+
+
             val imageUrl = imageTag?.absUrl("src")
             val imageBMP = URL(imageUrl).openStream().use { BitmapFactory.decodeStream(it) }
 
@@ -52,6 +51,7 @@ class BookmarkRecyclerviewAdapter(context: Context): RecyclerView.Adapter<Bookma
                 holder.urlTextView.text = urlTitle
                 holder.urlImageView.setImageBitmap(imageBMP)
                 holder.memoTextView.text = bookmark.memo
+                holder.shimmerFrameLayout.stopShimmerAnimation()
             }
         }
 
@@ -93,6 +93,7 @@ class BookmarkRecyclerviewAdapter(context: Context): RecyclerView.Adapter<Bookma
         val memoTextView: TextView= view.findViewById(R.id.memoTextView)
         val bookmarkCell: LinearLayout = view.findViewById(R.id.bookmarkCell)
         val urlImageView: ImageView = view.findViewById(R.id.urlImageView)
+        val shimmerFrameLayout: ShimmerFrameLayout = view.findViewById(R.id.shimmerFrameLayout)
 
     }
 

@@ -96,5 +96,8 @@ dependencies {
     //urlを読むやつ
     implementation 'org.jsoup:jsoup:1.15.2'
 
+    //読み込みのときのエフェクト
+    implementation 'com.facebook.shimmer:shimmer:0.1.0@aar'
+
 }
 
