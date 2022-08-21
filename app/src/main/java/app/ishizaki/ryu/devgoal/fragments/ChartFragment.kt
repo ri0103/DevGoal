@@ -118,8 +118,8 @@ class ChartFragment : Fragment() {
                 timeBarChart.xAxis.apply {
                     position = XAxis.XAxisPosition.BOTTOM
                     valueFormatter = xAxisValueFormatter
-//                    setLabelCount(7, true)
-//                    labelCount = 1
+                    labelCount = dateData.size
+//                    mEntryCount = dateData.size
                     setDrawGridLines(false)
                 }
                 timeBarChart.axisRight.apply {
