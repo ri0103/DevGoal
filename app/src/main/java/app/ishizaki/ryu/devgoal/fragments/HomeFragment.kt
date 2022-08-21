@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.ishizaki.ryu.devgoal.*
@@ -82,17 +83,20 @@ class HomeFragment : Fragment() {
 
         lifecycleScope.launch(Dispatchers.Default) {
             val taskDao = db.taskDao()
-            val all = taskDao.getAll()
+            val allTask = taskDao.getAll()
 
-                val goalDao = db.goalDao()
-                val all1 = goalDao.getAll()
+            val goalDao = db.goalDao()
+            val allGoal = goalDao.getAll()
 
 
             withContext(Dispatchers.Main) {
-                taskAdapter.update(all)
-                if (all1.size != 0){
-                    goalText.text = "目標: " + all1[0].goalText
-                    dueDateText.text = dateFormat.format(all1[0].goalDueDate).toString()
+                taskAdapter.update(allTask)
+                if (allGoal.isNotEmpty()){
+                    goalText.text = "目標: " + allGoal[0].goalText
+                    dueDateText.text = dateFormat.format(allGoal[0].goalDueDate).toString()
+                }
+                if (allTask.isEmpty()){
+                    noTaskTextView.isVisible = true
                 }
             }
         }
@@ -117,6 +121,7 @@ class HomeFragment : Fragment() {
                        val all = taskDao.getAll()
                        withContext(Dispatchers.Main) {
                            taskAdapter.update(all)
+                           noTaskTextView.isVisible = all.isEmpty()
                        }
                    }
 
@@ -126,24 +131,22 @@ class HomeFragment : Fragment() {
 
         addTaskButton.setOnClickListener {
 
-           val task = Task(0, addTaskEditText.text.toString(), false, System.currentTimeMillis(), System.currentTimeMillis())
-
-            lifecycleScope.launch(Dispatchers.Default) {
-                val taskDao = db.taskDao()
-                taskDao.insert(task)
-
-//                val tasks: MutableList<Task> = mutableListOf()
-//                tasks.addAll(taskDao.getAll())
-//                Log.d("HomeFragment", tasks.toString())
-
-                val all = taskDao.getAll()
-
-                withContext(Dispatchers.Main) {
-                    taskAdapter.update(all)
+            if (addTaskEditText.text.isNotEmpty()){
+               val task = Task(0, addTaskEditText.text.toString(), false, System.currentTimeMillis(), System.currentTimeMillis())
+                lifecycleScope.launch(Dispatchers.Default) {
+                    val taskDao = db.taskDao()
+                    taskDao.insert(task)
+                    val all = taskDao.getAll()
+                    withContext(Dispatchers.Main) {
+                        taskAdapter.update(all)
+                    }
                 }
+                addTaskEditText.text.clear()
+                noTaskTextView.isVisible = false
             }
-            addTaskEditText.text.clear()
         }
+
+
 
 
 
@@ -151,6 +154,15 @@ class HomeFragment : Fragment() {
             val intent = Intent (getActivity(), StopwatchActivity::class.java)
             getActivity()?.startActivity(intent)
         }
+
+        kaihatuButton.setOnLongClickListener{
+            val taskDao = db.taskDao()
+            val bookmarkDao = db.bookmarkDao()
+            lifecycleScope.launch(Dispatchers.Default){
+                taskDao.deleteAll()
+                bookmarkDao.deleteAll()
+            }
+            true}
 
     }
 }

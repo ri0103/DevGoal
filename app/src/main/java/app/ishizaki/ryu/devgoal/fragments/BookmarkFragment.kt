@@ -50,8 +50,8 @@ class BookmarkFragment : Fragment() {
         val bookmarkAdapter = BookmarkRecyclerviewAdapter(requireContext())
 
         bookmarkRecyclerview.apply {
-//            layoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
-            layoutManager = LinearLayoutManager(requireContext())
+            layoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
+//            layoutManager = LinearLayoutManager(requireContext())
             adapter = bookmarkAdapter
         }
 

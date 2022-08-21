@@ -19,4 +19,7 @@ interface BookmarkDao {
 
     @Delete
     fun delete(bookmark: Bookmark)
+
+    @Query("delete from bookmark")
+    fun deleteAll()
 }

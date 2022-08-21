@@ -1,18 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
     android:layout_margin="6sp"
     >
 
 
+
     <CheckBox
         android:id="@+id/taskTextView"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_width="360sp"
-        android:layout_height="48sp"
+        android:layout_width="0sp"
+        android:layout_weight="100"
+        android:layout_height="wrap_content"
         android:paddingTop="8sp"
         android:paddingBottom="8sp"
         android:paddingLeft="16sp"
@@ -21,17 +25,18 @@
         android:fontFamily="@font/ricty_diminished_bold"
         />
 
-
     <ImageButton
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
         android:id="@+id/deleteTaskButton"
         android:background="@drawable/ic_baseline_delete_24"
-        android:layout_width="18sp"
-        android:layout_height="18sp"
-        android:layout_margin="15sp"
-        android:foregroundGravity="center_vertical"/>
+        android:layout_weight="1"
+        android:layout_width="24sp"
+        android:layout_height="24sp"
+        android:layout_gravity="center"
+        />
 
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
+
+
+
