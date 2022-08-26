@@ -47,7 +47,7 @@ class EditTaskFragment : BottomSheetDialogFragment() {
         val taskDao = db.taskDao()
 
         val bundle = arguments
-        val id = bundle!!.getInt("ID")
+        val taskId = bundle!!.getInt("BOOKMARKID")
         val taskBefore = bundle!!.getString("TASK")
         val taskDoneorNot = bundle!!.getBoolean("DONEORNOT")
         val createdTime = bundle!!.getLong("CREATEDTIME")
@@ -59,7 +59,7 @@ class EditTaskFragment : BottomSheetDialogFragment() {
             val newText = editTaskEditText.text.toString()
             lifecycleScope.launch(Dispatchers.Default) {
                 val updatedTask = Task(
-                    id,
+                    taskId,
                     newText,
                     taskDoneorNot,
                     createdTime,

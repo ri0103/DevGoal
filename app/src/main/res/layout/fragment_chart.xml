@@ -7,7 +7,7 @@
     tools:context=".fragments.ChartFragment">
 
 
-    <!-- TODO: Update blank fragment layout -->
+
     <TextView
         android:id="@+id/chart"
         android:layout_width="wrap_content"
@@ -21,20 +21,36 @@
         app:layout_constraintRight_toRightOf="parent"
 />
 
+
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/timeBarChart"
         android:layout_width="match_parent"
         android:layout_height="360sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/totalDataLinearLayout"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginRight="12sp"
-        android:layout_marginLeft="12sp"
-        android:layout_marginBottom="100sp"/>
+        android:layout_marginLeft="12sp" />
 
 
+    <LinearLayout
+        android:id="@+id/totalDataLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/totalDataLinearLayout"
+        app:layout_constraintVertical_bias="1.0"
+        android:layout_margin="24sp">
 
-
+        <TextView
+            android:id="@+id/timeTotalTextView"
+            android:layout_width="200sp"
+            android:layout_height="100sp"
+            android:background="@drawable/border_1" />
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.BookmarkDetailFragment">
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="8sp"
+        android:layout_margin="4sp"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="12sp"
+                >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/ricty_diminished_bold"
+                    android:textSize="32sp"
+                    android:text="URL: "/>
+                <TextView
+                    android:id="@+id/detailUrlTextView"
+                    android:textIsSelectable="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/hello_blank_fragment"
+                    android:textSize="12sp"
+                    android:fontFamily="@font/ricty_diminished_regular"
+                    android:layout_marginBottom="24sp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/ricty_diminished_bold"
+                    android:textSize="32sp"
+                    android:text="タイトル: "/>
+                <TextView
+                    android:id="@+id/detailTitleTextView"
+                    android:textIsSelectable="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/hello_blank_fragment"
+                    android:textSize="24sp"
+                    android:fontFamily="@font/ricty_diminished_regular"
+                    android:layout_marginBottom="24sp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/ricty_diminished_bold"
+                    android:textSize="32sp"
+                    android:text="メモ: "/>
+                <TextView
+                    android:id="@+id/detailMemoTextView"
+                    android:textIsSelectable="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/hello_blank_fragment"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/ricty_diminished_regular"
+                    android:layout_marginBottom="24sp"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+                <ImageButton
+                    android:id="@+id/deleteBookmarkButton"
+                    android:background="@drawable/ic_baseline_delete_24"
+                    android:layout_width="32sp"
+                    android:layout_height="32sp"
+                    android:layout_marginRight="64sp"/>
+                <ImageButton
+                    android:id="@+id/openBookmarkWebsiteButton"
+                    android:background="@drawable/ic_baseline_open_in_new_24"
+                    android:layout_width="32sp"
+                    android:layout_height="32sp"
+                    android:layout_marginLeft="64sp"/>
+            </LinearLayout>
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+
+</FrameLayout>

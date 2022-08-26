@@ -8,6 +8,7 @@ import java.util.*
 data class Bookmark(
     @PrimaryKey(autoGenerate = true) val id: Int,
     val url: String,
+//    val title: String,
     val memo: String,
     val createdTime: Long
 )

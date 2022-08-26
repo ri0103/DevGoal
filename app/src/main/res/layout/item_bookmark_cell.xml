@@ -5,18 +5,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/shimmerFrameLayout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    >
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/border_3"
         app:cardElevation="6sp"
-        android:backgroundTint="@color/design_default_color_surface"
         android:clickable="true"
         android:layout_margin="6sp"
         android:padding="6sp"
         app:cardCornerRadius="18sp"
+        app:strokeWidth="2sp"
         >
 
         <LinearLayout
@@ -24,6 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
+
             >
 
             <TextView
@@ -31,9 +32,8 @@
                 android:fontFamily="@font/ricty_diminished_bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
+                android:textSize="12sp"
                 android:textAlignment="center"
-                android:textIsSelectable="true"
                 android:padding="8sp"/>
 
 
@@ -53,7 +53,7 @@
                 />
 
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 </com.facebook.shimmer.ShimmerFrameLayout>
 
 

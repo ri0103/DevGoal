@@ -115,8 +115,9 @@
             android:layout_width="240sp"
             android:layout_height="48sp"
             android:layout_marginRight="24sp"
+            android:background="@drawable/border_1"
             android:padding="8sp"
-            android:background="@drawable/border_1"/>
+            style="@style/MaterialAlertDialog.Material3.Body.Text"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/addTaskButton"

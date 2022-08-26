@@ -6,12 +6,14 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import app.ishizaki.ryu.devgoal.*
 import app.ishizaki.ryu.devgoal.Notification
 import app.ishizaki.ryu.devgoal.databinding.ActivitySettingBinding
 import app.ishizaki.ryu.devgoal.dataclass.Goal
 import app.ishizaki.ryu.devgoal.dataclass.Notifdata
+import app.ishizaki.ryu.devgoal.viewmodels.GoalViewModel
 import com.google.android.material.elevation.SurfaceColors
 import kotlinx.android.synthetic.main.activity_setting.*
 import kotlinx.coroutines.Dispatchers
@@ -109,6 +111,7 @@ class SettingActivity : AppCompatActivity() {
 
         binding.saveSettingButton.setOnClickListener {
 
+
             if (yearSelected == 0 && monthSelected == 0 && minuteSelected == 0){
                 Toast.makeText(applicationContext, "期日を選択してください", Toast.LENGTH_SHORT).show()
             } else {
@@ -134,6 +137,7 @@ class SettingActivity : AppCompatActivity() {
             }
         }
 
+
         binding.setNotificationButton.setOnClickListener {
             scheduleNotification()
             lifecycleScope.launch(Dispatchers.Default){
@@ -153,6 +157,8 @@ class SettingActivity : AppCompatActivity() {
         }
 
     }
+
+
 
     private fun createNotificationChannel() {
         val name = "開発催促通知"

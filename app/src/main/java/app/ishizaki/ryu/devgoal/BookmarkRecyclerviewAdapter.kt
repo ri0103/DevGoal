@@ -4,17 +4,19 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.net.Uri
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.core.content.ContextCompat.startActivity
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
-import androidx.room.Room
 import app.ishizaki.ryu.devgoal.dataclass.Bookmark
-import app.ishizaki.ryu.devgoal.room.AppDatabase
+import app.ishizaki.ryu.devgoal.fragments.BookmarkDetailFragment
+import app.ishizaki.ryu.devgoal.fragments.EditTaskFragment
+import app.ishizaki.ryu.devgoal.viewmodels.BookmarkViewModel
 import com.facebook.shimmer.ShimmerFrameLayout
 import kotlinx.coroutines.*
 import org.jsoup.Jsoup
@@ -24,6 +26,7 @@ class BookmarkRecyclerviewAdapter(context: Context): RecyclerView.Adapter<Bookma
 
     val bookmarkList: MutableList<Bookmark> = mutableListOf()
 //    private lateinit var listener: OnTaskCellClickListener
+    private lateinit var bookmarkViewModel: BookmarkViewModel
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookmarkViewHolder {
@@ -32,6 +35,15 @@ class BookmarkRecyclerviewAdapter(context: Context): RecyclerView.Adapter<Bookma
     }
 
     override fun onBindViewHolder(holder: BookmarkViewHolder, position: Int) {
+
+
+//        bookmarkViewModel = ViewModelProvider().get(BookmarkViewModel::class.java)
+//
+//        bookmarkViewModel.urlTitle.observe(this){
+//
+//        }
+
+
         holder.shimmerFrameLayout.startShimmerAnimation()
 
         val bookmark = bookmarkList[position]
@@ -41,23 +53,32 @@ class BookmarkRecyclerviewAdapter(context: Context): RecyclerView.Adapter<Bookma
 
             val urlTitle = Jsoup.connect(bookmark.url).get().title()
 
-            val imageTag = Jsoup.connect(bookmark.url).get().select("img").first()
-
-
-            val imageUrl = imageTag?.absUrl("src")
-            val imageBMP = URL(imageUrl).openStream().use { BitmapFactory.decodeStream(it) }
+//            val imageTag = Jsoup.connect(bookmark.url).get().select("img").first()
+//
+//
+//            val imageUrl = imageTag?.absUrl("src")
+//            val imageBMP = URL(imageUrl).openStream().use { BitmapFactory.decodeStream(it) }
 
             withContext(Dispatchers.Main){
                 holder.urlTextView.text = urlTitle
-                holder.urlImageView.setImageBitmap(imageBMP)
+//                holder.urlImageView.setImageBitmap(imageBMP)
                 holder.memoTextView.text = bookmark.memo
                 holder.shimmerFrameLayout.stopShimmerAnimation()
             }
         }
 
         holder.bookmarkCell.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(bookmark.url))
-            holder.itemView.context.startActivity(intent)
+
+            val bookmarkDetailFragment = BookmarkDetailFragment()
+            val bundle = Bundle()
+            bundle.putInt("ID", bookmark.id)
+            bundle.putString("URL", bookmark.url)
+            bundle.putString("MEMO", bookmark.memo)
+            bookmarkDetailFragment.arguments = bundle
+
+            val transaction = (holder.itemView.context as FragmentActivity).supportFragmentManager.beginTransaction()
+            transaction.add(R.id.bookmark_detail_container, bookmarkDetailFragment).commit()
+
         }
 
 

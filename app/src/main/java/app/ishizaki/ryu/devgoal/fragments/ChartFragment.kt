@@ -23,6 +23,7 @@ import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.formatter.ValueFormatter
+import com.google.android.material.color.DynamicColors
 import kotlinx.android.synthetic.main.fragment_chart.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -61,6 +62,7 @@ class ChartFragment : Fragment() {
 
         val chartData = ArrayList<BarEntry>()
         val stopwatchDurations: MutableMap<Date, MutableList<Stopwatch>> = mutableMapOf()
+        val weeklyTotal: MutableMap<Date, MutableList<Stopwatch>> = mutableMapOf()
         val dateData: MutableList<Date> = mutableListOf()
 
         lifecycleScope.launch(Dispatchers.Default) {
@@ -109,7 +111,9 @@ class ChartFragment : Fragment() {
                 }
 
                 val chartDataSet = BarDataSet(chartData, "作業時間（分）")
-                chartDataSet.color = Color.parseColor("#9c9c9c")
+//                chartDataSet.color = Color.parseColor("#9c9c9c")
+
+                chartDataSet.color = R.color.md_theme_light_primary
                 timeBarChart.animateY(480)
                 timeBarChart.axisLeft.axisMinimum = 0F
                 val data = BarData(chartDataSet)

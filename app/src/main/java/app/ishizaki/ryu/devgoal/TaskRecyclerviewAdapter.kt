@@ -42,13 +42,6 @@ class TaskRecyclerviewAdapter(context: Context): RecyclerView.Adapter<TaskRecycl
         val all = taskDao.getAll()
         val task = taskList[position]
 
-//        fun openFragment(fragment: Fragment){
-//            if(fragment != null){
-//                val transaction = (holder.itemView.context as FragmentActivity).supportFragmentManager.beginTransaction()
-//                transaction.replace(R.id.edittask_fragment_container, fragment)
-//                transaction.commit()
-//            }
-//        }
 
         if (task.taskDoneOrNot){
             holder.taskTitleTextView.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
@@ -66,9 +59,14 @@ class TaskRecyclerviewAdapter(context: Context): RecyclerView.Adapter<TaskRecycl
             listener.onItemClick(task)
         })
 
-        holder.taskTitleTextView.setOnCheckedChangeListener { compoundButton, b ->
-//            val updatedTask = Task(all[position].id, all[position].taskTitle, !all[position].taskDoneOrNot, all[position].createdTime, System.currentTimeMillis())
-            val updatedTask = Task(task.id, task.taskTitle, !task.taskDoneOrNot, task.createdTime, System.currentTimeMillis())
+        holder.taskTitleTextView.setOnClickListener {
+            val updatedTask = Task(
+                task.id,
+                task.taskTitle,
+                !task.taskDoneOrNot,
+                task.createdTime,
+                System.currentTimeMillis()
+            )
             taskDao.update(updatedTask)
             listener.onItemClick(task)
         }

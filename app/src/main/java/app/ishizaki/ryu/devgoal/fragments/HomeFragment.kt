@@ -8,15 +8,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Adapter
 import android.widget.Toast
 import androidx.core.view.isVisible
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.ishizaki.ryu.devgoal.*
 import app.ishizaki.ryu.devgoal.activities.SettingActivity
 import app.ishizaki.ryu.devgoal.activities.StopwatchActivity
 import app.ishizaki.ryu.devgoal.dataclass.Task
+import app.ishizaki.ryu.devgoal.room.AppDatabase
+import app.ishizaki.ryu.devgoal.viewmodels.GoalViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.item_task_cell.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -42,27 +47,7 @@ class HomeFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-//        val db = Utils.getDatabase(requireContext())
-//        val taskAdapter = TaskRecyclerviewAdapter(requireContext())
-//
-//        lifecycleScope.launch(Dispatchers.Default) {
-//            val taskDao = db.taskDao()
-//            val all = taskDao.getAll()
-//            val goalDao = db.goalDao()
-//            val all1 = goalDao.getAll()
-//
-//
-//            withContext(Dispatchers.Main) {
-//                taskAdapter.update(all)
-//
-//                if (all1.size != 0){
-//                    goalText.text = "目標：${all1[0].goalText}"
-//                    dueDateText.text = dateFormat.format(all1[0].goalDueDate).toString()
-//                }
-//
-//            }
-//
-//        }
+
         onViewCreated(requireView(), savedInstanceState = null)
     }
 
@@ -80,6 +65,8 @@ class HomeFragment : Fragment() {
 
         val db = Utils.getDatabase(requireContext())
         val taskAdapter = TaskRecyclerviewAdapter(requireContext())
+
+
 
         lifecycleScope.launch(Dispatchers.Default) {
             val taskDao = db.taskDao()
@@ -130,9 +117,25 @@ class HomeFragment : Fragment() {
        )
 
         addTaskButton.setOnClickListener {
+                if (addTaskEditText.text.isNotEmpty()){
+                    val task = Task(0, addTaskEditText.text.toString(), false, System.currentTimeMillis(), System.currentTimeMillis())
+                    lifecycleScope.launch(Dispatchers.Default) {
+                        val taskDao = db.taskDao()
+                        taskDao.insert(task)
+                        val all = taskDao.getAll()
+                        withContext(Dispatchers.Main) {
+                            taskAdapter.update(all)
+                        }
+                    }
+                    addTaskEditText.text.clear()
+                    noTaskTextView.isVisible = false
+                }
+        }
+        
+        addTaskEditText.setOnKeyListener { view, i, keyEvent ->
 
             if (addTaskEditText.text.isNotEmpty()){
-               val task = Task(0, addTaskEditText.text.toString(), false, System.currentTimeMillis(), System.currentTimeMillis())
+                val task = Task(0, addTaskEditText.text.toString(), false, System.currentTimeMillis(), System.currentTimeMillis())
                 lifecycleScope.launch(Dispatchers.Default) {
                     val taskDao = db.taskDao()
                     taskDao.insert(task)
@@ -144,7 +147,11 @@ class HomeFragment : Fragment() {
                 addTaskEditText.text.clear()
                 noTaskTextView.isVisible = false
             }
+
+            true
         }
+
+//        addTaskEditText.set
 
 
 
@@ -164,5 +171,10 @@ class HomeFragment : Fragment() {
             }
             true}
 
+
+
+
     }
+
+
 }

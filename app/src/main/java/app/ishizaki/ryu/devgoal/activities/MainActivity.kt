@@ -10,10 +10,12 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import app.ishizaki.ryu.devgoal.R
 import app.ishizaki.ryu.devgoal.fragments.BookmarkFragment
 import app.ishizaki.ryu.devgoal.fragments.ChartFragment
 import app.ishizaki.ryu.devgoal.fragments.HomeFragment
+import app.ishizaki.ryu.devgoal.viewmodels.GoalViewModel
 import com.google.android.material.elevation.SurfaceColors
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -22,6 +24,8 @@ class MainActivity : AppCompatActivity() {
     private val chartFragment = ChartFragment()
     private val homeFragment = HomeFragment()
     private val bookmarkFragment = BookmarkFragment()
+
+    private lateinit var goalViewModel: GoalViewModel
 
     @RequiresApi(Build.VERSION_CODES.Q)
     @SuppressLint("ResourceAsColor")
@@ -32,7 +36,6 @@ class MainActivity : AppCompatActivity() {
         replaceFragment(homeFragment)
 
         window.navigationBarColor = SurfaceColors.SURFACE_2.getColor(this)
-
 
         bottom_navigation.setOnNavigationItemSelectedListener {
             when(it.itemId){
