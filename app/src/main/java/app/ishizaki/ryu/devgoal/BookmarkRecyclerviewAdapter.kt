@@ -52,32 +52,34 @@ class BookmarkRecyclerviewAdapter(context: Context): RecyclerView.Adapter<Bookma
         scope.launch{
 
             val urlTitle = Jsoup.connect(bookmark.url).get().title()
-
-//            val imageTag = Jsoup.connect(bookmark.url).get().select("img").first()
-//            val imageUrl = imageTag?.absUrl("src")
-//            val imageBMP = URL(imageUrl).openStream().use { BitmapFactory.decodeStream(it) }
+            val imageTag = Jsoup.connect(bookmark.url).get().select("img").firstOrNull()
+            val imageUrl = imageTag?.absUrl("src")
+            val imageBMP = URL(imageUrl).openStream().use { BitmapFactory.decodeStream(it) }
 
             withContext(Dispatchers.Main){
                 holder.urlTextView.text = urlTitle
-//                holder.urlImageView.setImageBitmap(imageBMP)
+                holder.urlImageView.setImageBitmap(imageBMP)
                 holder.memoTextView.text = bookmark.memo
                 holder.shimmerFrameLayout.stopShimmerAnimation()
+
+
+                holder.bookmarkCell.setOnClickListener {
+                    val bookmarkDetailFragment = BookmarkDetailFragment()
+                    val bundle = Bundle()
+                    bundle.putInt("ID", bookmark.id)
+                    bundle.putString("TITLE", urlTitle)
+                    bundle.putString("URL", bookmark.url)
+                    bundle.putString("MEMO", bookmark.memo)
+                    bookmarkDetailFragment.arguments = bundle
+
+                    val transaction = (holder.itemView.context as FragmentActivity).supportFragmentManager.beginTransaction()
+                    transaction.add(R.id.bookmark_detail_container, bookmarkDetailFragment).commit()
+                }
+
             }
         }
 
-        holder.bookmarkCell.setOnClickListener {
 
-            val bookmarkDetailFragment = BookmarkDetailFragment()
-            val bundle = Bundle()
-            bundle.putInt("ID", bookmark.id)
-            bundle.putString("URL", bookmark.url)
-            bundle.putString("MEMO", bookmark.memo)
-            bookmarkDetailFragment.arguments = bundle
-
-            val transaction = (holder.itemView.context as FragmentActivity).supportFragmentManager.beginTransaction()
-            transaction.add(R.id.bookmark_detail_container, bookmarkDetailFragment).commit()
-
-        }
 
 
 

@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -57,30 +58,8 @@ class BookmarkFragment : Fragment() {
         }
 
         openAddBookmarkActivityButton.setOnClickListener {
-//            val intent = Intent(activity, AddBookmarkActivity::class.java)
-//            activity?.startActivity(intent)
             AddBookmarkFragment().show(childFragmentManager, "newBookmarkTag")
         }
-
-
-//        val url = "https://news.yahoo.co.jp/pickup/6435537"
-
-
-
-
-
-//        lifecycleScope.launch(Dispatchers.Default){
-//            val title = Jsoup.connect(url).get().title()
-////            val image = Jsoup.connect(url).get().select("img").first()
-//
-//            withContext(Dispatchers.Main){
-//                    urlTitleTest.setText(title)
-//                    urlTitleTest.setOnClickListener {
-//                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-//                        startActivity(intent)
-//                    }
-//            }
-//        }
 
 
     }

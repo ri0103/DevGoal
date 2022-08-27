@@ -20,6 +20,9 @@ interface BookmarkDao {
     @Delete
     fun delete(bookmark: Bookmark)
 
+    @Query("SELECT * FROM bookmark WHERE id = :id")
+    fun getByBookmarkId(id: Int): Bookmark
+
     @Query("delete from bookmark")
     fun deleteAll()
 }

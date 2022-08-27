@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.room.Room
 import app.ishizaki.ryu.devgoal.R
@@ -21,8 +22,11 @@ import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.formatter.ValueFormatter
+import com.github.mikephil.charting.highlight.Highlight
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.google.android.material.color.DynamicColors
 import kotlinx.android.synthetic.main.fragment_chart.*
 import kotlinx.coroutines.Dispatchers
@@ -35,7 +39,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.math.max
 
-class ChartFragment : Fragment() {
+class ChartFragment : Fragment(), OnChartValueSelectedListener {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -134,8 +138,21 @@ class ChartFragment : Fragment() {
                 }
 
                 timeBarChart.description.isEnabled = false
+
+                timeBarChart.setOnChartValueSelectedListener(this)
             }
         }
+    }
+
+    override fun onValueSelected(e: Entry?, h: Highlight?) {
+        val transaction = (requireContext() as FragmentActivity).supportFragmentManager.beginTransaction()
+        transaction.add(R.id.chart_detail_container, ChartDetailFragment()).commit()
+
+
+    }
+
+    override fun onNothingSelected() {
+        TODO("Not yet implemented")
     }
 
 

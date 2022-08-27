@@ -10,4 +10,5 @@ data class Stopwatch(
     val endDateTime: Date,
     val stopwatchDuration : Double,
     val concentrationLevel: Int,
+    val commitUrl: String
 )

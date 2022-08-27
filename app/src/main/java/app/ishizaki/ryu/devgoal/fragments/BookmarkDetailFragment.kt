@@ -41,34 +41,31 @@ class BookmarkDetailFragment : BottomSheetDialogFragment() {
 
 
         val bundle = arguments
-        val bookmarkId = bundle!!.getInt("BOOKMARKID")
+        val bookmarkId = bundle!!.getInt("ID")
+        val title = bundle!!.getString("TITLE")
         val url = bundle!!.getString("URL")
         val memo = bundle!!.getString("MEMO")
+
+        detailUrlTextView.text = url
+        detailTitleTextView.text = title
+        detailMemoTextView.text = memo
 
         openBookmarkWebsiteButton.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
             startActivity(intent)
         }
 
-        lifecycleScope.launch(Dispatchers.Default){
-
-            val urlTitle = Jsoup.connect(url).get().title()
-
-            withContext(Dispatchers.Main){
-                detailUrlTextView.text = url
-                detailTitleTextView.text = urlTitle
-                detailMemoTextView.text = memo
+        deleteBookmarkButton.setOnClickListener {
+            lifecycleScope.launch(Dispatchers.Default){
+                val bookmarkToDelete = bookmarkDao.getByBookmarkId(bookmarkId)
+                bookmarkDao.delete(bookmarkToDelete)
+                dismiss()
             }
 
         }
 
-        deleteBookmarkButton.setOnClickListener {
-            lifecycleScope.launch(Dispatchers.Default){
-                val allBookmark = bookmarkDao.getAll()
-                bookmarkDao.delete(allBookmark[bookmarkId])
-                dismiss()
-            }
-
+        closeBookmarkDetailButton.setOnClickListener {
+            dismiss()
         }
 
 

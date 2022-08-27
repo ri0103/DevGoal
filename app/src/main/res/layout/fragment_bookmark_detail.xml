@@ -77,6 +77,11 @@
                     android:layout_height="32sp"
                     android:layout_marginRight="64sp"/>
                 <ImageButton
+                    android:id="@+id/closeBookmarkDetailButton"
+                    android:background="@drawable/ic_baseline_close_24"
+                    android:layout_width="32sp"
+                    android:layout_height="32sp" />
+                <ImageButton
                     android:id="@+id/openBookmarkWebsiteButton"
                     android:background="@drawable/ic_baseline_open_in_new_24"
                     android:layout_width="32sp"
