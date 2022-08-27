@@ -14,7 +14,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_margin="18sp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -24,42 +25,20 @@
                 >
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/ricty_diminished_bold"
-                    android:textSize="32sp"
-                    android:text="URL: "/>
-                <TextView
-                    android:id="@+id/detailUrlTextView"
-                    android:textIsSelectable="true"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/hello_blank_fragment"
-                    android:textSize="12sp"
-                    android:fontFamily="@font/ricty_diminished_regular"
-                    android:layout_marginBottom="24sp"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/ricty_diminished_bold"
-                    android:textSize="32sp"
-                    android:text="タイトル: "/>
-                <TextView
                     android:id="@+id/detailTitleTextView"
                     android:textIsSelectable="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/hello_blank_fragment"
-                    android:textSize="24sp"
-                    android:fontFamily="@font/ricty_diminished_regular"
+                    android:textSize="28sp"
+                    android:fontFamily="@font/ricty_diminished_bold"
                     android:layout_marginBottom="24sp"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/ricty_diminished_bold"
-                    android:textSize="32sp"
+                    android:textSize="18sp"
                     android:text="メモ: "/>
                 <TextView
                     android:id="@+id/detailMemoTextView"
@@ -70,6 +49,20 @@
                     android:textSize="18sp"
                     android:fontFamily="@font/ricty_diminished_regular"
                     android:layout_marginBottom="24sp"/>
+
+                <TextView
+                    android:id="@+id/detailUrlTextView"
+                    android:textIsSelectable="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/hello_blank_fragment"
+                    android:textSize="12sp"
+                    android:fontFamily="@font/ricty_diminished_regular"
+                    android:layout_marginBottom="24sp"/>
+
+
+
+
 
             </LinearLayout>
             <LinearLayout

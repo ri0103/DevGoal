@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.*
 
 
-class EditTaskFragment : BottomSheetDialogFragment() {
+class EditTaskFragment : Fragment() {
 
 
 //    private lateinit var listener: OnFinishEditListener
@@ -47,7 +47,7 @@ class EditTaskFragment : BottomSheetDialogFragment() {
         val taskDao = db.taskDao()
 
         val bundle = arguments
-        val taskId = bundle!!.getInt("BOOKMARKID")
+        val taskId = bundle!!.getInt("ID")
         val taskBefore = bundle!!.getString("TASK")
         val taskDoneorNot = bundle!!.getBoolean("DONEORNOT")
         val createdTime = bundle!!.getLong("CREATEDTIME")
@@ -66,17 +66,7 @@ class EditTaskFragment : BottomSheetDialogFragment() {
                     System.currentTimeMillis()
                 )
                 taskDao.update(updatedTask)
-//                val all = taskDao.getAll()
-//                withContext(Dispatchers.Main){
-//                    val taskAdapter = TaskRecyclerviewAdapter(requireContext())
-//                    taskAdapter.update(all)
-//                }
-
             }
-//            listener.onButtonClicked()
-
-//            removeFragment()
-
             activity?.finish()
             val intent = Intent(requireContext(), MainActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)

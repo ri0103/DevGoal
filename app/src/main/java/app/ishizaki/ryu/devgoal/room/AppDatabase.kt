@@ -15,17 +15,4 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun notifdataDao(): NotifdataDao
     abstract fun bookmarkDao(): BookmarkDao
 
-//    companion object {
-//        private var INSTANCE: AppDatabase?=null
-//
-//        fun getAppDatabase(context: Context): AppDatabase? {
-//            if (INSTANCE == null) {
-//
-//                INSTANCE = Room.databaseBuilder<AppDatabase>(context.applicationContext, AppDatabase::class.java, "AppDB")
-//                    .allowMainThreadQueries()
-//                    .build()
-//            }
-//            return INSTANCE
-//        }
-//    }
 }

@@ -54,8 +54,6 @@ class BookmarkRecyclerviewAdapter(context: Context): RecyclerView.Adapter<Bookma
             val urlTitle = Jsoup.connect(bookmark.url).get().title()
 
 //            val imageTag = Jsoup.connect(bookmark.url).get().select("img").first()
-//
-//
 //            val imageUrl = imageTag?.absUrl("src")
 //            val imageBMP = URL(imageUrl).openStream().use { BitmapFactory.decodeStream(it) }
 
