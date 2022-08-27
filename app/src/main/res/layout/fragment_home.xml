@@ -8,16 +8,30 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-
-    <ImageButton
-        android:id="@+id/settingButton"
-        android:layout_width="20sp"
-        android:layout_height="20sp"
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_margin="12sp"
-        android:background="@drawable/ic_baseline_settings_24"
-        />
+        android:orientation="vertical"
+        android:layout_margin="12sp">
+
+        <ImageButton
+            android:id="@+id/settingButton"
+            android:layout_width="20sp"
+            android:layout_height="20sp"
+            android:layout_marginBottom="12sp"
+            android:background="@drawable/ic_baseline_settings_24"
+            />
+
+        <ImageButton
+            android:id="@+id/startTutorialButton"
+            android:layout_width="20sp"
+            android:layout_height="20sp"
+            android:background="@drawable/ic_baseline_lightbulb_24"
+            />
+
+    </LinearLayout>
 
 
 

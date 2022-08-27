@@ -18,12 +18,20 @@
             android:fontFamily="@font/ricty_diminished_bold"
             android:text="目標の設定"
             android:textSize="36sp"/>
-        <VideoView
-            android:id="@+id/tutorial2VideoView"
-            android:layout_width="460sp"
-            android:layout_height="280sp"
+<!--        <VideoView-->
+<!--            android:id="@+id/tutorial2VideoView"-->
+<!--            android:layout_width="460sp"-->
+<!--            android:layout_height="280sp"-->
+<!--            android:layout_margin="24sp"-->
+<!--            android:layout_marginBottom="24sp"/>-->
+        
+        <ImageView
+            android:id="@+id/tutorial2ImageVIew"
+            android:layout_width="360sp"
+            android:layout_height="360sp"
             android:layout_margin="24sp"
-            android:layout_marginBottom="24sp"/>
+            android:src="@drawable/tutorialscreenshot2"
+            />
 
         <TextView
             android:layout_width="match_parent"

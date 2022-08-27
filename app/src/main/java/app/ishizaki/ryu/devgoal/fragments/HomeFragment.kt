@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import app.ishizaki.ryu.devgoal.*
 import app.ishizaki.ryu.devgoal.activities.SettingActivity
 import app.ishizaki.ryu.devgoal.activities.StopwatchActivity
+import app.ishizaki.ryu.devgoal.activities.TutorialActivity
 import app.ishizaki.ryu.devgoal.dataclass.Task
 import app.ishizaki.ryu.devgoal.room.AppDatabase
 import app.ishizaki.ryu.devgoal.viewmodels.GoalViewModel
@@ -97,6 +98,11 @@ class HomeFragment : Fragment() {
         settingButton.setOnClickListener {
             val intent = Intent (getActivity(), SettingActivity::class.java)
             getActivity()?.startActivity(intent)
+        }
+
+        startTutorialButton.setOnClickListener {
+            val intent = Intent (activity, TutorialActivity::class.java)
+            startActivity(intent)
         }
 
        taskAdapter.setOnTaskCellClickListener(

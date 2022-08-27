@@ -13,48 +13,30 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_margin="24sp"
         android:orientation="vertical"
         android:gravity="center">
 
-    <androidx.viewpager.widget.ViewPager
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_height="540sp"
-        android:layout_width="match_parent"
-        android:id="@+id/viewPager"
-        android:layout_gravity="center"
-        android:orientation="vertical" />
+        <androidx.viewpager.widget.ViewPager
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_height="600dp"
+            android:layout_width="match_parent"
+            android:id="@+id/viewPager"
+            android:layout_gravity="center"
+            android:orientation="vertical" />
 
-<!--        <com.tbuonomo.viewpagerdotsindicator.DotsIndicator-->
-<!--            app:layout_constraintTop_toBottomOf="@id/viewPager"-->
-<!--            android:id="@+id/dotsIndicator"-->
-<!--            android:layout_margin="24sp"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            app:tabIndicatorGravity="bottom"-->
-<!--            app:dotsColor="#6fa0bf"-->
-<!--            app:selectedDotColor="#426b85"/>-->
-<!--        <com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator-->
-<!--            app:layout_constraintTop_toBottomOf="@id/viewPager"-->
-<!--            android:id="@+id/dotsIndicator2"-->
-<!--            android:layout_margin="8sp"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            app:tabIndicatorGravity="bottom"-->
-<!--            app:dotsColor="#6fa0bf"-->
-<!--            app:selectedDotColor="#426b85"/>-->
-        <com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
-            app:layout_constraintTop_toBottomOf="@id/viewPager"
-            android:id="@+id/dotsIndicator"
-            android:layout_margin="24sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:tabIndicatorGravity="bottom"
-            app:dotsColor="#6fa0bf"
-            app:selectedDotColor="#426b85"/>
+            <com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
+                app:layout_constraintTop_toBottomOf="@id/viewPager"
+                android:id="@+id/dotsIndicator"
+                android:layout_margin="24sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:tabIndicatorGravity="bottom"
+                app:dotsColor="#6fa0bf"
+                app:selectedDotColor="#426b85"/>
 
-    </LinearLayout>
+        </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
