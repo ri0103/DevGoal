@@ -1,18 +1,21 @@
 package app.ishizaki.ryu.devgoal.fragments
 
-import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import app.ishizaki.ryu.devgoal.ChartDetailCommitAdapter
 import app.ishizaki.ryu.devgoal.R
-import app.ishizaki.ryu.devgoal.titleExtra
-import com.github.mikephil.charting.data.BarEntry
-import com.github.mikephil.charting.data.PieData
-import com.github.mikephil.charting.data.PieDataSet
-import com.github.mikephil.charting.data.PieEntry
+import app.ishizaki.ryu.devgoal.Utils
 import kotlinx.android.synthetic.main.fragment_chart_detail.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class ChartDetailFragment : Fragment() {
@@ -27,6 +30,22 @@ class ChartDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val db = Utils.getDatabase(requireContext())
+        val commitAdapter = ChartDetailCommitAdapter(requireContext())
+
+        chartDetailCommitRecyclerView.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = commitAdapter
+        }
+
+        lifecycleScope.launch(Dispatchers.Default) {
+            val stopwatchDao = db.stopwatchDao()
+            val all = stopwatchDao.getAll()
+            withContext(Dispatchers.Main) {
+                commitAdapter.update(all)
+            }
+        }
 
         val bundle = arguments
         val timeLength = bundle!!.getFloat("LENGTH")
@@ -45,6 +64,9 @@ class ChartDetailFragment : Fragment() {
         closeChartDetailFragmentButton.setOnClickListener {
             fragmentManager?.beginTransaction()?.remove(this)?.commit()
         }
+
+
+
 
 
 //        val pieData = ArrayList<PieEntry>()

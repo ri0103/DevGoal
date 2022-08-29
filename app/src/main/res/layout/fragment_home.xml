@@ -16,25 +16,36 @@
         android:orientation="vertical"
         android:layout_margin="12sp">
 
-        <ImageButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/settingButton"
-            android:layout_width="20sp"
-            android:layout_height="20sp"
+            android:layout_width="28sp"
+            android:layout_height="28sp"
             android:layout_marginBottom="12sp"
             android:background="@drawable/ic_baseline_settings_24"
+
             />
 
-        <ImageButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/startTutorialButton"
-            android:layout_width="20sp"
-            android:layout_height="20sp"
+            android:layout_width="28sp"
+            android:layout_height="28sp"
             android:background="@drawable/ic_baseline_lightbulb_24"
             />
 
     </LinearLayout>
 
 
-
+    <TextView
+        android:id="@+id/goalText"
+        android:layout_width="320sp"
+        android:layout_height="wrap_content"
+        android:text="目標を設定してください →"
+        android:textSize="24sp"
+        android:fontFamily="@font/mplus_rounded_bold"
+        android:layout_marginTop="12sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="16sp"/>
     <TextView
         android:id="@+id/dueDateText"
         android:layout_width="wrap_content"
@@ -48,34 +59,28 @@
         android:layout_marginLeft="16sp"
         />
 
-    <TextView
-        android:id="@+id/goalText"
-        android:layout_width="320sp"
-        android:layout_height="wrap_content"
-        android:text="目標を設定してください →"
-        android:textSize="24sp"
-        android:fontFamily="@font/mplus_rounded_bold"
-        android:layout_marginTop="12sp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginLeft="16sp"/>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewTask"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/taskRecyclerCardView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintTop_toBottomOf="@id/dueDateText"
         app:layout_constraintBottom_toTopOf="@id/addTaskParts"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:background="@drawable/border_1"
         android:padding="8sp"
         android:layout_marginTop="12sp"
-        android:layout_margin="8sp"/>
+        android:layout_margin="8sp"
+        app:strokeWidth="2sp">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewTask"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+    </com.google.android.material.card.MaterialCardView>
 
     <TextView
         android:id="@+id/noTaskTextView"
-        app:layout_constraintTop_toTopOf="@id/recyclerViewTask"
+        app:layout_constraintTop_toTopOf="@id/taskRecyclerCardView"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         android:text="タスクはまだありません"
@@ -91,14 +96,14 @@
         android:layout_width="match_parent"
         android:layout_height="140sp"
         android:layout_margin="24sp"
-        app:layout_constraintBottom_toBottomOf="@id/recyclerViewTask"
-        app:layout_constraintRight_toRightOf="@id/recyclerViewTask"
-        app:layout_constraintLeft_toLeftOf="@id/recyclerViewTask"
+        app:layout_constraintBottom_toBottomOf="@id/taskRecyclerCardView"
+        app:layout_constraintRight_toRightOf="@id/taskRecyclerCardView"
+        app:layout_constraintLeft_toLeftOf="@id/taskRecyclerCardView"
         />
 
     <LinearLayout
         android:id="@+id/addTaskParts"
-        app:layout_constraintTop_toBottomOf="@id/recyclerViewTask"
+        app:layout_constraintTop_toBottomOf="@id/taskRecyclerCardView"
         app:layout_constraintBottom_toTopOf="@id/kaihatuButton"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -108,28 +113,39 @@
         android:gravity="center"
         android:layout_marginBottom="12sp">
 
-        <EditText
-            android:id="@+id/addTaskEditText"
-            android:hint="タスクを追加"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="240sp"
             android:layout_height="wrap_content"
-            android:minHeight="48sp"
-            android:maxHeight="160sp"
-            android:layout_marginRight="24sp"
-            android:background="@drawable/border_1"
-            android:padding="8sp"
-            android:fontFamily="@font/mplus_rounded_regular"
-            style="@style/MaterialAlertDialog.Material3.Body.Text"/>
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_marginEnd="24sp"
+            app:boxCornerRadiusBottomEnd="16sp"
+            app:boxCornerRadiusTopEnd="16sp"
+            app:boxCornerRadiusBottomStart="16sp"
+            app:boxCornerRadiusTopStart="16sp">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/addTaskEditText"
+                android:hint="タスクを追加"
+                android:layout_width="240sp"
+                android:layout_height="wrap_content"
+                android:minHeight="48sp"
+                android:maxHeight="160sp"
+                android:padding="8sp"
+                android:fontFamily="@font/mplus_rounded_regular"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/addTaskButton"
             android:layout_width="36sp"
             android:layout_height="36sp"
-            android:background="@drawable/ic_baseline_add_24" />
+            android:background="@drawable/ic_baseline_add_24"/>
+
+
+
 
     </LinearLayout>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/kaihatuButton"
         android:layout_width="200sp"
         android:layout_height="120sp"
@@ -142,7 +158,10 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:textSize="32sp"
-        android:layout_marginBottom="24sp"/>
+        android:layout_marginBottom="24sp" />
+
+
+
 
 
 

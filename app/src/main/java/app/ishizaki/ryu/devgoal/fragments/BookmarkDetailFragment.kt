@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.lifecycleScope
 import app.ishizaki.ryu.devgoal.R
 import app.ishizaki.ryu.devgoal.Utils
@@ -19,7 +21,7 @@ import kotlinx.coroutines.withContext
 import org.jsoup.Jsoup
 
 
-class BookmarkDetailFragment : BottomSheetDialogFragment() {
+class BookmarkDetailFragment : Fragment() {
 
 
 
@@ -37,7 +39,6 @@ class BookmarkDetailFragment : BottomSheetDialogFragment() {
 
         val db = Utils.getDatabase(requireContext())
         val bookmarkDao = db.bookmarkDao()
-
 
 
         val bundle = arguments
@@ -59,18 +60,25 @@ class BookmarkDetailFragment : BottomSheetDialogFragment() {
             lifecycleScope.launch(Dispatchers.Default){
                 val bookmarkToDelete = bookmarkDao.getByBookmarkId(bookmarkId)
                 bookmarkDao.delete(bookmarkToDelete)
-                dismiss()
+                setFragmentResult("requestKey", bundleOf("resultKey" to "result"))
+                fragmentManager?.beginTransaction()?.remove(this@BookmarkDetailFragment)?.commit()
+
             }
+
+
 
         }
 
         closeBookmarkDetailButton.setOnClickListener {
-            dismiss()
+            fragmentManager?.beginTransaction()?.remove(this@BookmarkDetailFragment)?.commit()
         }
 
 
 
     }
+
+
+
 
 
 }

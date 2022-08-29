@@ -34,23 +34,38 @@
             android:background="@drawable/ic_baseline_close_24"/>
 
         <TextView
+            android:id="@+id/detailDateTextView"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            android:id="@+id/detailDateTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="〇〇/〇〇"
-            android:textSize="40sp"
+            android:textSize="32sp"
             android:fontFamily="@font/mplus_rounded_bold"/>
 
+
         <TextView
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            android:id="@+id/commitUrlTextView"
+            android:id="@+id/commitHistoryTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="https://www.github.aaaaaa"
-            android:textSize="12sp" />
+            android:text="コミット履歴"
+            android:fontFamily="@font/mplus_rounded_medium"
+            app:layout_constraintBottom_toTopOf="@id/commitRecyclerCardView"
+            app:layout_constraintRight_toRightOf="@id/commitRecyclerCardView"
+            app:layout_constraintLeft_toLeftOf="@id/commitRecyclerCardView"
+            app:layout_constraintTop_toTopOf="parent"/>
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/commitRecyclerCardView"
+            app:layout_constraintTop_toBottomOf="@id/commitHistoryTextView"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_width="160sp"
+            android:layout_height="80sp"
+            app:strokeWidth="0sp">
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:id="@+id/chartDetailCommitRecyclerView" />
+        </com.google.android.material.card.MaterialCardView>
 
         <LinearLayout
             android:id="@+id/timePieChartsContainer"

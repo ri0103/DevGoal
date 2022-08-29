@@ -21,19 +21,29 @@
         android:text="お疲れ様でした！" />
 
 
-    <EditText
-        android:id="@+id/commitUrlEditText"
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/commitUrlInputLayout"
         app:layout_constraintTop_toBottomOf="@id/otukareTextView"
         app:layout_constraintBottom_toTopOf="@id/endingStopwatchParts"
         android:layout_margin="12sp"
-        android:inputType="textWebEditText"
-        android:fontFamily="@font/mplus_rounded_regular"
-        android:background="@drawable/border_1"
         android:layout_width="match_parent"
-        android:hint="GitHubのコミットURLを入れてください"
-        android:padding="2sp"
-        android:textAlignment="center"
-        android:layout_height="36sp"/>
+        android:layout_height="wrap_content"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/commitUrlEditText"
+            android:layout_width="match_parent"
+            android:layout_height="36sp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:inputType="textWebEditText"
+            android:fontFamily="@font/mplus_rounded_regular"
+            android:hint="GitHubのコミットURLを入れてください"
+            android:padding="2sp"
+            android:textAlignment="center"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
 
 
     <LinearLayout

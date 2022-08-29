@@ -2,28 +2,38 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="140sp"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.EditTaskFragment"
-    android:background="@drawable/container_1"
-    android:padding="8sp"
     android:clickable="true">
 
-    <!-- TODO: Update blank fragment layout -->
-    <EditText
-        android:layout_gravity="center|top"
-        android:textSize="24sp"
-        android:fontFamily="@font/mplus_rounded_medium"
-        android:id="@+id/editTaskEditText"
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="80sp"
-        android:text="tasktoedit"/>
-    <Button
+        android:layout_height="match_parent"
+        android:padding="32sp"
+        app:strokeWidth="3sp">
 
-        android:id="@+id/saveEditTaskButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right|bottom"
-        android:fontFamily="@font/mplus_rounded_medium"
-        android:text="保存"/>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/editTaskInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|top"
+            android:layout_margin="16sp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:endIconMode="custom"
+            app:endIconDrawable="@drawable/ic_baseline_check_circle_24"
+            >
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTaskEditText"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/mplus_rounded_medium"
+                android:hint="タスクを編集"
+                android:maxHeight="160sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
 
 </FrameLayout>

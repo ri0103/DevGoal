@@ -1,33 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".fragments.AddBookmarkFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_margin="24sp">
+        android:layout_margin="18sp">
 
-
-        <EditText
-            android:id="@+id/addUrlEditText"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/mplus_rounded_medium"
-            android:hint="URL "
-            android:inputType="textWebEmailAddress"
-            />
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_margin="4sp">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/addUrlEditText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:hint="URL "
+                android:inputType="textWebEmailAddress"
+                android:fontFamily="@font/mplus_rounded_medium"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
-            android:id="@+id/addMemoEditText"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/mplus_rounded_medium"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/addMemoEditText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_margin="4sp"
+                android:hint="メモ"
+                android:inputType="textWebEmailAddress"
+                android:fontFamily="@font/mplus_rounded_medium"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-            android:hint="メモ"/>
 
         <Button
             android:id="@+id/saveBookmarkButton"
@@ -42,4 +55,4 @@
 
     </LinearLayout>
 
-</FrameLayout>
+</com.google.android.material.card.MaterialCardView>

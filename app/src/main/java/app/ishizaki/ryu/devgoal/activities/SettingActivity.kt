@@ -88,7 +88,7 @@ class SettingActivity : AppCompatActivity() {
         selectNotificationTimeButton.setOnClickListener{
             TimePickerDialog(
                 this,
-                AlertDialog.THEME_HOLO_LIGHT,
+//                AlertDialog.THEME_HOLO_LIGHT,
 
                 { _, hour, minute ->
 

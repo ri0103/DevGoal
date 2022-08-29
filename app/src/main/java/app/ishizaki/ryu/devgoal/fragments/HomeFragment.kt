@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.Adapter
 import android.widget.Toast
 import androidx.core.view.isVisible
+import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,6 +26,7 @@ import app.ishizaki.ryu.devgoal.viewmodels.GoalViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.item_task_cell.view.*
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
@@ -33,6 +35,7 @@ import java.time.ZoneId
 
 
 class HomeFragment : Fragment() {
+
 
     val dateFormat = SimpleDateFormat("期日: yyyy/MM/dd")
 
@@ -56,19 +59,9 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        EditTaskFragment().setOnFinishEditListener(
-//            object : EditTaskFragment.OnFinishEditListener {
-//                override fun onButtonClicked() {
-//                    Toast.makeText(requireContext(), "testikeru", Toast.LENGTH_SHORT).show()
-//
-//                }
-//            }
-//        )
 
         val db = Utils.getDatabase(requireContext())
         val taskAdapter = TaskRecyclerviewAdapter(requireContext())
-
-
 
         lifecycleScope.launch(Dispatchers.Default) {
             val taskDao = db.taskDao()
@@ -77,13 +70,10 @@ class HomeFragment : Fragment() {
             val goalDao = db.goalDao()
             val allGoal = goalDao.getAll()
 
-
             withContext(Dispatchers.Main) {
                 taskAdapter.update(allTask)
                 if (allGoal.isNotEmpty()){
-                    goalText.text = """目標:
-                        |
-                    """.trimMargin() + allGoal[0].goalText
+                    goalText.text = "目標: " + allGoal[0].goalText
                     dueDateText.text = dateFormat.format(allGoal[0].goalDueDate).toString()
                 }
                 if (allTask.isEmpty()){
@@ -91,6 +81,23 @@ class HomeFragment : Fragment() {
                 }
             }
         }
+
+
+        setFragmentResultListener("requestKey") { key, bundle ->
+            val result = bundle.getString("resultKey")
+
+
+            lifecycleScope.launch(Dispatchers.Default) {
+                delay(100)
+                val taskDao = db.taskDao()
+                val all = taskDao.getAll()
+                withContext(Dispatchers.Main) {
+                    taskAdapter.update(all)
+                }
+            }
+
+        }
+
 
 
         recyclerViewTask.apply {
@@ -126,7 +133,7 @@ class HomeFragment : Fragment() {
        )
 
         addTaskButton.setOnClickListener {
-                if (addTaskEditText.text.isNotEmpty()){
+                if (addTaskEditText.text?.isNotEmpty() == true){
                     val task = Task(0, addTaskEditText.text.toString(), false, System.currentTimeMillis(), System.currentTimeMillis())
                     lifecycleScope.launch(Dispatchers.Default) {
                         val taskDao = db.taskDao()
@@ -136,7 +143,7 @@ class HomeFragment : Fragment() {
                             taskAdapter.update(all)
                         }
                     }
-                    addTaskEditText.text.clear()
+                    addTaskEditText.text?.clear()
                     noTaskTextView.isVisible = false
                 }
         }
@@ -144,7 +151,7 @@ class HomeFragment : Fragment() {
         addTaskEditText.setOnKeyListener { view, i, keyEvent ->
 
             if (keyEvent.action == KeyEvent.ACTION_DOWN && i == KeyEvent.KEYCODE_ENTER){
-                if (addTaskEditText.text.isNotEmpty()){
+                if (addTaskEditText.text?.isNotEmpty() == true){
                     val task = Task(0, addTaskEditText.text.toString(), false, System.currentTimeMillis(), System.currentTimeMillis())
                     lifecycleScope.launch(Dispatchers.Default) {
                         val taskDao = db.taskDao()
@@ -156,9 +163,13 @@ class HomeFragment : Fragment() {
                     }
                     noTaskTextView.isVisible = false
                 }
-                addTaskEditText.text.clear()
 
             }
+
+            if (keyEvent.action == KeyEvent.ACTION_UP && i == KeyEvent.KEYCODE_ENTER){
+                addTaskEditText.text?.clear()
+        }
+
             false
         }
 
@@ -185,6 +196,8 @@ class HomeFragment : Fragment() {
 
 
     }
+
+
 
 
 }
