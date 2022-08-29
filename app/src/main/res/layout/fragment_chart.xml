@@ -31,6 +31,25 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginRight="12sp"
         android:layout_marginLeft="12sp" />
+    
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/noChartDataMessageCardView"
+        app:layout_constraintTop_toTopOf="@id/timeBarChart"
+        app:layout_constraintBottom_toBottomOf="@id/timeBarChart"
+        app:layout_constraintRight_toRightOf="@id/timeBarChart"
+        app:layout_constraintLeft_toLeftOf="@id/timeBarChart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:fontFamily="@font/mplus_rounded_medium"
+            android:padding="12sp"
+            android:textAlignment="center"
+            android:text="開発時間を記録すると\nグラフが表示されます"/>
+    </com.google.android.material.card.MaterialCardView>
 
 
     <LinearLayout

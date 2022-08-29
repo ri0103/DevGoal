@@ -154,9 +154,10 @@ class HomeFragment : Fragment() {
                             taskAdapter.update(all)
                         }
                     }
-                    addTaskEditText.text.clear()
                     noTaskTextView.isVisible = false
                 }
+                addTaskEditText.text.clear()
+
             }
             false
         }

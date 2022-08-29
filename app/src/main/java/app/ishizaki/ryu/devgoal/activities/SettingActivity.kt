@@ -71,7 +71,7 @@ class SettingActivity : AppCompatActivity() {
         selectDueDateButton.setOnClickListener {
             DatePickerDialog(
                 this,
-                AlertDialog.THEME_DEVICE_DEFAULT_LIGHT,
+//                AlertDialog.THEME_DEVICE_DEFAULT_LIGHT,
 
                 { _, year, monthOfYear, dayOfMonth ->
                     setDueDate(year, monthOfYear, dayOfMonth)

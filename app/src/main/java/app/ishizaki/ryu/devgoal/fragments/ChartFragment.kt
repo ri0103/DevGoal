@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.room.Room
@@ -112,19 +113,21 @@ class ChartFragment : Fragment(), OnChartValueSelectedListener {
                 }
 
                 val chartDataSet = BarDataSet(chartData, "作業時間（分）")
-//                chartDataSet.color = Color.parseColor("#9c9c9c")
+    //                chartDataSet.color = Color.parseColor("#9c9c9c")
 
                 chartDataSet.color = R.color.md_theme_light_primary
                 timeBarChart.animateY(480)
                 timeBarChart.axisLeft.axisMinimum = 0F
                 val data = BarData(chartDataSet)
-
+                if (data.entryCount == 0){
+                    noChartDataMessageCardView.isVisible = true
+                }
                 timeBarChart.data = data
                 timeBarChart.xAxis.apply {
                     position = XAxis.XAxisPosition.BOTTOM
                     valueFormatter = xAxisValueFormatter
                     labelCount = dateData.size
-//                    mEntryCount = dateData.size
+    //                    mEntryCount = dateData.size
                     setDrawGridLines(false)
                 }
                 timeBarChart.axisRight.apply {
@@ -139,6 +142,9 @@ class ChartFragment : Fragment(), OnChartValueSelectedListener {
                 timeBarChart.setOnChartValueSelectedListener(this@ChartFragment)
             }
         }
+
+
+
     }
 
     override fun onValueSelected(e: Entry?, h: Highlight?) {
