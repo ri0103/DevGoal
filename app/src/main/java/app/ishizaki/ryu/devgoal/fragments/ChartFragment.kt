@@ -127,7 +127,7 @@ class ChartFragment : Fragment(), OnChartValueSelectedListener {
                     position = XAxis.XAxisPosition.BOTTOM
                     valueFormatter = xAxisValueFormatter
                     labelCount = dateData.size
-    //                    mEntryCount = dateData.size
+                    mEntryCount = dateData.size
                     setDrawGridLines(false)
                 }
                 timeBarChart.axisRight.apply {

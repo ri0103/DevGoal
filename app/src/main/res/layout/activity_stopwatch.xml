@@ -6,6 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".activities.StopwatchActivity">
 
+
+
+
     <TextView
         android:id="@+id/kaihatuchuutext"
         app:layout_constraintTop_toTopOf="parent"
@@ -13,11 +16,33 @@
         android:fontFamily="@font/mplus_rounded_bold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="開発中"
+        android:text="開発準備中"
         android:textSize="48sp"
         android:gravity="center"
         android:layout_marginBottom="36sp"
         />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/turnOffBatteryOptimizerMessageCardView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/stopWatchLayout"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="180sp"
+        android:layout_margin="12sp"
+        app:strokeColor="#bf5252"
+        app:strokeWidth="3sp"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="アプリを閉じても\nストップウォッチが\n正常に稼働するように、\n許可をお願いします"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:fontFamily="@font/mplus_rounded_medium"
+            android:gravity="center"/>
+    </com.google.android.material.card.MaterialCardView>
 
     <LinearLayout
         android:id="@+id/stopWatchLayout"

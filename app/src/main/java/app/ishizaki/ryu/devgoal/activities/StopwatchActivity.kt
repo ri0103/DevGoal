@@ -7,8 +7,16 @@ import android.content.IntentFilter
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.ColorMatrix
+import android.net.Uri
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.PowerManager
+import android.provider.Settings
+import android.util.Log
+import android.widget.Toast
+import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import app.ishizaki.ryu.devgoal.ColorScheme
 import app.ishizaki.ryu.devgoal.R
 import app.ishizaki.ryu.devgoal.TimerService
@@ -32,6 +40,23 @@ class StopwatchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityStopwatchBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
+        //ストップウォッチがバックグランドで正常稼働するために必要
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            val intent = Intent()
+            val packageName: String = packageName
+            val pm = getSystemService(Context.POWER_SERVICE) as PowerManager?
+            if (!pm!!.isIgnoringBatteryOptimizations(packageName)) {
+                intent.action = Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS
+                intent.data = Uri.parse("package:$packageName")
+                startActivity(intent)
+                turnOffBatteryOptimizerMessageCardView.isVisible = true
+                turnOffBatteryOptimizerMessageCardView.bringToFront()
+            }else{
+                turnOffBatteryOptimizerMessageCardView.isVisible = false
+            }
+        }
 
         binding.endButton.isEnabled = false
 
