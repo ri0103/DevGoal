@@ -16,7 +16,24 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 
-class BookmarkFragment : Fragment() {
+class BookmarkFragment : Fragment(), AddBookmarkFragment.AddedBookmarkListener {
+
+    override fun clickedSaveBookmarkButton() {
+        Toast.makeText(requireContext(), "aaa", Toast.LENGTH_SHORT).show()
+
+        val db = Utils.getDatabase(requireContext())
+        val bookmarkAdapter = BookmarkRecyclerviewAdapter(requireContext())
+        val bookmarkDao = db.bookmarkDao()
+
+        lifecycleScope.launch(Dispatchers.Default){
+            val all = bookmarkDao.getAll()
+            withContext(Dispatchers.Main){
+                bookmarkAdapter.update(all)
+            }
+        }
+
+
+    }
 
 
 
@@ -40,8 +57,6 @@ class BookmarkFragment : Fragment() {
         val bookmarkAdapter = BookmarkRecyclerviewAdapter(requireContext())
 
 
-
-
         bookmarkRecyclerview.apply {
             layoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
 //            layoutManager = LinearLayoutManager(requireContext())
@@ -58,10 +73,23 @@ class BookmarkFragment : Fragment() {
         }
 
         openAddBookmarkActivityButton.setOnClickListener {
+
+            val bookmarkDao = db.bookmarkDao()
+
+            lifecycleScope.launch(Dispatchers.Default){
+                val all = bookmarkDao.getAll()
+                withContext(Dispatchers.Main){
+                    bookmarkAdapter.update(all)
+                }
+            }
+
+
+
             AddBookmarkFragment().show(childFragmentManager, "newBookmarkTag")
         }
 
-
     }
+
+
 
 }

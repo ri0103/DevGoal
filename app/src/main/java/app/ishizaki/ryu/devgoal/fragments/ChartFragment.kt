@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.lifecycleScope
@@ -41,11 +42,6 @@ import kotlin.math.max
 
 class ChartFragment : Fragment(), OnChartValueSelectedListener {
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -54,7 +50,9 @@ class ChartFragment : Fragment(), OnChartValueSelectedListener {
         return inflater.inflate(R.layout.fragment_chart, container, false)
     }
 
-    @RequiresApi(Build.VERSION_CODES.N)
+    val dateData: MutableList<Date> = mutableListOf()
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -67,7 +65,6 @@ class ChartFragment : Fragment(), OnChartValueSelectedListener {
         val chartData = ArrayList<BarEntry>()
         val stopwatchDurations: MutableMap<Date, MutableList<Stopwatch>> = mutableMapOf()
         val weeklyTotal: MutableMap<Date, MutableList<Stopwatch>> = mutableMapOf()
-        val dateData: MutableList<Date> = mutableListOf()
 
         lifecycleScope.launch(Dispatchers.Default) {
             val stopwatchDao = db.stopwatchDao()
@@ -139,20 +136,32 @@ class ChartFragment : Fragment(), OnChartValueSelectedListener {
 
                 timeBarChart.description.isEnabled = false
 
-                timeBarChart.setOnChartValueSelectedListener(this)
+                timeBarChart.setOnChartValueSelectedListener(this@ChartFragment)
             }
         }
     }
 
     override fun onValueSelected(e: Entry?, h: Highlight?) {
+
+        val simpleDateFormat: SimpleDateFormat = SimpleDateFormat("M/d", Locale.getDefault())
+        val chartTimeLength = e?.y
+        val chartIndex = e?.x
+        val chartLabel = simpleDateFormat.format(dateData[chartIndex!!.toInt()])
+
+
+        val chartDetailFragment = ChartDetailFragment()
+        val bundle = Bundle()
+        bundle.putFloat("LENGTH", chartTimeLength!!)
+        bundle.putString("DATE", chartLabel)
+        chartDetailFragment.arguments = bundle
         val transaction = (requireContext() as FragmentActivity).supportFragmentManager.beginTransaction()
-        transaction.add(R.id.chart_detail_container, ChartDetailFragment()).commit()
-
-
+        transaction.add(R.id.chart_detail_container, chartDetailFragment).commit()
     }
 
+
+
     override fun onNothingSelected() {
-        TODO("Not yet implemented")
+
     }
 
 

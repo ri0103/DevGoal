@@ -1,5 +1,6 @@
 package app.ishizaki.ryu.devgoal.fragments
 
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -8,10 +9,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.URLUtil
+import android.widget.Button
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import app.ishizaki.ryu.devgoal.R
 import app.ishizaki.ryu.devgoal.Utils
+import app.ishizaki.ryu.devgoal.activities.MainActivity
 import app.ishizaki.ryu.devgoal.dataclass.Bookmark
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.android.synthetic.main.fragment_add_bookmark.*
@@ -23,12 +26,32 @@ import org.jsoup.Jsoup
 
 class AddBookmarkFragment : BottomSheetDialogFragment() {
 
+
+    private lateinit var listener: AddedBookmarkListener
+
+    interface AddedBookmarkListener {
+        fun clickedSaveBookmarkButton()
+    }
+//    override fun onAttach(context: Context) {
+//        super.onAttach(context)
+//        try {
+//            val bookmarkFragment: MAin = activity as MainActivity
+//        }
+//    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_bookmark, container, false)
+        val root: View = inflater.inflate(R.layout.fragment_add_bookmark, container, false)
+        val saveBookmarkButton: Button = root.findViewById(R.id.saveBookmarkButton)
+        saveBookmarkButton.setOnClickListener {
+            listener.clickedSaveBookmarkButton()
+        }
+
+        return root
+//        return inflater.inflate(R.layout.fragment_add_bookmark, container, false)
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -47,7 +70,13 @@ class AddBookmarkFragment : BottomSheetDialogFragment() {
                     bookmarkDao.insert(bookmark)
                     val all = bookmarkDao.getAll()
                     Log.d("framgnents", all.toString())
+
                     dismiss()
+
+
+
+
+
                 }else{
                     withContext(Dispatchers.Main){
                         Toast.makeText(requireContext(), "有効なURLを入力してください", Toast.LENGTH_SHORT).show()
@@ -61,6 +90,10 @@ class AddBookmarkFragment : BottomSheetDialogFragment() {
 
 
     }
+
+//    fun onClickedSave(view: View){
+//        listener?.onClickedSave()
+//    }
 
 
 }

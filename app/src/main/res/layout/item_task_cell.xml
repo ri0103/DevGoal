@@ -22,7 +22,7 @@
         android:paddingLeft="16sp"
         android:text="ここにタスクが入る"
         android:textSize="24sp"
-        android:fontFamily="@font/ricty_diminished_bold"
+        android:fontFamily="@font/mplus_rounded_medium"
         />
 
     <ImageButton

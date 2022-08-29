@@ -29,7 +29,7 @@
 
             <TextView
                 android:id="@+id/urlTextView"
-                android:fontFamily="@font/ricty_diminished_bold"
+                android:fontFamily="@font/mplus_rounded_bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
@@ -45,7 +45,7 @@
 
             <TextView
                 android:id="@+id/memoTextView"
-                android:fontFamily="@font/ricty_diminished_regular"
+                android:fontFamily="@font/mplus_rounded_regular"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="12sp"

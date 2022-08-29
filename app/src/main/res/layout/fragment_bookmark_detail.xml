@@ -31,13 +31,13 @@
                     android:layout_height="wrap_content"
                     android:text="@string/hello_blank_fragment"
                     android:textSize="28sp"
-                    android:fontFamily="@font/ricty_diminished_bold"
+                    android:fontFamily="@font/mplus_rounded_bold"
                     android:layout_marginBottom="24sp"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/ricty_diminished_bold"
+                    android:fontFamily="@font/mplus_rounded_medium"
                     android:textSize="18sp"
                     android:text="メモ: "/>
                 <TextView
@@ -47,7 +47,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/hello_blank_fragment"
                     android:textSize="18sp"
-                    android:fontFamily="@font/ricty_diminished_regular"
+                    android:fontFamily="@font/mplus_rounded_regular"
                     android:layout_marginBottom="24sp"/>
 
                 <TextView
@@ -57,7 +57,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/hello_blank_fragment"
                     android:textSize="12sp"
-                    android:fontFamily="@font/ricty_diminished_regular"
+                    android:fontFamily="@font/mplus_rounded_regular"
                     android:layout_marginBottom="24sp"/>
 
 

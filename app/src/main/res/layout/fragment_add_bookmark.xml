@@ -16,7 +16,7 @@
             android:id="@+id/addUrlEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/ricty_diminished_bold"
+            android:fontFamily="@font/mplus_rounded_medium"
             android:hint="URL "
             android:inputType="textWebEmailAddress"
             />
@@ -25,7 +25,7 @@
             android:id="@+id/addMemoEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/ricty_diminished_bold"
+            android:fontFamily="@font/mplus_rounded_medium"
 
             android:hint="メモ"/>
 
@@ -33,7 +33,7 @@
             android:id="@+id/saveBookmarkButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/ricty_diminished_bold"
+            android:fontFamily="@font/mplus_rounded_bold"
             android:layout_marginTop="12sp"
             android:layout_gravity="center"
             android:text="保存"/>

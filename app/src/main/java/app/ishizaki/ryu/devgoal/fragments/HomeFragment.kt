@@ -4,6 +4,7 @@ package app.ishizaki.ryu.devgoal.fragments
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -80,7 +81,9 @@ class HomeFragment : Fragment() {
             withContext(Dispatchers.Main) {
                 taskAdapter.update(allTask)
                 if (allGoal.isNotEmpty()){
-                    goalText.text = "目標: " + allGoal[0].goalText
+                    goalText.text = """目標:
+                        |
+                    """.trimMargin() + allGoal[0].goalText
                     dueDateText.text = dateFormat.format(allGoal[0].goalDueDate).toString()
                 }
                 if (allTask.isEmpty()){
@@ -96,8 +99,8 @@ class HomeFragment : Fragment() {
         }
 
         settingButton.setOnClickListener {
-            val intent = Intent (getActivity(), SettingActivity::class.java)
-            getActivity()?.startActivity(intent)
+            val intent = Intent (requireContext(), SettingActivity::class.java)
+            startActivity(intent)
         }
 
         startTutorialButton.setOnClickListener {
@@ -140,32 +143,32 @@ class HomeFragment : Fragment() {
         
         addTaskEditText.setOnKeyListener { view, i, keyEvent ->
 
-            if (addTaskEditText.text.isNotEmpty()){
-                val task = Task(0, addTaskEditText.text.toString(), false, System.currentTimeMillis(), System.currentTimeMillis())
-                lifecycleScope.launch(Dispatchers.Default) {
-                    val taskDao = db.taskDao()
-                    taskDao.insert(task)
-                    val all = taskDao.getAll()
-                    withContext(Dispatchers.Main) {
-                        taskAdapter.update(all)
+            if (keyEvent.action == KeyEvent.ACTION_DOWN && i == KeyEvent.KEYCODE_ENTER){
+                if (addTaskEditText.text.isNotEmpty()){
+                    val task = Task(0, addTaskEditText.text.toString(), false, System.currentTimeMillis(), System.currentTimeMillis())
+                    lifecycleScope.launch(Dispatchers.Default) {
+                        val taskDao = db.taskDao()
+                        taskDao.insert(task)
+                        val all = taskDao.getAll()
+                        withContext(Dispatchers.Main) {
+                            taskAdapter.update(all)
+                        }
                     }
+                    addTaskEditText.text.clear()
+                    noTaskTextView.isVisible = false
                 }
-                addTaskEditText.text.clear()
-                noTaskTextView.isVisible = false
             }
-
-            true
+            false
         }
 
-//        addTaskEditText.set
 
 
 
 
 
         kaihatuButton.setOnClickListener {
-            val intent = Intent (getActivity(), StopwatchActivity::class.java)
-            getActivity()?.startActivity(intent)
+            val intent = Intent (requireContext(), StopwatchActivity::class.java)
+            startActivity(intent)
         }
 
         kaihatuButton.setOnLongClickListener{

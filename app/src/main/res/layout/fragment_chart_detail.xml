@@ -1,15 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/chartDetailFragmentFrameLayout"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragments.ChartDetailFragment">
+    tools:context=".fragments.ChartDetailFragment"
+    android:clickable="true"
+>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#F0F0F0"
+        app:cardCornerRadius="24sp"
+        android:layout_margin="12sp"
+        android:elevation="12sp"
+        app:strokeWidth="4sp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="24sp">
+        android:padding="24sp"
+        >
+
+        <ImageButton
+            android:id="@+id/closeChartDetailFragmentButton"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_margin="12sp"
+            android:layout_width="36sp"
+            android:layout_height="36sp"
+            android:background="@drawable/ic_baseline_close_24"/>
 
         <TextView
             app:layout_constraintTop_toTopOf="parent"
@@ -17,8 +39,9 @@
             android:id="@+id/detailDateTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="10/10"
-            android:textSize="32sp" />
+            android:text="〇〇/〇〇"
+            android:textSize="40sp"
+            android:fontFamily="@font/mplus_rounded_bold"/>
 
         <TextView
             app:layout_constraintTop_toTopOf="parent"
@@ -30,6 +53,7 @@
             android:textSize="12sp" />
 
         <LinearLayout
+            android:id="@+id/timePieChartsContainer"
             app:layout_constraintTop_toBottomOf="@id/detailDateTextView"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -38,14 +62,46 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <com.github.mikephil.charting.charts.PieChart
-                android:id="@+id/detailTimePieChart"
-                android:layout_width="240sp"
-                android:layout_height="240sp"/>
+<!--            <com.github.mikephil.charting.charts.PieChart-->
+<!--                android:id="@+id/detailTimePieChart"-->
+<!--                android:layout_width="240sp"-->
+<!--                android:layout_height="240sp"/>-->
 
         </LinearLayout>
+
+        <com.google.android.material.card.MaterialCardView
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_margin="8sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_margin="12sp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="今日の開発時間"
+                android:layout_gravity="center_horizontal"
+                android:fontFamily="@font/mplus_rounded_regular"
+                android:textSize="24sp" />
+            <TextView
+                android:id="@+id/dayTimeLength"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1分"
+                android:fontFamily="@font/mplus_rounded_regular"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="12sp"
+                android:textSize="32sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    </androidx.cardview.widget.CardView>
 </FrameLayout>
