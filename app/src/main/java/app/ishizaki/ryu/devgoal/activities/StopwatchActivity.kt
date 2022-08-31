@@ -7,8 +7,13 @@ import android.content.IntentFilter
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.ColorMatrix
+import android.net.Uri
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.PowerManager
+import android.provider.Settings
+import androidx.core.view.isVisible
 import app.ishizaki.ryu.devgoal.ColorScheme
 import app.ishizaki.ryu.devgoal.R
 import app.ishizaki.ryu.devgoal.TimerService
@@ -19,7 +24,6 @@ import kotlinx.coroutines.*
 import kotlin.math.roundToInt
 
 class StopwatchActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityStopwatchBinding
     private var timerStarted = false
     private lateinit var serviceIntent: Intent
     private var time = 0.0
@@ -30,20 +34,38 @@ class StopwatchActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityStopwatchBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(R.layout.activity_stopwatch)
 
-        binding.endButton.isEnabled = false
 
-        binding.startStopButton.setOnClickListener { startStopTimer() }
-//        binding.resetButton.setOnClickListener { resetTimer() }
-        binding.restButton.setOnClickListener {
-            kaihatuchuutext.text = "休憩中"
-            stCountText.setTextColor(Color.LTGRAY)
-            stopTimer()
-            binding.startStopButton.text = "再開"
+        //ストップウォッチがバックグランドで正常稼働するために必要
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            val intent = Intent()
+            val packageName: String = packageName
+            val pm = getSystemService(Context.POWER_SERVICE) as PowerManager?
+            if (!pm!!.isIgnoringBatteryOptimizations(packageName)) {
+                intent.action = Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS
+                intent.data = Uri.parse("package:$packageName")
+                startActivity(intent)
+                turnOffBatteryOptimizerMessageCardView.isVisible = true
+                turnOffBatteryOptimizerMessageCardView.bringToFront()
+            }else{
+                turnOffBatteryOptimizerMessageCardView.isVisible = false
+            }
         }
-        binding.endButton.setOnClickListener {
+
+
+        endButton.isEnabled = false
+
+        startStopButton.setOnClickListener { startStopTimer() }
+//        binding.resetButton.setOnClickListener { resetTimer() }
+        restButton.setOnClickListener {
+            stopTimer()
+            stCountText.setTextColor(Color.LTGRAY)
+            startStopButton.text = "再開"
+            kaihatuchuutext.text = "休憩中"
+
+        }
+        endButton.setOnClickListener {
             val intent = Intent(applicationContext, EndStopwatchActivity::class.java)
             intent.putExtra(EXTRA_MESSAGE, time)
             finish()
@@ -57,18 +79,17 @@ class StopwatchActivity : AppCompatActivity() {
     private val updateTime: BroadcastReceiver = object : BroadcastReceiver(){
         override fun onReceive(context: Context, intent: Intent) {
             time = intent.getDoubleExtra(TimerService.TIMER_EXTRA, 0.0)
-            binding.stCountText.text = getTimeStringFromDouble(time)
+            stCountText.text = getTimeStringFromDouble(time)
             if (intent.getDoubleExtra(TimerService.TIMER_EXTRA, 0.0) == 0.0){
                 timerStarted = false
-                binding.startStopButton.text = "開始"
-                binding.startStopButton.icon = getDrawable(R.drawable.ic_baseline_play_arrow_24)
+                startStopButton.text = "開始"
+                startStopButton.icon = getDrawable(R.drawable.ic_baseline_play_arrow_24)
             }else{
-                val defaultButtonColor = startStopButton.backgroundTintList
                 stCountText.setTextColor(Color.DKGRAY)
                 timerStarted = true
-                binding.startStopButton.text = "停止"
-                binding.startStopButton.icon = getDrawable(R.drawable.ic_baseline_pause_24)
-                binding.endButton.isEnabled = true
+                startStopButton.text = "停止"
+                startStopButton.icon = getDrawable(R.drawable.ic_baseline_pause_24)
+                endButton.isEnabled = true
 
             }
         }
@@ -86,11 +107,6 @@ class StopwatchActivity : AppCompatActivity() {
 
     private fun makeTimeString(hour: Int, min: Int, sec: Int): String = String.format("%02d:%02d:%02d", hour, min, sec)
 
-//    private fun resetTimer() {
-//        stopTimer()
-//        time = 0.0
-//        binding.stCountText.text = getTimeStringFromDouble(time)
-//    }
 
     private fun startStopTimer() {
         if (timerStarted)
@@ -104,15 +120,16 @@ class StopwatchActivity : AppCompatActivity() {
         stCountText.setTextColor(Color.DKGRAY)
         serviceIntent.putExtra(TimerService.TIMER_EXTRA, time)
         startService(serviceIntent)
-        binding.startStopButton.text = "停止"
-        binding.startStopButton.icon = getDrawable(R.drawable.ic_baseline_pause_24)
+        startStopButton.text = "停止"
+        startStopButton.icon = getDrawable(R.drawable.ic_baseline_pause_24)
         timerStarted = true
     }
 
     private fun stopTimer() {
+        kaihatuchuutext.text = "停止中"
         stopService(serviceIntent)
-        binding.startStopButton.text = "開始"
-        binding.startStopButton.icon = getDrawable(R.drawable.ic_baseline_play_arrow_24)
+        startStopButton.text = "開始"
+        startStopButton.icon = getDrawable(R.drawable.ic_baseline_play_arrow_24)
         timerStarted = false
     }
 
