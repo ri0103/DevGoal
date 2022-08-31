@@ -7,16 +7,8 @@ import android.content.IntentFilter
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.ColorMatrix
-import android.net.Uri
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.PowerManager
-import android.provider.Settings
-import android.util.Log
-import android.widget.Toast
-import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
 import app.ishizaki.ryu.devgoal.ColorScheme
 import app.ishizaki.ryu.devgoal.R
 import app.ishizaki.ryu.devgoal.TimerService
@@ -24,10 +16,10 @@ import app.ishizaki.ryu.devgoal.databinding.ActivityStopwatchBinding
 import com.google.android.material.elevation.SurfaceColors
 import kotlinx.android.synthetic.main.activity_stopwatch.*
 import kotlinx.coroutines.*
-import java.util.*
 import kotlin.math.roundToInt
 
 class StopwatchActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityStopwatchBinding
     private var timerStarted = false
     private lateinit var serviceIntent: Intent
     private var time = 0.0
@@ -38,38 +30,20 @@ class StopwatchActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_stopwatch)
+        binding = ActivityStopwatchBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
+        binding.endButton.isEnabled = false
 
-        //ストップウォッチがバックグランドで正常稼働するために必要
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            val intent = Intent()
-            val packageName: String = packageName
-            val pm = getSystemService(Context.POWER_SERVICE) as PowerManager?
-            if (!pm!!.isIgnoringBatteryOptimizations(packageName)) {
-                intent.action = Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS
-                intent.data = Uri.parse("package:$packageName")
-                startActivity(intent)
-                turnOffBatteryOptimizerMessageCardView.isVisible = true
-                turnOffBatteryOptimizerMessageCardView.bringToFront()
-            }else{
-                turnOffBatteryOptimizerMessageCardView.isVisible = false
-            }
-        }
-
-
-        endButton.isEnabled = false
-
-        startStopButton.setOnClickListener { startStopTimer() }
+        binding.startStopButton.setOnClickListener { startStopTimer() }
 //        binding.resetButton.setOnClickListener { resetTimer() }
-        restButton.setOnClickListener {
-            stopTimer()
-            stCountText.setTextColor(Color.LTGRAY)
-            startStopButton.text = "再開"
+        binding.restButton.setOnClickListener {
             kaihatuchuutext.text = "休憩中"
-
+            stCountText.setTextColor(Color.LTGRAY)
+            stopTimer()
+            binding.startStopButton.text = "再開"
         }
-        endButton.setOnClickListener {
+        binding.endButton.setOnClickListener {
             val intent = Intent(applicationContext, EndStopwatchActivity::class.java)
             intent.putExtra(EXTRA_MESSAGE, time)
             finish()
@@ -83,19 +57,19 @@ class StopwatchActivity : AppCompatActivity() {
     private val updateTime: BroadcastReceiver = object : BroadcastReceiver(){
         override fun onReceive(context: Context, intent: Intent) {
             time = intent.getDoubleExtra(TimerService.TIMER_EXTRA, 0.0)
-            stCountText.text = getTimeStringFromDouble(time)
+            binding.stCountText.text = getTimeStringFromDouble(time)
             if (intent.getDoubleExtra(TimerService.TIMER_EXTRA, 0.0) == 0.0){
-                kaihatuchuutext.text = "停止中"
                 timerStarted = false
-                startStopButton.text = "開始"
-                startStopButton.icon = getDrawable(R.drawable.ic_baseline_play_arrow_24)
+                binding.startStopButton.text = "開始"
+                binding.startStopButton.icon = getDrawable(R.drawable.ic_baseline_play_arrow_24)
             }else{
-                kaihatuchuutext.text = "開発中"
+                val defaultButtonColor = startStopButton.backgroundTintList
                 stCountText.setTextColor(Color.DKGRAY)
                 timerStarted = true
-                startStopButton.text = "停止"
-                startStopButton.icon = getDrawable(R.drawable.ic_baseline_pause_24)
-                endButton.isEnabled = true
+                binding.startStopButton.text = "停止"
+                binding.startStopButton.icon = getDrawable(R.drawable.ic_baseline_pause_24)
+                binding.endButton.isEnabled = true
+
             }
         }
 
@@ -112,13 +86,17 @@ class StopwatchActivity : AppCompatActivity() {
 
     private fun makeTimeString(hour: Int, min: Int, sec: Int): String = String.format("%02d:%02d:%02d", hour, min, sec)
 
+//    private fun resetTimer() {
+//        stopTimer()
+//        time = 0.0
+//        binding.stCountText.text = getTimeStringFromDouble(time)
+//    }
 
     private fun startStopTimer() {
-        if (timerStarted) {
+        if (timerStarted)
             stopTimer()
-        }else {
+        else
             startTimer()
-        }
     }
 
     private fun startTimer() {
@@ -126,16 +104,15 @@ class StopwatchActivity : AppCompatActivity() {
         stCountText.setTextColor(Color.DKGRAY)
         serviceIntent.putExtra(TimerService.TIMER_EXTRA, time)
         startService(serviceIntent)
-        startStopButton.text = "停止"
-        startStopButton.icon = getDrawable(R.drawable.ic_baseline_pause_24)
+        binding.startStopButton.text = "停止"
+        binding.startStopButton.icon = getDrawable(R.drawable.ic_baseline_pause_24)
         timerStarted = true
     }
 
     private fun stopTimer() {
-        kaihatuchuutext.text = "停止中"
         stopService(serviceIntent)
-        startStopButton.text = "開始"
-        startStopButton.icon = getDrawable(R.drawable.ic_baseline_play_arrow_24)
+        binding.startStopButton.text = "開始"
+        binding.startStopButton.icon = getDrawable(R.drawable.ic_baseline_play_arrow_24)
         timerStarted = false
     }
 
