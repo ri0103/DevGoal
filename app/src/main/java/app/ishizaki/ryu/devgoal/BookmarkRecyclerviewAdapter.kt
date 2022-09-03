@@ -2,9 +2,11 @@ package app.ishizaki.ryu.devgoal
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +22,7 @@ import app.ishizaki.ryu.devgoal.fragments.EditTaskFragment
 import app.ishizaki.ryu.devgoal.viewmodels.BookmarkViewModel
 import com.facebook.shimmer.ShimmerFrameLayout
 import kotlinx.coroutines.*
+import org.jsoup.HttpStatusException
 import org.jsoup.Jsoup
 import java.net.URL
 
@@ -41,12 +44,19 @@ class BookmarkRecyclerviewAdapter(context: Context): RecyclerView.Adapter<Bookma
 
         scope.launch{
 
-            val urlTitle = Jsoup.connect(bookmark.url).get().title()
-            val imageTag = Jsoup.connect(bookmark.url).get().select("img").firstOrNull()
-            val imageUrl = imageTag?.absUrl("src")
-            val imageBMP = URL(imageUrl).openStream().use { BitmapFactory.decodeStream(it) }
+            var urlTitle: String?  = bookmark.url
+            var imageBMP: Bitmap? = null
 
-            withContext(Dispatchers.Main){
+            try {
+                urlTitle = Jsoup.connect(bookmark.url).get().title()
+                val imageTag = Jsoup.connect(bookmark.url).get().select("img").firstOrNull()
+                val imageUrl = imageTag?.absUrl("src")
+                val imageBMP = URL(imageUrl).openStream().use { BitmapFactory.decodeStream(it) }
+            } catch (e:HttpStatusException){
+                Log.d("BookmarkRecyclerviewAdapter", e.toString())
+            }
+
+                withContext(Dispatchers.Main){
                 holder.urlTextView.text = urlTitle
                 holder.urlImageView.setImageBitmap(imageBMP)
                 holder.memoTextView.text = bookmark.memo

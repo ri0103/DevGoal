@@ -65,7 +65,6 @@ class ChartFragment : Fragment(), OnChartValueSelectedListener {
 
         val chartData = ArrayList<BarEntry>()
         val stopwatchDurations: MutableMap<Date, MutableList<Stopwatch>> = mutableMapOf()
-        val weeklyTotal: MutableMap<Date, MutableList<Stopwatch>> = mutableMapOf()
 
         lifecycleScope.launch(Dispatchers.Default) {
             val stopwatchDao = db.stopwatchDao()
@@ -113,8 +112,6 @@ class ChartFragment : Fragment(), OnChartValueSelectedListener {
                 }
 
                 val chartDataSet = BarDataSet(chartData, "作業時間（分）")
-    //                chartDataSet.color = Color.parseColor("#9c9c9c")
-
                 chartDataSet.color = R.color.md_theme_light_primary
                 timeBarChart.animateY(480)
                 timeBarChart.axisLeft.axisMinimum = 0F
@@ -149,16 +146,14 @@ class ChartFragment : Fragment(), OnChartValueSelectedListener {
 
     override fun onValueSelected(e: Entry?, h: Highlight?) {
 
-        val simpleDateFormat: SimpleDateFormat = SimpleDateFormat("M/d", Locale.getDefault())
         val chartTimeLength = e?.y
         val chartIndex = e?.x
-        val chartLabel = simpleDateFormat.format(dateData[chartIndex!!.toInt()])
-
+        val selectedDateInLong = dateData[chartIndex!!.toInt()].time
 
         val chartDetailFragment = ChartDetailFragment()
         val bundle = Bundle()
         bundle.putFloat("LENGTH", chartTimeLength!!)
-        bundle.putString("DATE", chartLabel)
+        bundle.putLong("DATE", selectedDateInLong)
         chartDetailFragment.arguments = bundle
         val transaction = (requireContext() as FragmentActivity).supportFragmentManager.beginTransaction()
         transaction.add(R.id.chart_detail_container, chartDetailFragment).commit()

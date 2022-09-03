@@ -84,12 +84,24 @@
 
         </LinearLayout>
 
+        <TextView
+            app:layout_constraintTop_toBottomOf="@id/commitRecyclerCardView"
+            app:layout_constraintBottom_toTopOf="@id/totalKaihatuCardView"
+            android:textSize="25sp"
+            android:id="@+id/concentrationLevelText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/totalKaihatuCardView"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_margin="8sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:strokeWidth="0sp"
+            android:elevation="12sp"
             >
             <LinearLayout
                 android:layout_width="match_parent"
@@ -99,7 +111,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="今日の開発時間"
+                android:text="開発時間"
                 android:layout_gravity="center_horizontal"
                 android:fontFamily="@font/mplus_rounded_regular"
                 android:textSize="24sp" />

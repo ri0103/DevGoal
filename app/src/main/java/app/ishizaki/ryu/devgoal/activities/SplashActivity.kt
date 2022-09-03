@@ -20,7 +20,6 @@ class SplashActivity : AppCompatActivity() {
 
         CoroutineScope(Dispatchers.Main).launch{
 
-
             if (isInitial){
                 val intentTutorial = Intent(this@SplashActivity, TutorialActivity::class.java)
                 startActivity(intentTutorial)

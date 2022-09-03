@@ -1,10 +1,12 @@
 package app.ishizaki.ryu.devgoal.fragments
 
+import android.icu.text.Transliterator
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,6 +18,9 @@ import kotlinx.android.synthetic.main.fragment_chart_detail.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.util.*
 
 
 class ChartDetailFragment : Fragment() {
@@ -34,6 +39,12 @@ class ChartDetailFragment : Fragment() {
         val db = Utils.getDatabase(requireContext())
         val commitAdapter = ChartDetailCommitAdapter(requireContext())
 
+        val concentrationList = mutableListOf<Int>()
+
+        val bundle = arguments
+        val timeLength = bundle!!.getFloat("LENGTH")
+        val dateInLong = bundle.getLong("DATE")
+
         chartDetailCommitRecyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = commitAdapter
@@ -42,16 +53,43 @@ class ChartDetailFragment : Fragment() {
         lifecycleScope.launch(Dispatchers.Default) {
             val stopwatchDao = db.stopwatchDao()
             val all = stopwatchDao.getAll()
+
+            val calendar = Calendar.getInstance()
+            calendar.timeInMillis = dateInLong
+            calendar.set(Calendar.HOUR_OF_DAY, 0)
+            calendar.set(Calendar.MINUTE, 0)
+            calendar.set(Calendar.SECOND, 0)
+            calendar.set(Calendar.MILLISECOND, 0)
+            val onlyDate = calendar.time
+            val sameDateStopwatches = stopwatchDao.getStopwatchByDate(onlyDate)
+
+
+            sameDateStopwatches.forEach {
+                concentrationList.add(it.concentrationLevel)
+            }
+
+
             withContext(Dispatchers.Main) {
-                commitAdapter.update(all)
+                commitAdapter.update(sameDateStopwatches)
+
+                Toast.makeText(requireContext(), concentrationList.toString(), Toast.LENGTH_SHORT).show()
+                concentrationLevelText.text = "開発度" + concentrationList.average().toString()
+
+
+
+
             }
         }
 
-        val bundle = arguments
-        val timeLength = bundle!!.getFloat("LENGTH")
-        val chartLabel = bundle!!.getString("DATE")
 
-        detailDateTextView.text = chartLabel
+
+
+        val simpleDateFormat = SimpleDateFormat("M/d", Locale.getDefault())
+        val calendar = Calendar.getInstance()
+        calendar.timeInMillis = dateInLong
+        detailDateTextView.text = simpleDateFormat.format(calendar.time)
+
+
 
         val timeLengthInDouble = timeLength.toString().toDouble()
 
@@ -64,29 +102,6 @@ class ChartDetailFragment : Fragment() {
         closeChartDetailFragmentButton.setOnClickListener {
             fragmentManager?.beginTransaction()?.remove(this)?.commit()
         }
-
-
-
-
-
-//        val pieData = ArrayList<PieEntry>()
-//        val pieColors = ArrayList<Color>()
-//
-//        pieData.add(PieEntry(36F))
-//        pieData.add(PieEntry(48F))
-//
-//
-//
-//        val pieDataSet = PieDataSet(pieData, "テスト")
-//        val data = PieData(pieDataSet)
-//
-//        pieDataSet.colors = listOf(Color.RED, Color.GRAY)
-//
-//        detailTimePieChart.data = data
-
-
-
-
 
 
     }

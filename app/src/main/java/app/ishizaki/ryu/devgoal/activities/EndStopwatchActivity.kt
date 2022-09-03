@@ -35,11 +35,18 @@ class EndStopwatchActivity : AppCompatActivity() {
 
         serviceIntent = Intent(applicationContext, TimerService::class.java)
 
+        val calendar = Calendar.getInstance()
+        calendar.set(Calendar.HOUR_OF_DAY, 0)
+        calendar.set(Calendar.MINUTE, 0)
+        calendar.set(Calendar.SECOND, 0)
+        calendar.set(Calendar.MILLISECOND, 0)
+        val onlyDate = calendar.time
+
 
         concentrationButton1.setOnClickListener{
             lifecycleScope.launch {
                 withContext(Dispatchers.Default){
-                    val stopwatch = Stopwatch(0, Date(), time, 0, commitUrlEditText.text.toString())
+                    val stopwatch = Stopwatch(0, Date(), onlyDate, time, 0, commitUrlEditText.text.toString())
                     val stopwatchDao = db.stopwatchDao()
                     stopwatchDao.insert(stopwatch)
                 }
@@ -51,7 +58,7 @@ class EndStopwatchActivity : AppCompatActivity() {
         concentrationButton2.setOnClickListener {
             lifecycleScope.launch {
                 withContext(Dispatchers.Default){
-                    val stopwatch = Stopwatch(0, Date(), time, 1, commitUrlEditText.text.toString())
+                    val stopwatch = Stopwatch(0, Date(), onlyDate, time, 1, commitUrlEditText.text.toString())
                     val stopwatchDao = db.stopwatchDao()
                     stopwatchDao.insert(stopwatch)
                 }
@@ -63,7 +70,7 @@ class EndStopwatchActivity : AppCompatActivity() {
         concentrationButton3.setOnClickListener {
             lifecycleScope.launch {
                 withContext(Dispatchers.Default){
-                    val stopwatch = Stopwatch(0, Date(), time, 2, commitUrlEditText.text.toString())
+                    val stopwatch = Stopwatch(0, Date(), onlyDate, time, 2, commitUrlEditText.text.toString())
                     val stopwatchDao = db.stopwatchDao()
                     stopwatchDao.insert(stopwatch)
                 }

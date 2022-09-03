@@ -24,7 +24,6 @@ import java.util.*
 
 class SettingActivity : AppCompatActivity() {
 
-    private lateinit var binding : ActivitySettingBinding
     //目標の締め切り
     var yearSelected = 0
     var monthSelected = 0
@@ -37,9 +36,7 @@ class SettingActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivitySettingBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
+        setContentView(R.layout.activity_setting)
 
 
         createNotificationChannel()
@@ -109,7 +106,7 @@ class SettingActivity : AppCompatActivity() {
 
 
 
-        binding.saveSettingButton.setOnClickListener {
+        saveSettingButton.setOnClickListener {
 
 
             if (yearSelected == 0 && monthSelected == 0 && minuteSelected == 0){
@@ -138,7 +135,7 @@ class SettingActivity : AppCompatActivity() {
         }
 
 
-        binding.setNotificationButton.setOnClickListener {
+        setNotificationButton.setOnClickListener {
             scheduleNotification()
             lifecycleScope.launch(Dispatchers.Default){
                 val notifdata = Notifdata(0, hourSelected, minuteSelected)

@@ -9,5 +9,5 @@
     android:fontFamily="@font/mplus_rounded_medium"
     android:padding="4sp"
     android:layout_margin="4sp"
-    android:text="changed_ui_material"/>
+    />
 
