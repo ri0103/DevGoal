@@ -44,7 +44,6 @@ class BookmarkFragment : Fragment() {
         setFragmentResultListener("requestKey") { key, bundle ->
 
             lifecycleScope.launch(Dispatchers.Default) {
-//                delay(2000)
                 val bookmarkDao = db.bookmarkDao()
                 val all = bookmarkDao.getAll()
                 withContext(Dispatchers.Main) {
@@ -58,7 +57,6 @@ class BookmarkFragment : Fragment() {
 
         bookmarkRecyclerview.apply {
             layoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
-//            layoutManager = LinearLayoutManager(requireContext())
             adapter = bookmarkAdapter
         }
 
@@ -74,9 +72,6 @@ class BookmarkFragment : Fragment() {
         openAddBookmarkActivityButton.setOnClickListener {
             val transaction = (requireContext() as FragmentActivity).supportFragmentManager.beginTransaction()
             transaction.add(R.id.add_bookmark_container, AddBookmarkFragment()).commit()
-
-//            AddBookmarkFragment().show(childFragmentManager, "newBookmarkTag")
-
         }
 
     }

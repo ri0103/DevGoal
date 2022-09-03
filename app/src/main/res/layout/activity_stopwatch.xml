@@ -22,27 +22,7 @@
         android:layout_marginBottom="36sp"
         />
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/turnOffBatteryOptimizerMessageCardView"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/stopWatchLayout"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_width="match_parent"
-        android:layout_height="180sp"
-        android:layout_margin="12sp"
-        app:strokeColor="#bf5252"
-        app:strokeWidth="3sp"
-        >
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="アプリを閉じても\nストップウォッチが\n正常に稼働するように、\n許可をお願いします"
-            android:textAlignment="center"
-            android:textSize="24sp"
-            android:fontFamily="@font/mplus_rounded_medium"
-            android:gravity="center"/>
-    </com.google.android.material.card.MaterialCardView>
+
 
     <LinearLayout
         android:id="@+id/stopWatchLayout"
@@ -72,15 +52,7 @@
         android:gravity="center"
         app:layout_constraintTop_toBottomOf="@id/stCountText"
         >
-<!--        <ImageButton-->
-<!--            android:id="@+id/startStopButton"-->
-<!--            android:layout_width="80sp"-->
-<!--            android:layout_height="80sp"-->
-<!--            app:cornerRadius="50sp"-->
-<!--            android:text="test"-->
-<!--            android:background="@drawable/ic_baseline_play_arrow_24"-->
-<!--            android:backgroundTint=""-->
-<!--            android:layout_margin="10sp"/>-->
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/startStopButton"
             android:layout_width="120sp"
@@ -116,13 +88,6 @@
 
     </LinearLayout>
 
-<!--    <Button-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintLeft_toLeftOf="parent"-->
-<!--        android:id="@+id/resetButton"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="リセット"-->
-<!--        android:layout_margin="10sp"/>-->
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

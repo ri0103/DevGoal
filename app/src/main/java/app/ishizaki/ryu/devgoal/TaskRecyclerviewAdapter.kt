@@ -20,13 +20,9 @@ import app.ishizaki.ryu.devgoal.room.AppDatabase
 class TaskRecyclerviewAdapter(context: Context): RecyclerView.Adapter<TaskRecyclerviewAdapter.TaskViewHolder>() {
 
 
-    //    var items = ArrayList<Task>()
     val taskList: MutableList<Task> = mutableListOf()
     private lateinit var listener: OnTaskCellClickListener
 
-//    fun setListData(data: ArrayList<Task>){
-//        this.items = data
-//    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
         val inflater = LayoutInflater.from(parent.context).inflate(R.layout.item_task_cell, parent, false)
@@ -39,7 +35,6 @@ class TaskRecyclerviewAdapter(context: Context): RecyclerView.Adapter<TaskRecycl
             AppDatabase::class.java, "database"
         ).allowMainThreadQueries().build()
         val taskDao = db.taskDao()
-        val all = taskDao.getAll()
         val task = taskList[position]
 
 
@@ -54,7 +49,6 @@ class TaskRecyclerviewAdapter(context: Context): RecyclerView.Adapter<TaskRecycl
         holder.taskTitleTextView.isChecked = task.taskDoneOrNot
 
         holder.deleteTaskButton.setOnClickListener(View.OnClickListener {
-//            taskDao.delete(all.get(position))
             taskDao.delete(task)
             listener.onItemClick(task)
         })

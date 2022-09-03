@@ -46,7 +46,7 @@ class EndStopwatchActivity : AppCompatActivity() {
         concentrationButton1.setOnClickListener{
             lifecycleScope.launch {
                 withContext(Dispatchers.Default){
-                    val stopwatch = Stopwatch(0, Date(), onlyDate, time, 0, commitUrlEditText.text.toString())
+                    val stopwatch = Stopwatch(0, Date(), onlyDate, time, 1, commitUrlEditText.text.toString())
                     val stopwatchDao = db.stopwatchDao()
                     stopwatchDao.insert(stopwatch)
                 }
@@ -58,7 +58,7 @@ class EndStopwatchActivity : AppCompatActivity() {
         concentrationButton2.setOnClickListener {
             lifecycleScope.launch {
                 withContext(Dispatchers.Default){
-                    val stopwatch = Stopwatch(0, Date(), onlyDate, time, 1, commitUrlEditText.text.toString())
+                    val stopwatch = Stopwatch(0, Date(), onlyDate, time, 2, commitUrlEditText.text.toString())
                     val stopwatchDao = db.stopwatchDao()
                     stopwatchDao.insert(stopwatch)
                 }
@@ -70,7 +70,7 @@ class EndStopwatchActivity : AppCompatActivity() {
         concentrationButton3.setOnClickListener {
             lifecycleScope.launch {
                 withContext(Dispatchers.Default){
-                    val stopwatch = Stopwatch(0, Date(), onlyDate, time, 2, commitUrlEditText.text.toString())
+                    val stopwatch = Stopwatch(0, Date(), onlyDate, time, 3, commitUrlEditText.text.toString())
                     val stopwatchDao = db.stopwatchDao()
                     stopwatchDao.insert(stopwatch)
                 }

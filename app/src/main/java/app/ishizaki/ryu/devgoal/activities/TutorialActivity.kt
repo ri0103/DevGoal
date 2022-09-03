@@ -20,7 +20,10 @@ class TutorialActivity : AppCompatActivity() {
             Tutorial1Fragment(),
             Tutorial2Fragment(),
             Tutorial3Fragment(),
-//            Tutorial4Fragment(),
+            Tutorial4Fragment(),
+            Tutorial5Fragment(),
+            Tutorial6Fragment(),
+            Tutorial7Fragment(),
             TutorialEndFragment()
         )
 

@@ -1,28 +1,22 @@
 package app.ishizaki.ryu.devgoal.fragments
 
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.URLUtil
-import android.widget.Button
 import android.widget.Toast
 import androidx.core.os.bundleOf
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.lifecycleScope
 import app.ishizaki.ryu.devgoal.R
 import app.ishizaki.ryu.devgoal.Utils
 import app.ishizaki.ryu.devgoal.dataclass.Bookmark
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.android.synthetic.main.fragment_add_bookmark.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import kotlin.ClassCastException
 
 
 class AddBookmarkFragment : Fragment() {
@@ -56,8 +50,6 @@ class AddBookmarkFragment : Fragment() {
                     setFragmentResult("requestKey", bundleOf("resultKey" to "result"))
 
                     fragmentManager?.beginTransaction()?.remove(this@AddBookmarkFragment)?.commit()
-
-//                    dismiss()
 
 
                 }else{

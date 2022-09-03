@@ -37,27 +37,12 @@ class StopwatchActivity : AppCompatActivity() {
         setContentView(R.layout.activity_stopwatch)
 
 
-        //ストップウォッチがバックグランドで正常稼働するために必要
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            val intent = Intent()
-            val packageName: String = packageName
-            val pm = getSystemService(Context.POWER_SERVICE) as PowerManager?
-            if (!pm!!.isIgnoringBatteryOptimizations(packageName)) {
-                intent.action = Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS
-                intent.data = Uri.parse("package:$packageName")
-                startActivity(intent)
-                turnOffBatteryOptimizerMessageCardView.isVisible = true
-                turnOffBatteryOptimizerMessageCardView.bringToFront()
-            }else{
-                turnOffBatteryOptimizerMessageCardView.isVisible = false
-            }
-        }
+
 
 
         endButton.isEnabled = false
 
         startStopButton.setOnClickListener { startStopTimer() }
-//        binding.resetButton.setOnClickListener { resetTimer() }
         restButton.setOnClickListener {
             stopTimer()
             stCountText.setTextColor(Color.LTGRAY)
@@ -81,10 +66,12 @@ class StopwatchActivity : AppCompatActivity() {
             time = intent.getDoubleExtra(TimerService.TIMER_EXTRA, 0.0)
             stCountText.text = getTimeStringFromDouble(time)
             if (intent.getDoubleExtra(TimerService.TIMER_EXTRA, 0.0) == 0.0){
+                kaihatuchuutext.text = "停止中"
                 timerStarted = false
                 startStopButton.text = "開始"
                 startStopButton.icon = getDrawable(R.drawable.ic_baseline_play_arrow_24)
             }else{
+                kaihatuchuutext.text = "開発中"
                 stCountText.setTextColor(Color.DKGRAY)
                 timerStarted = true
                 startStopButton.text = "停止"

@@ -3,18 +3,18 @@ package app.ishizaki.ryu.devgoal.activities
 import android.app.*
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.PowerManager
+import android.provider.Settings
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
+import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import app.ishizaki.ryu.devgoal.*
 import app.ishizaki.ryu.devgoal.Notification
-import app.ishizaki.ryu.devgoal.databinding.ActivitySettingBinding
 import app.ishizaki.ryu.devgoal.dataclass.Goal
 import app.ishizaki.ryu.devgoal.dataclass.Notifdata
-import app.ishizaki.ryu.devgoal.viewmodels.GoalViewModel
-import com.google.android.material.elevation.SurfaceColors
 import kotlinx.android.synthetic.main.activity_setting.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -40,6 +40,22 @@ class SettingActivity : AppCompatActivity() {
 
 
         createNotificationChannel()
+
+        //ストップウォッチや通知がバックグランドで正常稼働するために必要
+            val intent = Intent()
+            val packageName: String = packageName
+            val pm = getSystemService(Context.POWER_SERVICE) as PowerManager?
+            if (!pm!!.isIgnoringBatteryOptimizations(packageName)) {
+                turnOffBatteryOptimizerMessageCardView.isVisible = true
+                turnOffBatteryOptimizerMessageCardView.bringToFront()
+                turnOffBatteryOptimizerMessageCardView.setOnClickListener {
+                    intent.action = Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS
+                    intent.data = Uri.parse("package:$packageName")
+                    startActivity(intent)
+                }
+            }else{
+                turnOffBatteryOptimizerMessageCardView.isVisible = false
+            }
 
 
 
@@ -68,7 +84,6 @@ class SettingActivity : AppCompatActivity() {
         selectDueDateButton.setOnClickListener {
             DatePickerDialog(
                 this,
-//                AlertDialog.THEME_DEVICE_DEFAULT_LIGHT,
 
                 { _, year, monthOfYear, dayOfMonth ->
                     setDueDate(year, monthOfYear, dayOfMonth)
@@ -85,7 +100,6 @@ class SettingActivity : AppCompatActivity() {
         selectNotificationTimeButton.setOnClickListener{
             TimePickerDialog(
                 this,
-//                AlertDialog.THEME_HOLO_LIGHT,
 
                 { _, hour, minute ->
 
@@ -169,9 +183,6 @@ class SettingActivity : AppCompatActivity() {
 
     private fun scheduleNotification() {
         val intent = Intent(applicationContext, Notification::class.java)
-//        val notifyIntent = Intent(this, StopwatchActivity::class.java).apply {
-//            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-//        }
 
         val pendingIntent = PendingIntent.getBroadcast(
             applicationContext,
@@ -182,13 +193,8 @@ class SettingActivity : AppCompatActivity() {
 
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val time = getTime()
-//        alarmManager.setExactAndAllowWhileIdle(
-//            AlarmManager.RTC_WAKEUP,
-//            time,
-//            pendingIntent
-//        )
+
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, time, 1000 * 60 * 60 * 24, pendingIntent)
-//        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, time, 1000 * 60 * 15, pendingIntent)
     }
 
 
@@ -205,7 +211,6 @@ class SettingActivity : AppCompatActivity() {
     }
 
     private fun setDueDate(year: Int, month: Int, date: Int) {
-//        Calendar.getInstance().apply { set(year, month, date) }
 
         yearSelected = year
         monthSelected = month

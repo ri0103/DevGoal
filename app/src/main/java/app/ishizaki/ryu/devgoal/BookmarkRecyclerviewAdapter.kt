@@ -1,10 +1,8 @@
 package app.ishizaki.ryu.devgoal
 
 import android.content.Context
-import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,12 +12,9 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import app.ishizaki.ryu.devgoal.dataclass.Bookmark
 import app.ishizaki.ryu.devgoal.fragments.BookmarkDetailFragment
-import app.ishizaki.ryu.devgoal.fragments.EditTaskFragment
-import app.ishizaki.ryu.devgoal.viewmodels.BookmarkViewModel
 import com.facebook.shimmer.ShimmerFrameLayout
 import kotlinx.coroutines.*
 import org.jsoup.HttpStatusException
@@ -93,7 +88,6 @@ class BookmarkRecyclerviewAdapter(context: Context): RecyclerView.Adapter<Bookma
     fun update(list: List<Bookmark>){
         bookmarkList.clear()
         bookmarkList.addAll(list)
-//        bookmarkList.clear()
         notifyDataSetChanged()
     }
 

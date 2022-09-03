@@ -72,8 +72,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="120sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="18sp"
+        app:layout_constraintTop_toBottomOf="@id/goalSetBox"
         android:orientation="vertical"
         android:gravity="center">
         <TextView
@@ -83,44 +83,67 @@
             android:textSize="36sp"
             android:fontFamily="@font/mplus_rounded_bold"
             android:padding="12sp"/>
-    <LinearLayout
-        android:id="@+id/notificationSetBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        >
-        <Button
-            android:id="@+id/selectNotificationTimeButton"
-            android:layout_width="200sp"
-            android:layout_height="60sp"
-            android:text="時間を選択"
-            app:cornerRadius="18sp"
-            android:fontFamily="@font/mplus_rounded_regular"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_margin="18sp"
-            android:textSize="20sp"
-            />
-        <Button
-            android:id="@+id/setNotificationButton"
-            android:layout_width="80sp"
-            android:layout_height="44sp"
-            android:text="保存"
-            app:cornerRadius="30sp"
-            android:fontFamily="@font/mplus_rounded_regular"
-            android:layout_margin="18sp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            android:textSize="12sp" />
-<!--        <Button-->
-<!--            android:id="@+id/setNotificationButton"-->
-<!--            android:layout_width="80sp"-->
-<!--            android:layout_height="60sp"-->
-<!--            android:textSize=""-->
-<!--            android:text="確定"/>-->
+        <LinearLayout
+            android:id="@+id/notificationSetBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            >
+            <Button
+                android:id="@+id/selectNotificationTimeButton"
+                android:layout_width="200sp"
+                android:layout_height="60sp"
+                android:text="時間を選択"
+                app:cornerRadius="18sp"
+                android:fontFamily="@font/mplus_rounded_regular"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_margin="18sp"
+                android:textSize="20sp"
+                />
+            <Button
+                android:id="@+id/setNotificationButton"
+                android:layout_width="80sp"
+                android:layout_height="44sp"
+                android:text="設定"
+                app:cornerRadius="30sp"
+                android:fontFamily="@font/mplus_rounded_regular"
+                android:layout_margin="18sp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:textSize="12sp" />
+
+
+        </LinearLayout>
+
+
+
+
 
     </LinearLayout>
-    </LinearLayout>
+
+    <com.google.android.material.card.MaterialCardView
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/turnOffBatteryOptimizerMessageCardView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="12sp"
+        app:strokeColor="#bf5252"
+        app:strokeWidth="3sp"
+        android:visibility="invisible"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="12sp"
+            android:text="アプリを閉じてもストップウォッチや\n通知が正常に稼働するように、\nここをタップしてバックグラウンド動作\nを許可してください"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:fontFamily="@font/mplus_rounded_medium"
+            android:gravity="center"/>
+    </com.google.android.material.card.MaterialCardView>
 
 
 

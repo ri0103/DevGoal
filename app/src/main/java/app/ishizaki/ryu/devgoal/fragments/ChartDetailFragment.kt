@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.graphics.drawable.toDrawable
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -52,7 +53,6 @@ class ChartDetailFragment : Fragment() {
 
         lifecycleScope.launch(Dispatchers.Default) {
             val stopwatchDao = db.stopwatchDao()
-            val all = stopwatchDao.getAll()
 
             val calendar = Calendar.getInstance()
             calendar.timeInMillis = dateInLong
@@ -72,14 +72,31 @@ class ChartDetailFragment : Fragment() {
             withContext(Dispatchers.Main) {
                 commitAdapter.update(sameDateStopwatches)
 
-                Toast.makeText(requireContext(), concentrationList.toString(), Toast.LENGTH_SHORT).show()
-                concentrationLevelText.text = "開発度" + concentrationList.average().toString()
-
-
-
+                val dailyConcentrationScore = concentrationList.average()
+                if (dailyConcentrationScore < 1.4){
+                    concentrationScoreImageView.setImageResource(R.drawable.ic_baseline_sentiment_very_dissatisfied_24)
+                    concentrationScoreImageView.setBackgroundResource(R.drawable.button_bg_3)
+                }else if (dailyConcentrationScore < 1.8){
+                    concentrationScoreImageView.setImageResource(R.drawable.ic_baseline_sentiment_dissatisfied_24)
+                    concentrationScoreImageView.setBackgroundResource(R.drawable.button_bg_23)
+                }else if (dailyConcentrationScore < 2.2){
+                    concentrationScoreImageView.setImageResource(R.drawable.ic_baseline_sentiment_satisfied_24)
+                    concentrationScoreImageView.setBackgroundResource(R.drawable.button_bg_2)
+                }else if (dailyConcentrationScore < 2.6){
+                    concentrationScoreImageView.setImageResource(R.drawable.ic_baseline_sentiment_satisfied_alt_24)
+                    concentrationScoreImageView.setBackgroundResource(R.drawable.button_bg_12)
+                }else{
+                    concentrationScoreImageView.setImageResource(R.drawable.ic_baseline_sentiment_very_dissatisfied_24)
+                    concentrationScoreImageView.setBackgroundResource(R.drawable.button_bg_1)
+                }
 
             }
         }
+
+
+
+
+
 
 
 
@@ -96,7 +113,6 @@ class ChartDetailFragment : Fragment() {
         val hours = Math.floor(timeLengthInDouble/60)
         val minutes = timeLengthInDouble - hours*60
 
-//        dayTimeLength.text = (Math.round(timeLength * 10.0)/10.0).toString() + "分"
         dayTimeLength.text = hours.toInt().toString() + "時間" + minutes.toInt().toString() + "分"
 
         closeChartDetailFragmentButton.setOnClickListener {

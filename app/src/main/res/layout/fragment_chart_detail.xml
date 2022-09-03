@@ -14,8 +14,8 @@
         android:layout_height="match_parent"
         android:background="#F0F0F0"
         app:cardCornerRadius="24sp"
-        android:layout_margin="12sp"
-        android:elevation="12sp"
+        android:layout_margin="24sp"
+        app:cardElevation="12sp"
         app:strokeWidth="4sp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -39,7 +39,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="〇〇/〇〇"
+            android:text="〇/〇"
             android:textSize="32sp"
             android:fontFamily="@font/mplus_rounded_bold"/>
 
@@ -77,31 +77,44 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-<!--            <com.github.mikephil.charting.charts.PieChart-->
-<!--                android:id="@+id/detailTimePieChart"-->
-<!--                android:layout_width="240sp"-->
-<!--                android:layout_height="240sp"/>-->
+
 
         </LinearLayout>
 
-        <TextView
+        <LinearLayout
             app:layout_constraintTop_toBottomOf="@id/commitRecyclerCardView"
             app:layout_constraintBottom_toTopOf="@id/totalKaihatuCardView"
-            android:textSize="25sp"
-            android:id="@+id/concentrationLevelText"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:gravity="center"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:textSize="25sp"
+                android:id="@+id/concentrationLevelText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="集中度"
+                android:fontFamily="@font/mplus_rounded_medium"
+                android:layout_marginBottom="8sp"/>
+            <ImageView
+                android:id="@+id/concentrationScoreImageView"
+                android:layout_width="120sp"
+                android:layout_height="120sp"
+                android:padding="12sp"/>
+        ]</LinearLayout>
 
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/totalKaihatuCardView"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_margin="8sp"
+            android:layout_margin="6sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:strokeWidth="0sp"
-            android:elevation="12sp"
+            app:cardElevation="4sp"
             >
             <LinearLayout
                 android:layout_width="match_parent"
@@ -119,7 +132,7 @@
                 android:id="@+id/dayTimeLength"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1分"
+                android:text="分"
                 android:fontFamily="@font/mplus_rounded_regular"
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="12sp"

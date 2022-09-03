@@ -14,13 +14,6 @@ import java.time.LocalDate
 import java.util.concurrent.atomic.AtomicInteger
 
 
-//object NotificationId {
-//    private val atmi: AtomicInteger = AtomicInteger(0)
-//    val iD: Int
-//        get() = atmi.incrementAndGet()
-//}
-//
-
 
 val notificationID = 1
 const val channelID = "channel1"
@@ -38,7 +31,6 @@ class Notification : BroadcastReceiver()
 
         val notification = NotificationCompat.Builder(context, channelID)
             .setSmallIcon(R.drawable.ic_launcher_foreground)
-//            .setContentTitle(intent.getStringExtra(titleExtra))
             .setContentTitle("開発通知")
             .setContentText("今日も開発しましょう！")
             .setContentIntent(PendingIntent.getActivity(context, 1, stwIntent, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT))

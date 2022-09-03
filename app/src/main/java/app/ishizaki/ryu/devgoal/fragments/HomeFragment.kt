@@ -3,17 +3,13 @@ package app.ishizaki.ryu.devgoal.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Adapter
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.setFragmentResultListener
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.ishizaki.ryu.devgoal.*
@@ -21,17 +17,12 @@ import app.ishizaki.ryu.devgoal.activities.SettingActivity
 import app.ishizaki.ryu.devgoal.activities.StopwatchActivity
 import app.ishizaki.ryu.devgoal.activities.TutorialActivity
 import app.ishizaki.ryu.devgoal.dataclass.Task
-import app.ishizaki.ryu.devgoal.room.AppDatabase
-import app.ishizaki.ryu.devgoal.viewmodels.GoalViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.android.synthetic.main.item_task_cell.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.ZoneId
 
 
 class HomeFragment : Fragment() {
@@ -182,16 +173,6 @@ class HomeFragment : Fragment() {
             val intent = Intent (requireContext(), StopwatchActivity::class.java)
             startActivity(intent)
         }
-
-        kaihatuButton.setOnLongClickListener{
-            val taskDao = db.taskDao()
-            val bookmarkDao = db.bookmarkDao()
-            lifecycleScope.launch(Dispatchers.Default){
-                taskDao.deleteAll()
-                bookmarkDao.deleteAll()
-            }
-            true}
-
 
 
 
