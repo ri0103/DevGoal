@@ -1,5 +1,6 @@
 package app.ishizaki.ryu.devgoal.fragments
 
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.Paint
 import android.os.Build
@@ -17,6 +18,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.room.Room
 import app.ishizaki.ryu.devgoal.R
+import app.ishizaki.ryu.devgoal.activities.StopwatchActivity
 import app.ishizaki.ryu.devgoal.dataclass.Goal
 import app.ishizaki.ryu.devgoal.dataclass.Stopwatch
 import app.ishizaki.ryu.devgoal.room.AppDatabase
@@ -141,6 +143,10 @@ class ChartFragment : Fragment(), OnChartValueSelectedListener {
         }
 
 
+        kaihatuToViewChartTextView.setOnClickListener {
+            val intent = Intent (requireContext(), StopwatchActivity::class.java)
+            startActivity(intent)
+        }
 
     }
 

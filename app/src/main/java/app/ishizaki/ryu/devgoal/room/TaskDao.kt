@@ -5,7 +5,8 @@ import app.ishizaki.ryu.devgoal.dataclass.Task
 
 @Dao
 interface TaskDao {
-    @Query("SELECT * FROM task")
+//    @Query("SELECT * FROM task")
+    @Query("SELECT * FROM task ORDER BY task_is_done ASC")
     fun getAll(): List<Task>
 
     @Insert
@@ -22,4 +23,8 @@ interface TaskDao {
 
     @Query("delete from task")
     fun deleteAll()
+
+//    @Query("SELECT * FROM task ORDER BY task_is_done ASC")
+//    fun getAllSortByIsDone(): List<Task>
+
 }

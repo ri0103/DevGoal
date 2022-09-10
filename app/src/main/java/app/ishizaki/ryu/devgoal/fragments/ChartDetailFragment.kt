@@ -15,10 +15,12 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import app.ishizaki.ryu.devgoal.ChartDetailCommitAdapter
 import app.ishizaki.ryu.devgoal.R
 import app.ishizaki.ryu.devgoal.Utils
+import com.google.android.material.animation.Positioning
 import kotlinx.android.synthetic.main.fragment_chart_detail.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.jsoup.nodes.Range
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.util.*
@@ -41,6 +43,8 @@ class ChartDetailFragment : Fragment() {
         val commitAdapter = ChartDetailCommitAdapter(requireContext())
 
         val concentrationList = mutableListOf<Int>()
+        val durationList = mutableListOf<Int>()
+        val totalConcentrationLevelList = mutableListOf<Int>()
 
         val bundle = arguments
         val timeLength = bundle!!.getFloat("LENGTH")
@@ -66,13 +70,25 @@ class ChartDetailFragment : Fragment() {
 
             sameDateStopwatches.forEach {
                 concentrationList.add(it.concentrationLevel)
+                durationList.add(it.stopwatchDuration.toInt())
             }
+
+
 
 
             withContext(Dispatchers.Main) {
                 commitAdapter.update(sameDateStopwatches)
 
-                val dailyConcentrationScore = concentrationList.average()
+                var listPosition = 0
+
+                for (i in 0 until concentrationList.size){
+                    val totalConcentration = concentrationList[i] * durationList[i]
+                    totalConcentrationLevelList.add(totalConcentration)
+                }
+
+
+                val dailyConcentrationScore = totalConcentrationLevelList.sum().toDouble() / durationList.sum().toDouble()
+
                 if (dailyConcentrationScore < 1.4){
                     concentrationScoreImageView.setImageResource(R.drawable.ic_baseline_sentiment_very_dissatisfied_24)
                     concentrationScoreImageView.setBackgroundResource(R.drawable.button_bg_3)
@@ -86,7 +102,7 @@ class ChartDetailFragment : Fragment() {
                     concentrationScoreImageView.setImageResource(R.drawable.ic_baseline_sentiment_satisfied_alt_24)
                     concentrationScoreImageView.setBackgroundResource(R.drawable.button_bg_12)
                 }else{
-                    concentrationScoreImageView.setImageResource(R.drawable.ic_baseline_sentiment_very_dissatisfied_24)
+                    concentrationScoreImageView.setImageResource(R.drawable.ic_baseline_sentiment_very_satisfied_24)
                     concentrationScoreImageView.setBackgroundResource(R.drawable.button_bg_1)
                 }
 

@@ -11,7 +11,7 @@ import java.util.*
 data class Task(
     @PrimaryKey(autoGenerate = true) val id: Int,
     val taskTitle: String,
-    val taskDoneOrNot: Boolean,
+    @ColumnInfo(name = "task_is_done") val taskDoneOrNot: Boolean,
     val createdTime: Long,
     val updatedTime: Long
 )
