@@ -46,7 +46,7 @@ class BookmarkRecyclerviewAdapter(context: Context): RecyclerView.Adapter<Bookma
                 urlTitle = Jsoup.connect(bookmark.url).get().title()
                 val imageTag = Jsoup.connect(bookmark.url).get().select("img").firstOrNull()
                 val imageUrl = imageTag?.absUrl("src")
-                val imageBMP = URL(imageUrl).openStream().use { BitmapFactory.decodeStream(it) }
+                imageBMP = URL(imageUrl).openStream().use { BitmapFactory.decodeStream(it) }
             } catch (e:HttpStatusException){
                 Log.d("BookmarkRecyclerviewAdapter", e.toString())
             }
@@ -74,12 +74,7 @@ class BookmarkRecyclerviewAdapter(context: Context): RecyclerView.Adapter<Bookma
             }
         }
 
-
-
-
     }
-
-
 
     override fun getItemCount(): Int {
         return bookmarkList.size

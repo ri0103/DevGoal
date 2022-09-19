@@ -67,19 +67,7 @@
                 android:id="@+id/chartDetailCommitRecyclerView" />
         </com.google.android.material.card.MaterialCardView>
 
-        <LinearLayout
-            android:id="@+id/timePieChartsContainer"
-            app:layout_constraintTop_toBottomOf="@id/detailDateTextView"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_marginTop="24sp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
 
-
-
-        </LinearLayout>
 
         <LinearLayout
             app:layout_constraintTop_toBottomOf="@id/commitRecyclerCardView"
