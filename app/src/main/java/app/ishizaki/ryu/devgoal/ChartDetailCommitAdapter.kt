@@ -38,13 +38,13 @@ class ChartDetailCommitAdapter(context: Context): RecyclerView.Adapter<ChartDeta
                     }
                 }else{
                     withContext(Dispatchers.Main){
-                        holder.commitTextChip.text = "((github以外のurlを検出))"
+                        holder.commitTextChip.text = ""
                     }
 
                 }
             }else{
                 withContext(Dispatchers.Main){
-                    holder.commitTextChip.text = url
+                    holder.commitTextChip.text = "・" + url
                 }
             }
 

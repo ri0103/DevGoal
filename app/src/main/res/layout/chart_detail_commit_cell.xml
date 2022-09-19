@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:textSize="12sp"
     android:fontFamily="@font/mplus_rounded_medium"
-    android:padding="4sp"
-    android:layout_margin="4sp"
+    android:padding="2sp"
+    android:layout_margin="2sp"
     />
 

@@ -39,7 +39,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:inputType="textWebEditText"
             android:fontFamily="@font/mplus_rounded_regular"
-            android:hint="GitHubのコミットURLを入れてください"
+            android:hint="メモ / GitHubのコミットURLを記録しましょう"
             android:padding="2sp"
             android:textAlignment="center"
             />

@@ -161,8 +161,8 @@ class ChartFragment : Fragment(), OnChartValueSelectedListener {
         bundle.putFloat("LENGTH", chartTimeLength!!)
         bundle.putLong("DATE", selectedDateInLong)
         chartDetailFragment.arguments = bundle
-        val transaction = (requireContext() as FragmentActivity).supportFragmentManager.beginTransaction()
-        transaction.add(R.id.chart_detail_container, chartDetailFragment).commit()
+        val transaction = (requireContext() as FragmentActivity).supportFragmentManager
+        chartDetailFragment.show(transaction, "chart_detail_fragment")
     }
 
 

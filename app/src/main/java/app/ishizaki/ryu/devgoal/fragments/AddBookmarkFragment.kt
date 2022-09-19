@@ -50,7 +50,7 @@ class AddBookmarkFragment : BottomSheetDialogFragment() {
                     bookmarkDao.insert(bookmark)
 
 
-                    setFragmentResult("requestKey", bundleOf("resultKey" to "result"))
+                    requireParentFragment().setFragmentResult("requestKey", bundleOf("resultKey" to "result"))
 
 //                    fragmentManager?.beginTransaction()?.remove(this@AddBookmarkFragment)?.commit()
                     dismiss()

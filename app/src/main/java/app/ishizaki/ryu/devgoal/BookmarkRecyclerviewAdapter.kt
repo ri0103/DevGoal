@@ -67,8 +67,8 @@ class BookmarkRecyclerviewAdapter(context: Context): RecyclerView.Adapter<Bookma
                     bundle.putString("MEMO", bookmark.memo)
                     bookmarkDetailFragment.arguments = bundle
 
-                    val transaction = (holder.itemView.context as FragmentActivity).supportFragmentManager.beginTransaction()
-                    transaction.add(R.id.bookmark_detail_container, bookmarkDetailFragment).commit()
+                    val transaction = (holder.itemView.context as FragmentActivity).supportFragmentManager
+                    bookmarkDetailFragment.show(transaction, "bookmark_detail_fragment")
                 }
 
             }

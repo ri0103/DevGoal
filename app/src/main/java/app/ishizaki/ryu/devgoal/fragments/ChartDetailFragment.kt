@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.graphics.drawable.toDrawable
+import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -26,7 +27,7 @@ import java.time.LocalDateTime
 import java.util.*
 
 
-class ChartDetailFragment : Fragment() {
+class ChartDetailFragment : DialogFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -113,10 +114,6 @@ class ChartDetailFragment : Fragment() {
 
 
 
-
-
-
-
         val simpleDateFormat = SimpleDateFormat("M/d", Locale.getDefault())
         val calendar = Calendar.getInstance()
         calendar.timeInMillis = dateInLong
@@ -131,9 +128,7 @@ class ChartDetailFragment : Fragment() {
 
         dayTimeLength.text = hours.toInt().toString() + "時間" + minutes.toInt().toString() + "分"
 
-        closeChartDetailFragmentButton.setOnClickListener {
-            fragmentManager?.beginTransaction()?.remove(this)?.commit()
-        }
+
 
 
     }

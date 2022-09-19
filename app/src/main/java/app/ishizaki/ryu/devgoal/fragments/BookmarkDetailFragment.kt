@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.lifecycleScope
 import app.ishizaki.ryu.devgoal.R
@@ -21,7 +22,7 @@ import kotlinx.coroutines.withContext
 import org.jsoup.Jsoup
 
 
-class BookmarkDetailFragment : Fragment() {
+class BookmarkDetailFragment : DialogFragment() {
 
 
 
@@ -61,7 +62,7 @@ class BookmarkDetailFragment : Fragment() {
                 val bookmarkToDelete = bookmarkDao.getByBookmarkId(bookmarkId)
                 bookmarkDao.delete(bookmarkToDelete)
                 setFragmentResult("requestKey", bundleOf("resultKey" to "result"))
-                fragmentManager?.beginTransaction()?.remove(this@BookmarkDetailFragment)?.commit()
+                dismiss()
 
             }
 
@@ -69,9 +70,7 @@ class BookmarkDetailFragment : Fragment() {
 
         }
 
-        closeBookmarkDetailButton.setOnClickListener {
-            fragmentManager?.beginTransaction()?.remove(this@BookmarkDetailFragment)?.commit()
-        }
+
 
 
 
