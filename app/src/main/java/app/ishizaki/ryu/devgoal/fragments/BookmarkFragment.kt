@@ -56,7 +56,8 @@ class BookmarkFragment : Fragment() {
 
 
         bookmarkRecyclerview.apply {
-            layoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
+//            layoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
+            layoutManager = LinearLayoutManager(requireContext())
             adapter = bookmarkAdapter
         }
 
@@ -70,8 +71,9 @@ class BookmarkFragment : Fragment() {
         }
 
         openAddBookmarkActivityButton.setOnClickListener {
-            val transaction = (requireContext() as FragmentActivity).supportFragmentManager.beginTransaction()
-            transaction.add(R.id.add_bookmark_container, AddBookmarkFragment()).commit()
+//            val transaction = (requireContext() as FragmentActivity).supportFragmentManager.beginTransaction()
+//            transaction.add(R.id.add_bookmark_container, AddBookmarkFragment()).commit()
+            AddBookmarkFragment().show(childFragmentManager, "add_bookmark_fragment")
         }
 
     }
