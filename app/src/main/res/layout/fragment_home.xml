@@ -16,20 +16,21 @@
         android:orientation="vertical"
         android:layout_margin="12sp">
 
-        <com.google.android.material.button.MaterialButton
+        <ImageButton
             android:id="@+id/settingButton"
             android:layout_width="28sp"
             android:layout_height="28sp"
             android:layout_marginBottom="12sp"
-            android:background="@drawable/ic_baseline_settings_24"
-
+            android:src="@drawable/ic_baseline_settings_24"
+            android:background="?android:selectableItemBackgroundBorderless"
             />
 
-        <com.google.android.material.button.MaterialButton
+        <ImageButton
             android:id="@+id/startTutorialButton"
             android:layout_width="28sp"
             android:layout_height="28sp"
-            android:background="@drawable/ic_baseline_lightbulb_24"
+            android:src="@drawable/ic_baseline_lightbulb_24"
+            android:background="?android:selectableItemBackgroundBorderless"
             />
 
     </LinearLayout>

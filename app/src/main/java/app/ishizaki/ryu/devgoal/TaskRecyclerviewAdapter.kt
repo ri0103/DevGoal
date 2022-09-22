@@ -2,20 +2,18 @@ package app.ishizaki.ryu.devgoal
 
 import android.content.Context
 import android.graphics.Paint
-import android.os.Bundle
-import android.support.v4.os.IResultReceiver
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.ImageButton
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
+import android.widget.ViewSwitcher
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import app.ishizaki.ryu.devgoal.dataclass.Task
-import app.ishizaki.ryu.devgoal.fragments.EditTaskFragment
 import app.ishizaki.ryu.devgoal.room.AppDatabase
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 
 class TaskRecyclerviewAdapter(context: Context): RecyclerView.Adapter<TaskRecyclerviewAdapter.TaskViewHolder>() {
 
@@ -67,18 +65,25 @@ class TaskRecyclerviewAdapter(context: Context): RecyclerView.Adapter<TaskRecycl
 
         holder.taskTitleTextView.setOnLongClickListener {
 
-            val editTaskFragment = EditTaskFragment()
-            val bundle = Bundle()
-            bundle.putInt("ID", task.id)
-            bundle.putString("TASK", task.taskTitle)
-            bundle.putBoolean("DONEORNOT", task.taskDoneOrNot)
-            bundle.putLong("CREATEDTIME", task.createdTime)
-            editTaskFragment.arguments = bundle
-
-            val transaction = (holder.itemView.context as FragmentActivity).supportFragmentManager.beginTransaction()
-            transaction.add(R.id.edittask_fragment_container, editTaskFragment).commit()
+            holder.taskViewSwitcher.showNext()
+            holder.editTaskEditText.setText(task.taskTitle)
 
         true}
+
+        holder.editTaskInputLayout.setEndIconOnClickListener{
+            val newText = holder.editTaskEditText.text.toString()
+            val updatedTask = Task(
+                task.id,
+                newText,
+                task.taskDoneOrNot,
+                task.createdTime,
+                System.currentTimeMillis()
+            )
+            taskDao.update(updatedTask)
+            holder.taskViewSwitcher.showNext()
+            listener.onItemClick(task)
+
+        }
     }
 
 
@@ -103,6 +108,9 @@ class TaskRecyclerviewAdapter(context: Context): RecyclerView.Adapter<TaskRecycl
     class TaskViewHolder(view: View): RecyclerView.ViewHolder(view) {
         val taskTitleTextView: CheckBox = view.findViewById(R.id.taskTextView)
         val deleteTaskButton: ImageButton = view.findViewById(R.id.deleteTaskButton)
+        val editTaskEditText: TextInputEditText = view.findViewById(R.id.editTaskEditText)
+        val taskViewSwitcher: ViewSwitcher = view.findViewById(R.id.taskViewSwitcher)
+        val editTaskInputLayout: TextInputLayout = view.findViewById(R.id.editTaskInputLayout)
     }
 
 

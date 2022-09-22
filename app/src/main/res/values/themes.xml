@@ -48,7 +48,6 @@
         <!-- Set the theme of the Activity that directly follows your splash screen. -->
         <!-- Required -->
         <item name="postSplashScreenTheme">@style/Theme.AppCompat</item>
-        <item name="android:windowSplashscreenContent">@drawable/ic_baseline_sentiment_satisfied_24</item>
 
 <!--        <item name="windowSplashScreenIconBackgroundColor">#000000</item>-->
     </style>
